@@ -39,7 +39,7 @@ export default function Login() {
       if (user?.role === 'super_admin') {
         navigate('/admin-baber', { replace: true });
       } else {
-        navigate('/', { replace: true });
+        navigate('/dashboard', { replace: true });
       }
     } else {
       setError('Invalid email or password');
@@ -53,14 +53,14 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <img
-            src="/IH White Logo.png"
-            alt="Iron Horse Midstream"
-            className="h-24 mx-auto mb-4 drop-shadow-[0_3px_18px_rgba(255,255,255,1)]"
+            src="/visualpermit-logo.png"
+            alt="VisualPermit.com"
+            className="h-24 mx-auto mb-4"
           />
           <h1 className="text-2xl font-bold text-white mb-2">
-            Title V Permit Tracker
+            Environmental Compliance Platform
           </h1>
-          <p className="text-gray-400">Sign in to continue</p>
+          <p className="text-gray-400">Sign in to your account</p>
         </div>
 
         {/* Login Card */}
@@ -149,10 +149,10 @@ export default function Login() {
             </button>
           </form>
 
-          {/* Demo Help Text */}
+          {/* Footer */}
           <div className="mt-6 pt-6 border-t border-[#A43850]/20">
             <p className="text-xs text-gray-500 text-center">
-              Demo Account Access
+              Need help? Contact support@visualpermit.com
             </p>
           </div>
         </div>
