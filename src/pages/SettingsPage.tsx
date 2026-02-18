@@ -448,9 +448,21 @@ export function SettingsPage() {
                   ))}
                 </div>
 
-                <p className="text-xs text-gray-400 dark:text-gray-500 text-center pt-2">
-                  Built with ❤️ for Iron Horse Midstream
-                </p>
+                <div className="pt-6 border-t border-gray-200 dark:border-dark-border">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 text-center mb-4">
+                    Powered by
+                  </p>
+                  <div className="flex justify-center">
+                    <img
+                      src="/visualpermit-logo.png"
+                      alt="VisualPermit.com"
+                      className="h-16 w-auto"
+                    />
+                  </div>
+                  <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
+                    Environmental Compliance Management Platform
+                  </p>
+                </div>
               </div>
             )}
           </div>
