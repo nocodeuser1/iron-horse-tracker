@@ -24,7 +24,7 @@ export function Navbar() {
             <img
               src="/IH White Logo.png"
               alt="Iron Horse Midstream"
-              className="h-10 w-auto"
+              className="h-10 w-auto drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
             />
             <div className="hidden sm:block">
               <h1 className="text-lg font-bold leading-tight">
