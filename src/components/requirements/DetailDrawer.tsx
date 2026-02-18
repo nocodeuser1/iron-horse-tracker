@@ -1,5 +1,6 @@
-import { X, Calendar, FileText, Tag, Clock, CheckCircle2, AlertTriangle } from 'lucide-react';
+import { X, Calendar, FileText, Tag, Clock, CheckCircle2, AlertTriangle, Check } from 'lucide-react';
 import { useStore } from '../../lib/store';
+import { useDataStore } from '../../lib/dataStore';
 import { getStatus } from '../../lib/utils/requirements';
 import { useEffect } from 'react';
 
@@ -10,7 +11,16 @@ const statusConfig = {
 };
 
 export function DetailDrawer() {
-  const { selectedRequirement: r, detailOpen, closeDetail } = useStore();
+  const { selectedRequirement: r, detailOpen, closeDetail, openDetail } = useStore();
+  const toggleCompleted = useDataStore((s) => s.toggleCompleted);
+  const requirements = useDataStore((s) => s.requirements);
+  
+  const handleToggle = () => {
+    toggleCompleted(r!.id);
+    // Refresh the selected requirement to show updated completion status
+    const updated = requirements.find((req) => req.id === r!.id);
+    if (updated) openDetail(updated);
+  };
 
   useEffect(() => {
     if (detailOpen) {
@@ -59,6 +69,19 @@ export function DetailDrawer() {
         </div>
 
         <div className="p-6 space-y-6">
+          {/* Mark Complete Button */}
+          <button
+            onClick={handleToggle}
+            className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
+              r.completedDate
+                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-gold-500 text-white hover:bg-gold-600 shadow-sm hover:shadow'
+            }`}
+          >
+            <Check className="w-5 h-5" />
+            {r.completedDate ? 'Mark as Incomplete' : 'Mark as Complete'}
+          </button>
+
           {/* Type & Equipment badges */}
           <div className="flex flex-wrap gap-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-burgundy-100 text-burgundy-700 rounded-lg text-sm font-medium">

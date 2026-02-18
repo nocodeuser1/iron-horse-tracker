@@ -1,14 +1,13 @@
 import { useMemo } from 'react';
-import sampleData from '../data/sample-requirements.json';
 import type { PermitRequirement, FilterState } from '../../types';
 import { getStatus } from '../utils/requirements';
 import { useStore } from '../store';
-
-const allRequirements = sampleData as PermitRequirement[];
+import { useDataStore } from '../dataStore';
 
 export function useRequirements() {
   const filters = useStore((s) => s.filters);
-  const filtered = useMemo(() => applyFilters(allRequirements, filters), [filters]);
+  const allRequirements = useDataStore((s) => s.requirements);
+  const filtered = useMemo(() => applyFilters(allRequirements, filters), [allRequirements, filters]);
   return { all: allRequirements, filtered };
 }
 

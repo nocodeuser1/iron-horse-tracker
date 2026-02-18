@@ -98,16 +98,13 @@ export function Dashboard() {
       {/* Hero */}
       <div className="bg-gradient-to-br from-[#8B3346] via-[#A43850] to-[#C4546E] rounded-2xl p-8 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2em0wIDMwYzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-        <div className="relative flex items-center gap-4">
-          <img src="/IH White Logo.png" alt="" className="h-16 w-auto drop-shadow-[0_3px_18px_rgba(255,255,255,1)]" />
-          <div>
-            <h1 className="text-3xl font-bold tracking-tight">
-              Title V Permit Tracker
-            </h1>
-            <p className="text-gray-300 mt-1">
-              Real-time compliance monitoring for Iron Horse Midstream
-            </p>
-          </div>
+        <div className="relative">
+          <h1 className="text-3xl font-bold tracking-tight">
+            Title V Permit Tracker
+          </h1>
+          <p className="text-gray-300 mt-1">
+            Real-time compliance monitoring for Iron Horse Midstream
+          </p>
         </div>
       </div>
 
