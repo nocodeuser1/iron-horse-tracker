@@ -22,6 +22,7 @@ import { useMemo } from 'react';
 import { useDarkMode } from '../lib/darkMode';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../lib/store';
+import { usePermitTypeStore } from '../lib/permitTypeStore';
 
 const PIE_COLORS = ['#A43850', '#F5A623', '#8B3346', '#F7B84D', '#C4546E', '#D4901E'];
 const BAR_COLOR = '#A43850';
@@ -32,6 +33,7 @@ export function Dashboard() {
   const { dark } = useDarkMode();
   const navigate = useNavigate();
   const { setFilters, resetFilters } = useStore();
+  const activePermit = usePermitTypeStore((s) => s.getActivePermit());
 
   const handleCardClick = (cardLabel: string) => {
     resetFilters(); // Clear existing filters first
@@ -148,7 +150,7 @@ export function Dashboard() {
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2em0wIDMwYzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
         <div className="relative">
           <h1 className="text-3xl font-bold tracking-tight">
-            Title V Permit Tracker
+            {activePermit?.name || 'Title V'} Permit Tracker
           </h1>
           <p className="text-gray-300 mt-1">
             Real-time compliance monitoring for Iron Horse Midstream

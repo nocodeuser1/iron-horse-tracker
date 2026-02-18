@@ -13,7 +13,6 @@ import {
   Moon,
   Sun,
   FileText,
-  Sparkles,
 } from 'lucide-react';
 import { useDarkMode } from '../lib/darkMode';
 import { usePermitTypeStore } from '../lib/permitTypeStore';
@@ -36,9 +35,7 @@ export function SettingsPage() {
   const [newActionType, setNewActionType] = useState('');
   
   // Permit Types (global modes)
-  const { permitTypes, addPermitType, removePermitType } = usePermitTypeStore();
-  const [newPermitName, setNewPermitName] = useState('');
-  const [newPermitDesc, setNewPermitDesc] = useState('');
+  const { permitTypes, removePermitType } = usePermitTypeStore();
   
   const [saved, setSaved] = useState(false);
   const { dark, toggle } = useDarkMode();
@@ -59,16 +56,6 @@ export function SettingsPage() {
 
   const handleRemoveActionType = (t: string) => {
     setActionTypes(actionTypes.filter((p) => p !== t));
-  };
-  
-  const handleAddPermitType = () => {
-    const name = newPermitName.trim();
-    const desc = newPermitDesc.trim();
-    if (name && desc) {
-      addPermitType(name, desc);
-      setNewPermitName('');
-      setNewPermitDesc('');
-    }
   };
 
   const showSaved = () => {
@@ -186,40 +173,17 @@ export function SettingsPage() {
                   ))}
                 </div>
 
-                <div className="bg-gold-50 dark:bg-gold-900/20 border border-gold-200 dark:border-gold-700/30 rounded-xl p-4 flex gap-3">
-                  <Sparkles className="w-5 h-5 text-gold-600 dark:text-gold-400 shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-gold-800 dark:text-gold-200 mb-3">
-                      Add New Permit Type
-                    </p>
-                    <div className="space-y-2">
-                      <input
-                        type="text"
-                        value={newPermitName}
-                        onChange={(e) => setNewPermitName(e.target.value)}
-                        placeholder="Permit Type Name (e.g., NESHAP, PSD)..."
-                        className="w-full px-3 py-2 border border-gold-200 dark:border-gold-700/30 rounded-lg text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 outline-none"
-                      />
-                      <textarea
-                        value={newPermitDesc}
-                        onChange={(e) => setNewPermitDesc(e.target.value)}
-                        placeholder="Description for AI (e.g., what fields it needs, data structure, requirements...)..."
-                        rows={3}
-                        className="w-full px-3 py-2 border border-gold-200 dark:border-gold-700/30 rounded-lg text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 outline-none resize-none"
-                      />
-                      <button
-                        onClick={handleAddPermitType}
-                        disabled={!newPermitName.trim() || !newPermitDesc.trim()}
-                        className="w-full px-4 py-2 bg-gold-500 hover:bg-gold-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-all hover:shadow-md active:scale-95 flex items-center justify-center gap-2"
-                      >
-                        <Plus className="w-4 h-4" />
-                        Add Permit Type (Future: AI will structure data)
-                      </button>
-                    </div>
-                    <p className="text-xs text-gold-700 dark:text-gold-300 mt-2">
-                      In the future, the AI assistant will use your description to automatically restructure the backend for the new permit type.
-                    </p>
-                  </div>
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/30 rounded-xl p-6 text-center">
+                  <Info className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
+                  <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                    Custom Permit Types
+                  </h3>
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    New permit types available upon request.
+                  </p>
+                  <p className="text-xs text-blue-600 dark:text-blue-400 mt-2">
+                    Contact your administrator to add NESHAP, PSD, or other permit programs.
+                  </p>
                 </div>
               </div>
             )}
