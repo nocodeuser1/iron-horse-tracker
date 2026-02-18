@@ -97,59 +97,152 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white animate-fade-in">
-              Environmental Compliance
-              <br />
-              Made <span className="gradient-text">Visual</span>
-            </h1>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Text Content */}
+            <div className="text-left">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white animate-fade-in">
+                Environmental Compliance
+                <br />
+                Made <span className="gradient-text">Visual</span>
+              </h1>
 
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-delay">
-              Upload any permit PDF. We extract requirements, track deadlines, and ensure
-              compliance—all in one beautiful, intelligent platform.
-            </p>
+              <p className="text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-delay">
+                Upload any permit PDF. We extract requirements, track deadlines, and ensure
+                compliance—all in one beautiful, intelligent platform.
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-delay-2">
-              <Link
-                to="/login"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105"
-              >
-                Get Started
-                <svg
-                  className="w-5 h-5 transition-transform group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-delay-2">
+                <Link
+                  to="/login"
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  ></path>
-                </svg>
-              </Link>
-              <a
-                href="#features"
-                className="inline-flex items-center justify-center gap-2 glass text-white px-8 py-4 rounded-xl font-bold text-lg border border-[#A43850]/50 hover:border-[#A43850] transition-all duration-300"
-              >
-                Learn More
-              </a>
+                  Get Started
+                  <svg
+                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    ></path>
+                  </svg>
+                </Link>
+                <a
+                  href="#features"
+                  className="inline-flex items-center justify-center gap-2 glass text-white px-8 py-4 rounded-xl font-bold text-lg border border-[#A43850]/50 hover:border-[#A43850] transition-all duration-300"
+                >
+                  Learn More
+                </a>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-6 mt-12">
+                <div className="text-center">
+                  <div className="text-3xl font-black text-[#F5A623]">100%</div>
+                  <div className="text-sm text-gray-400 mt-1">Automated</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-black text-[#F5A623]">Zero</div>
+                  <div className="text-sm text-gray-400 mt-1">Missed Deadlines</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-black text-[#F5A623]">$79</div>
+                  <div className="text-sm text-gray-400 mt-1">Per Month</div>
+                </div>
+              </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 mt-16 max-w-2xl mx-auto">
-              <div className="text-center animate-slide-up">
-                <div className="text-3xl font-black text-[#F5A623]">100%</div>
-                <div className="text-sm text-gray-400 mt-1">Automated</div>
-              </div>
-              <div className="text-center animate-slide-up-delay">
-                <div className="text-3xl font-black text-[#F5A623]">Zero</div>
-                <div className="text-sm text-gray-400 mt-1">Missed Deadlines</div>
-              </div>
-              <div className="text-center animate-slide-up-delay-2">
-                <div className="text-3xl font-black text-[#F5A623]">$79</div>
-                <div className="text-sm text-gray-400 mt-1">Per Month</div>
+            {/* Right: Animated Dashboard Mockup */}
+            <div className="relative animate-scale-in">
+              {/* Floating Glow Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#A43850]/20 to-[#F5A623]/20 rounded-3xl blur-3xl"></div>
+              
+              {/* Dashboard Preview */}
+              <div className="relative bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-2xl p-5 shadow-2xl">
+                {/* Dashboard Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  </div>
+                  <div className="text-xs text-gray-500 font-mono">Dashboard</div>
+                </div>
+                
+                {/* Metric Cards */}
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  <div className="bg-gradient-to-br from-[#A43850]/40 to-[#72293A]/40 border border-[#A43850]/50 rounded-xl p-3">
+                    <div className="text-xs text-gray-400 mb-1">Total</div>
+                    <div className="text-2xl font-bold text-white">156</div>
+                    <div className="text-xs text-[#F5A623] mt-1">Requirements</div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-[#F5A623]/30 to-[#F7B84D]/30 border border-[#F5A623]/40 rounded-xl p-3">
+                    <div className="text-xs text-gray-400 mb-1">Due Soon</div>
+                    <div className="text-2xl font-bold text-white">23</div>
+                    <div className="text-xs text-[#F5A623] mt-1">This Month</div>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-green-900/30 to-green-950/30 border border-green-800/40 rounded-xl p-3">
+                    <div className="text-xs text-gray-400 mb-1">Score</div>
+                    <div className="text-2xl font-bold text-white">94%</div>
+                    <div className="text-xs text-green-400 mt-1">Compliant</div>
+                  </div>
+                </div>
+                
+                {/* Charts Row */}
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  {/* Pie Chart Placeholder */}
+                  <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4">
+                    <div className="text-xs text-gray-400 mb-3">By Type</div>
+                    <div className="aspect-square bg-gradient-to-br from-[#A43850]/20 to-[#F5A623]/20 rounded-full"></div>
+                  </div>
+                  
+                  {/* Line Chart Placeholder */}
+                  <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4">
+                    <div className="text-xs text-gray-400 mb-3">Trend</div>
+                    <div className="h-20 bg-gradient-to-t from-[#F5A623]/40 to-transparent rounded"></div>
+                  </div>
+                </div>
+                
+                {/* Bar Chart */}
+                <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4 mb-4">
+                  <div className="text-xs text-gray-400 mb-3">Monthly Activity</div>
+                  <div className="flex items-end gap-1.5 h-20">
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '45%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '60%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '35%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#F5A623] to-[#F7B84D] rounded-t shadow-lg" style={{height: '90%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '72%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '80%'}}></div>
+                  </div>
+                </div>
+                
+                {/* Upcoming Deadlines */}
+                <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4">
+                  <div className="text-xs text-gray-400 mb-3">Upcoming Deadlines</div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3 p-2 bg-red-900/20 border border-red-800/30 rounded-lg">
+                      <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                      <span className="text-xs text-gray-300 flex-1">Quarterly Air Emissions</span>
+                      <span className="text-xs text-red-400 font-medium">2 days</span>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-[#F5A623]/20 border border-[#F5A623]/30 rounded-lg">
+                      <div className="w-2 h-2 rounded-full bg-[#F5A623]"></div>
+                      <span className="text-xs text-gray-300 flex-1">Pipeline Inspection</span>
+                      <span className="text-xs text-[#F5A623] font-medium">Mar 15</span>
+                    </div>
+                    <div className="flex items-center gap-3 p-2 bg-[#A43850]/20 border border-[#A43850]/30 rounded-lg">
+                      <div className="w-2 h-2 rounded-full bg-[#A43850]"></div>
+                      <span className="text-xs text-gray-300 flex-1">Water Quality Testing</span>
+                      <span className="text-xs text-gray-400">Mar 22</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
