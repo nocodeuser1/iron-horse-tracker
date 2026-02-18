@@ -3,6 +3,7 @@ import { useStore } from '../../lib/store';
 import { useDataStore } from '../../lib/dataStore';
 import { getStatus } from '../../lib/utils/requirements';
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 
 const statusConfig = {
   completed: { label: 'Completed', color: 'bg-gold-100 text-gold-700 dark:bg-gold-600/20 dark:text-gold-400', icon: CheckCircle2 },
@@ -41,13 +42,13 @@ export function DetailDrawer() {
   const cfg = statusConfig[status];
   const StatusIcon = cfg.icon;
 
-  return (
-    <div className="fixed inset-0 z-50">
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 w-full h-full backdrop-blur-md bg-black/40 animate-fade-in"
+        className="absolute inset-0 backdrop-blur-md bg-black/40 animate-fade-in"
         onClick={closeDetail}
       />
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl max-h-[90vh] px-4 z-10">
+      <div className="relative w-full max-w-2xl max-h-[90vh] z-10">
         <div className="bg-white/85 dark:bg-dark-card/85 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/30 dark:border-white/10 overflow-hidden animate-scale-in">
         {/* Header */}
         <div className="bg-gradient-to-r from-white/50 to-transparent dark:from-dark-surface/50 dark:to-transparent border-b border-white/20 dark:border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-sm">
@@ -144,6 +145,7 @@ export function DetailDrawer() {
         </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
