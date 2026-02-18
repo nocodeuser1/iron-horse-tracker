@@ -42,12 +42,12 @@ export function DetailDrawer() {
   const StatusIcon = cfg.icon;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-black/70">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-0">
       <div
-        className="absolute inset-0 backdrop-blur-md animate-fade-in"
+        className="absolute inset-0 w-full h-full backdrop-blur-md bg-black/40 animate-fade-in"
         onClick={closeDetail}
       />
-      <div className="relative w-full max-w-2xl max-h-[90vh] mx-4 bg-white/85 dark:bg-dark-card/85 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/30 dark:border-white/10 overflow-hidden animate-scale-in">
+      <div className="relative w-full max-w-2xl max-h-[90vh] mx-4 bg-white/85 dark:bg-dark-card/85 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/30 dark:border-white/10 overflow-hidden animate-scale-in z-10">
         {/* Header */}
         <div className="bg-gradient-to-r from-white/50 to-transparent dark:from-dark-surface/50 dark:to-transparent border-b border-white/20 dark:border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-sm">
           <div className="flex items-center gap-3">
