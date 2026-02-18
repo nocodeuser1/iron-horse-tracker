@@ -50,7 +50,7 @@ Here's how I recommend we structure the demo:
   - Custom branding (their logo)
   - Smart notifications
   - Enterprise security
-- Mention pricing: **$79/month Enterprise tier**
+- Mention pricing: **$60/month Enterprise tier**
 - Emphasize: **"We extract requirements from your permit PDFs - you don't have to do data entry"**
 
 ### **2. Live Demo - Login & Dashboard (3-4 minutes)**
@@ -131,7 +131,7 @@ Here's how I recommend we structure the demo:
 4. **"Your brand, your platform"** - Custom logo and branding
 5. **"Enterprise-grade security"** - Role-based access, audit trails
 6. **"Scales with you"** - Add facilities, permit types, users as needed
-7. **"Affordable & transparent"** - $79/month, no hidden fees
+7. **"Affordable & transparent"** - $60/month, no hidden fees
 
 **Privacy/AI Messaging:**
 - Default: **Manual extraction** (our team processes your permits)

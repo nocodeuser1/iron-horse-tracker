@@ -402,7 +402,7 @@ export default function LandingPage() {
                   <p className="text-sm text-white/70">Full-featured compliance management</p>
                 </div>
                 <div className="text-center mb-6 py-4 border-y border-white/10">
-                  <span className="text-5xl font-black text-white">$79</span>
+                  <span className="text-5xl font-black text-white">$60</span>
                   <span className="text-lg text-white/70">/month</span>
                 </div>
               </div>
