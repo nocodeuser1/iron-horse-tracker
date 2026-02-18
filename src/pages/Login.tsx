@@ -61,9 +61,9 @@ export default function Login() {
               />
             </div>
             <img
-              src="/visualpermit-logo-new.png"
+              src="/vp-logo-text-only.png"
               alt="VisualPermit.com"
-              className="h-16 w-auto mx-auto mb-6"
+              className="h-12 w-auto mx-auto mb-6"
             />
           </Link>
           <p className="text-gray-400">Sign in to your account</p>
