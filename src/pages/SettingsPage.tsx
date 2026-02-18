@@ -39,6 +39,11 @@ export function SettingsPage() {
   
   const [saved, setSaved] = useState(false);
   const { dark, toggle } = useDarkMode();
+  
+  // Permit upload state
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [uploadError, setUploadError] = useState('');
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   // Notification prefs
   const [emailNotifs, setEmailNotifs] = useState(true);
@@ -61,6 +66,74 @@ export function SettingsPage() {
   const showSaved = () => {
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
+  };
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    validateAndSetFile(file);
+  };
+
+  const handleFileDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    validateAndSetFile(file);
+  };
+
+  const validateAndSetFile = (file: File | undefined) => {
+    setUploadError('');
+    setUploadSuccess(false);
+
+    if (!file) return;
+
+    // Validate file type (PDF only)
+    if (file.type !== 'application/pdf') {
+      setUploadError('Only PDF files are accepted');
+      return;
+    }
+
+    // Validate file size (10MB max)
+    const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+    if (file.size > maxSize) {
+      setUploadError('File size must be less than 10MB');
+      return;
+    }
+
+    setUploadedFile(file);
+  };
+
+  const handleSubmitPermit = () => {
+    if (!uploadedFile) {
+      setUploadError('Please select a PDF file first');
+      return;
+    }
+
+    // Store permit request in localStorage for super admin to see
+    const requests = JSON.parse(localStorage.getItem('permitRequests') || '[]');
+    const newRequest = {
+      id: Date.now().toString(),
+      fileName: uploadedFile.name,
+      fileSize: uploadedFile.size,
+      companyName: 'Iron Horse Midstream', // Will be dynamic in multi-tenant version
+      requestedBy: 'Company Admin',
+      requestedAt: new Date().toISOString(),
+      status: 'pending',
+    };
+    requests.push(newRequest);
+    localStorage.setItem('permitRequests', JSON.stringify(requests));
+
+    // Show success message
+    setUploadSuccess(true);
+    setUploadedFile(null);
+    
+    // Reset after 3 seconds
+    setTimeout(() => {
+      setUploadSuccess(false);
+    }, 3000);
+  };
+
+  const removeFile = () => {
+    setUploadedFile(null);
+    setUploadError('');
   };
 
   const tabs: { id: Tab; label: string; icon: typeof Settings }[] = [
@@ -171,6 +244,119 @@ export function SettingsPage() {
                       </div>
                     </div>
                   ))}
+                </div>
+
+                {/* Upload New Permit Section */}
+                <div className="bg-gradient-to-br from-burgundy-50 to-gold-50 dark:from-burgundy-900/20 dark:to-gold-900/20 border-2 border-dashed border-burgundy-200 dark:border-burgundy-700/30 rounded-2xl p-6">
+                  <div className="flex items-start gap-3 mb-4">
+                    <Upload className="w-6 h-6 text-burgundy-600 dark:text-burgundy-400 shrink-0 mt-1" />
+                    <div>
+                      <h3 className="text-lg font-semibold text-burgundy-900 dark:text-burgundy-100 mb-1">
+                        Request New Permit Type
+                      </h3>
+                      <p className="text-sm text-burgundy-700 dark:text-burgundy-300">
+                        Upload your permit PDF and we'll set up tracking for you.
+                      </p>
+                      <p className="text-xs text-burgundy-600 dark:text-burgundy-400 mt-1">
+                        Accepts PDF only • Max 10MB
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Upload Area */}
+                  <div
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={handleFileDrop}
+                    className={`border-2 border-dashed rounded-xl p-6 text-center transition-all ${
+                      uploadedFile
+                        ? 'border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20'
+                        : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-surface hover:border-burgundy-400 dark:hover:border-burgundy-500'
+                    }`}
+                  >
+                    {!uploadedFile ? (
+                      <>
+                        <Upload className="w-10 h-10 text-gray-400 dark:text-gray-500 mx-auto mb-3" />
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                          Drag and drop your permit PDF here
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                          or click to browse
+                        </p>
+                        <input
+                          type="file"
+                          accept="application/pdf"
+                          onChange={handleFileSelect}
+                          className="hidden"
+                          id="permit-upload"
+                        />
+                        <label
+                          htmlFor="permit-upload"
+                          className="inline-block px-4 py-2 bg-burgundy-500 hover:bg-burgundy-600 text-white rounded-lg text-sm font-medium cursor-pointer transition-all hover:shadow-lg active:scale-95"
+                        >
+                          Choose PDF File
+                        </label>
+                      </>
+                    ) : (
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="p-2 bg-green-100 dark:bg-green-900/40 rounded-lg">
+                            <FileText className="w-6 h-6 text-green-600 dark:text-green-400" />
+                          </div>
+                          <div className="text-left">
+                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                              {uploadedFile.name}
+                            </p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {(uploadedFile.size / 1024 / 1024).toFixed(2)} MB
+                            </p>
+                          </div>
+                        </div>
+                        <button
+                          onClick={removeFile}
+                          className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-red-500 transition-all"
+                          title="Remove file"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Error Message */}
+                  {uploadError && (
+                    <div className="mt-3 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700/30 rounded-lg flex items-start gap-2">
+                      <Info className="w-4 h-4 text-red-600 dark:text-red-400 shrink-0 mt-0.5" />
+                      <p className="text-sm text-red-700 dark:text-red-300">{uploadError}</p>
+                    </div>
+                  )}
+
+                  {/* Success Message */}
+                  {uploadSuccess && (
+                    <div className="mt-3 p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/30 rounded-lg flex items-start gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 shrink-0 mt-0.5" />
+                      <div>
+                        <p className="text-sm font-semibold text-green-700 dark:text-green-300">
+                          Request submitted successfully!
+                        </p>
+                        <p className="text-xs text-green-600 dark:text-green-400 mt-0.5">
+                          Your VisualPermit.com contact will review and set up tracking for this permit.
+                        </p>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Submit Button */}
+                  <button
+                    onClick={handleSubmitPermit}
+                    disabled={!uploadedFile || uploadSuccess}
+                    className={`mt-4 w-full px-6 py-3 rounded-xl font-semibold text-sm transition-all ${
+                      uploadedFile && !uploadSuccess
+                        ? 'bg-gradient-to-r from-burgundy-500 to-burgundy-600 hover:from-burgundy-600 hover:to-burgundy-700 text-white shadow-lg hover:shadow-xl active:scale-95'
+                        : 'bg-gray-200 dark:bg-gray-700 text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                    }`}
+                  >
+                    {uploadSuccess ? 'Request Sent' : 'Submit Permit Request'}
+                  </button>
                 </div>
 
                 <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/30 rounded-xl p-6 text-center">

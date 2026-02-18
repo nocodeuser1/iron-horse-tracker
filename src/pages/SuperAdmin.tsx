@@ -1,20 +1,63 @@
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../lib/authStore';
-import { Building2, Users, FileText, Settings, LogOut } from 'lucide-react';
-import { useState } from 'react';
+import { Building2, Users, FileText, Settings, LogOut, Bell, CheckCircle2, Clock } from 'lucide-react';
+import { useState, useEffect } from 'react';
+
+interface PermitRequest {
+  id: string;
+  fileName: string;
+  fileSize: number;
+  companyName: string;
+  requestedBy: string;
+  requestedAt: string;
+  status: 'pending' | 'approved' | 'rejected';
+}
 
 export default function SuperAdmin() {
   const { user, isSuperAdmin, logout } = useAuthStore();
-  const [activeTab, setActiveTab] = useState<'companies' | 'users' | 'permits'>('companies');
+  const [activeTab, setActiveTab] = useState<'companies' | 'users' | 'permits' | 'requests'>('companies');
+  const [permitRequests, setPermitRequests] = useState<PermitRequest[]>([]);
 
   // Only super admins can access this page
   if (!isSuperAdmin()) {
     return <Navigate to="/" replace />;
   }
 
+  // Load permit requests from localStorage
+  useEffect(() => {
+    const loadRequests = () => {
+      const requests = JSON.parse(localStorage.getItem('permitRequests') || '[]');
+      setPermitRequests(requests);
+    };
+    
+    loadRequests();
+    
+    // Poll for new requests every 5 seconds
+    const interval = setInterval(loadRequests, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const pendingRequestsCount = permitRequests.filter(r => r.status === 'pending').length;
+
   const handleLogout = () => {
     logout();
     window.location.href = '/';
+  };
+
+  const handleApproveRequest = (id: string) => {
+    const updated = permitRequests.map(r =>
+      r.id === id ? { ...r, status: 'approved' as const } : r
+    );
+    setPermitRequests(updated);
+    localStorage.setItem('permitRequests', JSON.stringify(updated));
+  };
+
+  const handleRejectRequest = (id: string) => {
+    const updated = permitRequests.map(r =>
+      r.id === id ? { ...r, status: 'rejected' as const } : r
+    );
+    setPermitRequests(updated);
+    localStorage.setItem('permitRequests', JSON.stringify(updated));
   };
 
   return (
@@ -31,6 +74,19 @@ export default function SuperAdmin() {
               </div>
             </div>
             <div className="flex items-center gap-4">
+              {/* Notifications Badge */}
+              {pendingRequestsCount > 0 && (
+                <button
+                  onClick={() => setActiveTab('requests')}
+                  className="relative p-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-[#F5A623] transition-all"
+                  title={`${pendingRequestsCount} pending permit request${pendingRequestsCount > 1 ? 's' : ''}`}
+                >
+                  <Bell className="w-5 h-5" />
+                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center animate-pulse">
+                    {pendingRequestsCount}
+                  </span>
+                </button>
+              )}
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-medium text-white">{user?.name}</p>
                 <p className="text-xs text-gray-400">{user?.email}</p>
@@ -56,30 +112,41 @@ export default function SuperAdmin() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
           {[
             { label: 'Total Companies', value: '1', icon: Building2, color: '#A43850' },
             { label: 'Total Users', value: '1', icon: Users, color: '#F5A623' },
             { label: 'Active Permits', value: '30', icon: FileText, color: '#8b2f43' },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="bg-[#241a1f] border border-[#A43850]/20 rounded-2xl p-6 hover:border-[#A43850]/40 transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-400 mb-1">{stat.label}</p>
-                  <p className="text-3xl font-bold text-white">{stat.value}</p>
+            { label: 'Pending Requests', value: pendingRequestsCount.toString(), icon: Bell, color: '#F5A623', highlight: pendingRequestsCount > 0 },
+          ].map((stat) => {
+            const isClickable = stat.label === 'Pending Requests' && pendingRequestsCount > 0;
+            const CardWrapper = isClickable ? 'button' : 'div';
+            
+            return (
+              <CardWrapper
+                key={stat.label}
+                onClick={isClickable ? () => setActiveTab('requests') : undefined}
+                className={`bg-[#241a1f] border rounded-2xl p-6 transition-all w-full text-left ${
+                  stat.highlight
+                    ? 'border-[#F5A623] shadow-lg shadow-[#F5A623]/20 animate-pulse'
+                    : 'border-[#A43850]/20 hover:border-[#A43850]/40'
+                } ${isClickable ? 'cursor-pointer hover:scale-105 active:scale-95' : ''}`}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-400 mb-1">{stat.label}</p>
+                    <p className="text-3xl font-bold text-white">{stat.value}</p>
+                  </div>
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: `${stat.color}30` }}
+                  >
+                    <stat.icon className="w-6 h-6" style={{ color: stat.color }} />
+                  </div>
                 </div>
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ backgroundColor: `${stat.color}30` }}
-                >
-                  <stat.icon className="w-6 h-6" style={{ color: stat.color }} />
-                </div>
-              </div>
-            </div>
-          ))}
+              </CardWrapper>
+            );
+          })}
         </div>
 
         {/* Tabs */}
@@ -88,6 +155,7 @@ export default function SuperAdmin() {
             {[
               { id: 'companies', label: 'Companies', icon: Building2 },
               { id: 'users', label: 'Users', icon: Users },
+              { id: 'requests', label: 'Permit Requests', icon: Bell, badge: pendingRequestsCount },
               { id: 'permits', label: 'System Settings', icon: Settings },
             ].map((tab) => (
               <button
@@ -102,6 +170,11 @@ export default function SuperAdmin() {
                 <div className="flex items-center justify-center gap-2">
                   <tab.icon className="w-4 h-4" />
                   {tab.label}
+                  {tab.badge && tab.badge > 0 && (
+                    <span className="ml-1 px-2 py-0.5 bg-red-500 text-white text-xs font-bold rounded-full">
+                      {tab.badge}
+                    </span>
+                  )}
                 </div>
               </button>
             ))}
@@ -168,6 +241,113 @@ export default function SuperAdmin() {
               <div>
                 <h3 className="text-xl font-bold text-white mb-4">User Management</h3>
                 <p className="text-gray-400">View and manage all users across all companies.</p>
+              </div>
+            )}
+
+            {activeTab === 'requests' && (
+              <div>
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Permit Requests</h3>
+                    <p className="text-sm text-gray-400 mt-1">Review and approve new permit upload requests</p>
+                  </div>
+                </div>
+
+                {permitRequests.length === 0 ? (
+                  <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 p-12 text-center">
+                    <Bell className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                    <h4 className="text-lg font-semibold text-white mb-2">No Permit Requests</h4>
+                    <p className="text-gray-400 text-sm">Companies can submit new permit PDFs for setup from their Settings page.</p>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {permitRequests.map((request) => (
+                      <div
+                        key={request.id}
+                        className={`bg-[#1a1118] rounded-xl border p-6 transition-all ${
+                          request.status === 'pending'
+                            ? 'border-[#F5A623] shadow-lg shadow-[#F5A623]/10'
+                            : request.status === 'approved'
+                            ? 'border-green-500/30'
+                            : 'border-red-500/30 opacity-60'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex items-start gap-4 flex-1">
+                            <div className={`p-3 rounded-xl ${
+                              request.status === 'pending'
+                                ? 'bg-[#F5A623]/10'
+                                : request.status === 'approved'
+                                ? 'bg-green-500/10'
+                                : 'bg-red-500/10'
+                            }`}>
+                              <FileText className={`w-6 h-6 ${
+                                request.status === 'pending'
+                                  ? 'text-[#F5A623]'
+                                  : request.status === 'approved'
+                                  ? 'text-green-400'
+                                  : 'text-red-400'
+                              }`} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-2">
+                                <h4 className="text-lg font-semibold text-white">{request.fileName}</h4>
+                                <span className={`px-3 py-1 rounded-full text-xs font-bold ${
+                                  request.status === 'pending'
+                                    ? 'bg-[#F5A623]/20 text-[#F5A623]'
+                                    : request.status === 'approved'
+                                    ? 'bg-green-500/20 text-green-400'
+                                    : 'bg-red-500/20 text-red-400'
+                                }`}>
+                                  {request.status === 'pending' && <Clock className="w-3 h-3 inline mr-1" />}
+                                  {request.status === 'approved' && <CheckCircle2 className="w-3 h-3 inline mr-1" />}
+                                  {request.status.toUpperCase()}
+                                </span>
+                              </div>
+                              <div className="grid grid-cols-2 gap-3 mb-3">
+                                <div>
+                                  <p className="text-xs text-gray-500 font-medium">Company</p>
+                                  <p className="text-sm text-white font-semibold">{request.companyName}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500 font-medium">File Size</p>
+                                  <p className="text-sm text-gray-300">{(request.fileSize / 1024 / 1024).toFixed(2)} MB</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500 font-medium">Requested By</p>
+                                  <p className="text-sm text-gray-300">{request.requestedBy}</p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500 font-medium">Requested At</p>
+                                  <p className="text-sm text-gray-300">
+                                    {new Date(request.requestedAt).toLocaleString()}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {request.status === 'pending' && (
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => handleApproveRequest(request.id)}
+                                className="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-semibold transition-all hover:shadow-lg active:scale-95"
+                              >
+                                Approve
+                              </button>
+                              <button
+                                onClick={() => handleRejectRequest(request.id)}
+                                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm font-semibold transition-all hover:shadow-lg active:scale-95"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
 
