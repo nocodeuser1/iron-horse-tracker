@@ -45,100 +45,116 @@ export function DetailDrawer() {
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 backdrop-blur-md bg-black/40 animate-fade-in"
+        className="absolute inset-0 backdrop-blur-lg bg-black/50 animate-fade-in"
         onClick={closeDetail}
       />
-      <div className="relative w-full max-w-2xl max-h-[90vh] z-10">
-        <div className="bg-white/85 dark:bg-dark-card/85 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/30 dark:border-white/10 overflow-hidden animate-scale-in">
+      <div className="relative w-full max-w-3xl max-h-[92vh] z-10">
+        <div className="bg-white dark:bg-dark-card shadow-2xl rounded-3xl border border-gray-200 dark:border-dark-border overflow-hidden animate-scale-in">
         {/* Header */}
-        <div className="bg-gradient-to-r from-white/50 to-transparent dark:from-dark-surface/50 dark:to-transparent border-b border-white/20 dark:border-white/10 px-6 py-4 flex items-center justify-between backdrop-blur-sm">
-          <div className="flex items-center gap-3">
-            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${cfg.color}`}>
-              <StatusIcon className="w-3.5 h-3.5" />
-              {cfg.label}
-            </span>
-            <span className="text-xs text-gray-400 font-mono">{r.id.slice(0, 8)}</span>
+        <div className="relative bg-gradient-to-br from-burgundy-50 to-gold-50/30 dark:from-burgundy-950/40 dark:to-gold-950/20 px-8 py-6 border-b border-gray-200 dark:border-dark-border">
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1 space-y-3">
+              <div className="flex items-center gap-3">
+                <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold shadow-sm ${cfg.color}`}>
+                  <StatusIcon className="w-4 h-4" />
+                  {cfg.label}
+                </span>
+                <span className="px-3 py-1.5 bg-white/60 dark:bg-dark-surface/60 backdrop-blur-sm rounded-lg text-xs font-mono text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-dark-border">
+                  {r.id.slice(0, 8)}
+                </span>
+              </div>
+            </div>
+            <button
+              onClick={closeDetail}
+              className="p-2.5 hover:bg-white dark:hover:bg-dark-surface rounded-xl transition-all hover:scale-105 active:scale-95 group"
+            >
+              <X className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" />
+            </button>
           </div>
-          <button
-            onClick={closeDetail}
-            className="p-2 hover:bg-white/60 dark:hover:bg-dark-surface/60 rounded-lg transition-colors backdrop-blur-sm"
-          >
-            <X className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-          </button>
         </div>
 
-        <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+        <div className="p-8 space-y-8 max-h-[calc(92vh-140px)] overflow-y-auto">
           <button
             onClick={handleToggle}
-            className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all backdrop-blur-sm ${
+            className={`w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl font-semibold text-base transition-all shadow-lg hover:shadow-xl active:scale-[0.98] ${
               r.completedDate
-                ? 'bg-white/60 dark:bg-dark-surface/60 text-gray-700 dark:text-gray-200 hover:bg-white/80 dark:hover:bg-dark-surface/80 border border-white/30 dark:border-white/10'
-                : 'bg-gold-500/90 text-white hover:bg-gold-600 shadow-lg hover:shadow-xl border border-gold-400/30'
+                ? 'bg-gradient-to-r from-gray-100 to-gray-50 dark:from-dark-surface dark:to-dark-surface/80 text-gray-700 dark:text-gray-200 hover:from-gray-200 hover:to-gray-100 dark:hover:from-dark-surface/90 dark:hover:to-dark-surface border-2 border-gray-200 dark:border-dark-border'
+                : 'bg-gradient-to-r from-gold-500 to-gold-600 text-white hover:from-gold-600 hover:to-gold-700 border-2 border-gold-400/50'
             }`}
           >
             <Check className="w-5 h-5" />
             {r.completedDate ? 'Mark as Incomplete' : 'Mark as Complete'}
           </button>
 
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-burgundy-500/20 dark:bg-burgundy-500/30 text-burgundy-800 dark:text-burgundy-200 rounded-lg text-sm font-medium backdrop-blur-sm border border-burgundy-300/30 dark:border-burgundy-400/20">
-              <Tag className="w-3.5 h-3.5" />
+          <div className="flex flex-wrap gap-3">
+            <span className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-burgundy-50 to-burgundy-100/50 dark:from-burgundy-900/40 dark:to-burgundy-900/20 text-burgundy-800 dark:text-burgundy-200 rounded-xl text-sm font-semibold shadow-sm border border-burgundy-200 dark:border-burgundy-800">
+              <Tag className="w-4 h-4" />
               {r.typeOfAction}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-purple-500/20 dark:bg-purple-500/30 text-purple-800 dark:text-purple-200 rounded-lg text-sm font-medium backdrop-blur-sm border border-purple-300/30 dark:border-purple-400/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/40 dark:to-purple-900/20 text-purple-800 dark:text-purple-200 rounded-xl text-sm font-semibold shadow-sm border border-purple-200 dark:border-purple-800">
               {r.equipmentType}
             </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/60 dark:bg-dark-surface/60 text-gray-700 dark:text-gray-200 rounded-lg text-sm font-medium backdrop-blur-sm border border-white/30 dark:border-white/10">
-              <Clock className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-br from-gray-50 to-gray-100/50 dark:from-dark-surface dark:to-dark-surface/80 text-gray-700 dark:text-gray-200 rounded-xl text-sm font-semibold shadow-sm border border-gray-200 dark:border-dark-border">
+              <Clock className="w-4 h-4" />
               {r.recurrence}
             </span>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+          <div className="bg-gradient-to-br from-gray-50 to-white dark:from-dark-surface/50 dark:to-dark-surface/30 rounded-2xl p-6 border border-gray-200 dark:border-dark-border shadow-sm">
+            <h3 className="text-xs font-bold text-burgundy-600 dark:text-burgundy-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <div className="w-1 h-4 bg-burgundy-500 rounded-full"></div>
               Action Required
             </h3>
-            <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
+            <p className="text-base text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
               {r.action}
             </p>
           </div>
 
-          <div>
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+          <div className="bg-gradient-to-br from-gray-50 to-white dark:from-dark-surface/50 dark:to-dark-surface/30 rounded-2xl p-6 border border-gray-200 dark:border-dark-border shadow-sm">
+            <h3 className="text-xs font-bold text-burgundy-600 dark:text-burgundy-400 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <div className="w-1 h-4 bg-burgundy-500 rounded-full"></div>
               Requirements Covered
             </h3>
-            <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
+            <p className="text-base text-gray-800 dark:text-gray-200 leading-relaxed whitespace-pre-line">
               {r.requirementsCovered}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="bg-white/60 dark:bg-dark-surface/60 rounded-xl p-4 backdrop-blur-sm border border-white/30 dark:border-white/10">
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-1">
-                <Calendar className="w-4 h-4" />
-                <span className="text-xs font-semibold uppercase tracking-wider">Due Date</span>
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-950/30 dark:to-blue-900/20 rounded-2xl p-5 border border-blue-200 dark:border-blue-900 shadow-sm">
+              <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300 mb-3">
+                <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider">Due Date</span>
               </div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
+              <p className="text-lg font-semibold text-blue-900 dark:text-blue-100">
                 {r.neededBy || 'No due date'}
               </p>
             </div>
-            <div className="bg-white/60 dark:bg-dark-surface/60 rounded-xl p-4 backdrop-blur-sm border border-white/30 dark:border-white/10">
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300 mb-1">
-                <CheckCircle2 className="w-4 h-4" />
-                <span className="text-xs font-semibold uppercase tracking-wider">Completed</span>
+            <div className="bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-950/30 dark:to-green-900/20 rounded-2xl p-5 border border-green-200 dark:border-green-900 shadow-sm">
+              <div className="flex items-center gap-2 text-green-700 dark:text-green-300 mb-3">
+                <div className="p-2 bg-green-100 dark:bg-green-900/50 rounded-lg">
+                  <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider">Completed</span>
               </div>
-              <p className="text-sm font-medium text-gray-900 dark:text-white">
+              <p className="text-lg font-semibold text-green-900 dark:text-green-100">
                 {r.completedDate || 'Not yet'}
               </p>
             </div>
           </div>
 
           {r.fileUploaded && (
-            <div className="bg-gold-500/20 dark:bg-gold-500/30 rounded-xl p-4 flex items-center gap-3 backdrop-blur-sm border border-gold-400/30 dark:border-gold-400/20">
-              <FileText className="w-5 h-5 text-gold-700 dark:text-gold-300" />
-              <div>
-                <p className="text-sm font-medium text-gold-800 dark:text-gold-200">Attached File</p>
-                <p className="text-xs text-gold-700 dark:text-gold-300">{r.fileUploaded}</p>
+            <div className="bg-gradient-to-br from-gold-50 to-gold-100/50 dark:from-gold-950/30 dark:to-gold-900/20 rounded-2xl p-5 border border-gold-200 dark:border-gold-900 shadow-sm">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-gold-100 dark:bg-gold-900/50 rounded-xl">
+                  <FileText className="w-6 h-6 text-gold-700 dark:text-gold-300" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold text-gold-900 dark:text-gold-100 mb-1">Attached File</p>
+                  <p className="text-sm text-gold-700 dark:text-gold-300 font-medium">{r.fileUploaded}</p>
+                </div>
               </div>
             </div>
           )}
