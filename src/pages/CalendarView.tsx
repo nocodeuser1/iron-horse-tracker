@@ -134,15 +134,19 @@ export function CalendarView() {
           
           {/* Filter + Legend Compact */}
           <div className="flex items-center gap-3">
-            {/* Legend Pills */}
-            <div className="hidden xl:flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl backdrop-blur-sm">
+            {/* Legend Pills - Clickable to Open Filter */}
+            <button
+              onClick={() => setFilterOpen(!filterOpen)}
+              className="hidden xl:flex items-center gap-2 px-4 py-2 bg-white/10 rounded-xl backdrop-blur-sm hover:bg-white/20 transition-all cursor-pointer group"
+              title="Click to filter by type"
+            >
               {Object.entries(typeColor).map(([type, color]) => (
-                <div key={type} className="flex items-center gap-1.5 text-xs font-medium">
+                <div key={type} className="flex items-center gap-1.5 text-xs font-medium group-hover:scale-110 transition-transform">
                   <div className={`w-2.5 h-2.5 rounded-full ${color} shadow-sm`} />
                   <span className="hidden 2xl:inline">{type.split(' ')[0]}</span>
                 </div>
               ))}
-            </div>
+            </button>
             
             {/* Filter Dropdown */}
             <div className="relative" ref={filterRef}>
