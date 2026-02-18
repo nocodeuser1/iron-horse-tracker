@@ -9,9 +9,16 @@
 
 **Login URL:** https://visualpermit.com/login
 
+### Option 1: Generic Super Admin
 ```
 Email:    admin@visualpermit.com
 Password: SuperAdmin2026!
+```
+
+### Option 2: Israel (Baber Environmental)
+```
+Email:    israel@baberenvironmental.com
+Password: myBaberPermitting26
 ```
 
 **What you'll see:**
@@ -149,7 +156,8 @@ Node version:     18 or 22 (NOT 25)
 
 | User Type | Email | Password | Redirects To |
 |-----------|-------|----------|--------------|
-| Super Admin | admin@visualpermit.com | SuperAdmin2026! | /admin-baber |
+| Super Admin (Generic) | admin@visualpermit.com | SuperAdmin2026! | /admin-baber |
+| Super Admin (Israel) | israel@baberenvironmental.com | myBaberPermitting26 | /admin-baber |
 | Iron Horse Admin | scott@baberenvironmental.com | IHTempLogin26 | /dashboard |
 
 ---
