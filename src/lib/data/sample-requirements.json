@@ -5,7 +5,7 @@
     "recurrence": "Per Event",
     "action": "The permittee shall monitor the permitted routine and predictable startups and shutdowns and scheduled maintenance events. \n\nRecordkeeping:  \n\nEach month records shall be kept of the cumulative total VOC emissions during the first 12 months due to SSM events and, thereafter of the monthly rolling 12-month total of VOC emissions due to SSM events.",
     "requirementsCovered": "A107.C. SSM VOC Emissions for Venting",
-    "neededBy": "2025-02-14",
+    "neededBy": "2025-03-15",
     "completedDate": "2025-02-08",
     "fileUploaded": null,
     "equipmentType": "General"
@@ -16,7 +16,7 @@
     "recurrence": "Per Event",
     "action": "Monitor all malfunction events that result in VOC emissions including identification of the equipment or activity that is the source of emissions. \n\n\nRecordkeeping:\n\nKeep each months record of the cumulative total VOC emissions due to malfunction events during the first 12 months and, thereafter of its monthly rolling 12-month total.\n\nKeep records of inlet gas analysis, the percent VOC on the most recent gas analysis, the volume of total gas vented in MMscf used to calculate the VOC emissions, a description of the event, and whether the emissions resulting from the event will be used toward the permitted malfunction emission limit or whether the event is reported as excess emissions of the pound per hour limits in Table 106.A in the permit.\n\nRecord the calculated emissions and parameters used in calculations in accordance with the conditions mentioned in the permit.",
     "requirementsCovered": "A107. E. Malfunction Emissions Venting Emissions \n\nRequirement: Perform a facility inlet gas analysis once every year based on a calendar year and complete the following recordkeeping to demonstrate compliance with malfunction (UP-MAL-1) emission limits in Table 107.A in the permit.",
-    "neededBy": "2025-04-01",
+    "neededBy": "2025-03-18",
     "completedDate": "2025-03-24",
     "fileUploaded": null,
     "equipmentType": "Compressor"
@@ -25,9 +25,9 @@
     "id": "aef26675-d103-4435-ae1f-add51f41d5b7",
     "typeOfAction": "Inspections",
     "recurrence": "Semi-Annual",
-    "action": "Inspect the amine treatment unit and the control equipment semi-annually to ensure it is operating as initially designed or in accordance with the manufacturer’s recommended procedures.  \n\nInspect the pipe routed from the AMINE-1 still vent and flash tank to TO1 and to FL-1 semi-annually to ensure that there is no degradation of welds or other deficiencies.  \n\n\nRecordkeeping: Record the name of the person conducting the inspection and the results of all equipment and control device inspections chronologically, noting any maintenance or repairs needed to bring the amine treatment unit into compliance. The permittee shall maintain a copy of the manufacturer’s maintenance recommendations.",
+    "action": "Inspect the amine treatment unit and the control equipment semi-annually to ensure it is operating as initially designed or in accordance with the manufacturer\u2019s recommended procedures.  \n\nInspect the pipe routed from the AMINE-1 still vent and flash tank to TO1 and to FL-1 semi-annually to ensure that there is no degradation of welds or other deficiencies.  \n\n\nRecordkeeping: Record the name of the person conducting the inspection and the results of all equipment and control device inspections chronologically, noting any maintenance or repairs needed to bring the amine treatment unit into compliance. The permittee shall maintain a copy of the manufacturer\u2019s maintenance recommendations.",
     "requirementsCovered": "A208.C. Sweetening Unit (AMINE-1) with Control Devices TO-1 (Thermal Oxidizer) and FL-1 (Flare) \n\nRequirement: \n1) All flash gas routed to the flare FL-1 at all times. \n2) All acid gas routed to thermal oxidizer TO-1 except for TO-1 downtime. During TO-1 downtime, emissions shall be routed to FL-1. \n\nThe closed vent system shall be designed and operated so that there are no leaks to the atmosphere. At no time shall any emissions be emitted directly to the atmosphere. (NSR Permit 7482M2, Condition A208.C, revised).",
-    "neededBy": "2025-08-16",
+    "neededBy": "2025-03-05",
     "completedDate": "2025-08-05",
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -36,9 +36,9 @@
     "id": "67e2c43b-9c9d-4602-bf16-fa68d7699dbc",
     "typeOfAction": "Inspections",
     "recurrence": "Initial",
-    "action": "For FUG-1: Implement a leak detection and repair program and shall comply with the standards as specified at 40 CFR §60.5397a.\n\nFor Reciprocating Compressors and Amine-1:\nComply with all applicable monitoring and testing requirements in 40 CFR 60, Subpart A and Subpart OOOOa.\n\nRecordkeeping: Comply with the applicable recordkeeping requirements specified at 40 CFR §60.5420a(c), including §60.5420a(c)(15) in the permit.",
+    "action": "For FUG-1: Implement a leak detection and repair program and shall comply with the standards as specified at 40 CFR \u00a760.5397a.\n\nFor Reciprocating Compressors and Amine-1:\nComply with all applicable monitoring and testing requirements in 40 CFR 60, Subpart A and Subpart OOOOa.\n\nRecordkeeping: Comply with the applicable recordkeeping requirements specified at 40 CFR \u00a760.5420a(c), including \u00a760.5420a(c)(15) in the permit.",
     "requirementsCovered": "A209.A.B.C (for all applicable process unit equipment, including FUG-1, COMP, & AMINE-I)\n\nRequirements: Comply with all applicable and notification requirements in Subparts A and OOOOa.",
-    "neededBy": "2019-03-12",
+    "neededBy": "2025-03-12",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -49,7 +49,7 @@
     "recurrence": "Per Event",
     "action": "Use of natural gas fuel constitutes compliance with 20.2.61 NMAC unless opacity equals or exceeds 20% averaged over a 10-minute period. When any visible emissions are observed during operation other than during startup mode, opacity shall be measured over a 10-minute period, in accordance with the procedures at 40 CFR 60, Appendix A, Reference Method 9 (EPA Method 9) as required by 20.2.61.114 NMAC, or the operator will be allowed to shut down the equipment to perform maintenance/repair to eliminate the visible emissions. Following completion of equipment maintenance/repair, conduct visible emission observations with the following procedures stated in the permit.\n \n\nRecordkeeping: If any visible emissions observations were conducted, Keep records in accordance with the requirements mentioned in the permit and of Section B109.",
     "requirementsCovered": "A111.A. 20.2.61 NMAC Opacity Requirements (Units ENG-1, 2, 3, 4, 5, 6, 6a, 6b, and 6c, HTR-1, HTR-2, GEN-1, GEN-2, GEN-3)  \n(Units ENG 1a, 1b, 2-7, HTR-1, HTR-2)\n\n\nRequirement: Visible emissions from all stationary combustion emission stacks shall not equal or exceed an opacity of 20 percent in accordance with the requirements at 20.2.61.109 NMAC. (NSR Permit 7482M2, Condition A111.A).",
-    "neededBy": "2025-07-21",
+    "neededBy": "2025-02-21",
     "completedDate": "2025-07-13",
     "fileUploaded": null,
     "equipmentType": "Engine"
@@ -60,7 +60,7 @@
     "recurrence": "Continual",
     "action": "For Thermal Oxidizer and Flare Pilot Flame, monitor the presence of a thermal oxidizer and flare pilot flame using a thermocouple or any equivalent device approved by the Department and shall be equipped with a continuous recorder and alarm or equivalent, to detect the presence of a flame. \n \n\nRecordkeeping: For Thermal Oxidizer and Flare Pilot Flame, record all instances of alarm activation, including the date and cause of alarm activation, actions taken to bring the flare into normal operating conditions, and maintenance activities. For Visible Emission, record the information on the form referenced in EPA Method 22, Section 11.2.",
     "requirementsCovered": "A206.A. Flares and Thermal Oxidizer \n\n\nRequirement: The flares and thermal oxidizer are subject to the 20% opacity standards in 20.2.61 NMAC and complying with the no visible emissions requirements demonstrates compliance with 20.2.61 NMAC opacity limit.  \n\nThe thermal oxidizer (Unit TO-1) shall be equipped with a pilot thermocouple and an alarm and notification system indicating when the Thermal Oxidizer fails to light, to ensure that it is operated with a flame present any time that vapors are routed to the unit.",
-    "neededBy": "2025-02-09",
+    "neededBy": "2025-03-19",
     "completedDate": "2025-02-03",
     "fileUploaded": null,
     "equipmentType": "Flare"
@@ -71,7 +71,7 @@
     "recurrence": "Continual",
     "action": "Determine a combustion temperature that achieves the required destruction efficiency from periodic emissions testing performed in accordance with A206.E in the permit and monitor the combustion temperature of the Thermal Oxidizer continuously and record the temperature once per 24-hour period. Compliant combustion temperature is defined as within +/- 5% of the temperature during the emissions test.  \n\nRecordkeeping: Maintain records including the date and time of each temperature reading, detail any deficiencies in operation identified, and record any corrective actions taken to restore the control device to operation.",
     "requirementsCovered": "A206.A. Flares and Thermal Oxidizer \n\nRequirement: Compliance with the allowable emission limits in Table 106.A in the permit shall be demonstrated by maintaining a flame anytime gas is routed to the oxidizer and maintaining a burning temperature that achieves a destruction efficiency at or above 98% for VOCs and H2S, and monitoring unit downtime or malfunction. Temperature is used as the indicator for the estimated destruction efficiency.",
-    "neededBy": "2025-02-26",
+    "neededBy": "2025-02-13",
     "completedDate": "2025-02-16",
     "fileUploaded": null,
     "equipmentType": "Flare"
@@ -82,7 +82,7 @@
     "recurrence": "Continual",
     "action": "For Visible Emissions, Annually, or whenever visible emissions are observed, conduct a visible emissions observation in accordance with the requirements at 40 CFR 60, Appendix A, Reference Method 22 to certify compliance with the no visible emission requirement on the process flare. The observation period is at least 2 consecutive hours where visible emissions are not to exceed a total of 5 minutes during any 2 consecutive hours. \n\nRecordkeeping: For Thermal Oxidizer and Flare Pilot Flame, record all instances of alarm activation, including the date and cause of alarm activation, actions taken to bring the flare into normal operating conditions, and maintenance activities. For Visible Emission, record the information on the form referenced in EPA Method 22, Section 11.2.",
     "requirementsCovered": "A206.A. Flares and Thermal Oxidizer \n\n\nRequirement: The flares and thermal oxidizer are subject to the 20% opacity standards in 20.2.61 NMAC and complying with the no visible emissions requirements demonstrates compliance with 20.2.61 NMAC opacity limit.  \n\nEquip the flare (Units FL-1 and FL-2) with a system to ensure that it is operated with a flame present at all times and operated with no visible emissions.",
-    "neededBy": "2025-03-14",
+    "neededBy": "2025-03-19",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Flare"
@@ -93,7 +93,7 @@
     "recurrence": "Quarterly",
     "action": "Inspect all piping from the flare and tanks connecting to the flare for defects that could result in air emissions. \n\n(Defects include, but are not limited to, visible cracks, holes, or gaps; broken, cracked, or otherwise damaged seals or gaskets on closure devices; and broken or missing hatches, access covers, caps, or other closure devices.) \n\nIn the event that a leak or defect is detected, repair the leak or defect as soon as practicable and in a manner that minimizes VOC and HAP emissions to the atmosphere.\n\nRecordkeeping: Record the results of the inspections chronologically, noting any maintenance or repairs that are required.",
     "requirementsCovered": "A203.D. Flare (FL-2) Collecting Vapors from Condensate Tanks (TK-2, 3, 4, 5, 6 and 7), GunbarrelTank (TK-1), Slop Oil Tank (TK-8), and PWTK-1\n\nRequirement: The permittee shall at all times, including during oil-load operations, operate tank Units TK-1 through TK-8, and PWTK-1 as a closed loop system that captures and routes all VOC emissions to flare FL-2 and do not vent to the atmosphere. (NSR Permit 7482M2, Condition A203.D).",
-    "neededBy": "2025-04-30",
+    "neededBy": "2025-03-21",
     "completedDate": "2025-04-30",
     "fileUploaded": null,
     "equipmentType": "Flare"
@@ -104,7 +104,7 @@
     "recurrence": "Annual",
     "action": "Tank and Berm Inspection",
     "requirementsCovered": "SPCC",
-    "neededBy": "2026-02-17",
+    "neededBy": "2025-03-03",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Storage Tank"
@@ -115,7 +115,7 @@
     "recurrence": "Annual",
     "action": "At least once per year during a blow down event (Unit FL-1) conduct a visible emissions observation in accordance with the requirements at 40 CFR 60, Appendix A, Reference Method 22 to certify compliance with the no visible emission requirements. Each Method 22 test shall occur for the duration of the blow down event or for 30 minutes, whichever is less. Visible emissions shall not occur for more than 5 minutes during any consecutive 30minute period. For blowdown events that occur for less than 30 minutes, visible emissions shall not occur for more the 15% during the duration of the blow down event. \n\nRecordkeeping: For any visible emissions observations conducted in accordance with EPA Method 22, record the information on the form referenced in EPA Method 22, Section 11.2. If the visible emissions observation was conducted only on the pilot flame, the record shall also include the reasons that the test could not be conducted during a blowdown event.",
     "requirementsCovered": "A206.A. Flares and Thermal Oxidizer",
-    "neededBy": "2026-03-06",
+    "neededBy": "2025-02-18",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Flare"
@@ -124,9 +124,9 @@
     "id": "664636a9-0a47-4570-84bd-f124e9ed83c8",
     "typeOfAction": "Inspections",
     "recurrence": "Annual",
-    "action": "Inspections shall be completed at least once per year or at the frequency recommended by the manufacturer. \n\nInspections shall include the following:\n  \n(a) checking indicators if the optimal amount of excess combustion air is introduced into the boiler combustion process such as a blue colored, steady flame.\n(b) inspections of the unit’s components and housing for cracks or worn parts. \n\nRecordkeeping: \n\nMaintain records of operational inspections, including the indicators used to verify optimal excess combustion air, a description of the indicators, the unit component and housing inspections, and any adjustments needed to ensure optimal operation of the unit.\n\nKeep records of the manufacturer’s recommended or the permittee’s facility specific operational inspection procedure. \n\nMaintain records in accordance with Section B109.",
-    "requirementsCovered": "A204.A.  Heater Boiler Inspections\n\nRequirement: \n\nPerform annual inspections to ensure proper operation of the Units.\n\nMeet the facility specific procedure submitted to the Department.\n\nSubmit an electronic version of the procedure to the Department’s Permit Section Manager within 90 days of implementing the procedure. If the plan cannot be submitted within 90 days, obtain written approval to extend the deadline from the Department’s Permit Section, either by regular or electronic mail. \n\nMake improvements to the inspection procedure based on experience with the unit and/or new information provided by the manufacturer. This updated procedure shall be made available to the Department upon request.",
-    "neededBy": "2019-04-15",
+    "action": "Inspections shall be completed at least once per year or at the frequency recommended by the manufacturer. \n\nInspections shall include the following:\n  \n(a) checking indicators if the optimal amount of excess combustion air is introduced into the boiler combustion process such as a blue colored, steady flame.\n(b) inspections of the unit\u2019s components and housing for cracks or worn parts. \n\nRecordkeeping: \n\nMaintain records of operational inspections, including the indicators used to verify optimal excess combustion air, a description of the indicators, the unit component and housing inspections, and any adjustments needed to ensure optimal operation of the unit.\n\nKeep records of the manufacturer\u2019s recommended or the permittee\u2019s facility specific operational inspection procedure. \n\nMaintain records in accordance with Section B109.",
+    "requirementsCovered": "A204.A.  Heater Boiler Inspections\n\nRequirement: \n\nPerform annual inspections to ensure proper operation of the Units.\n\nMeet the facility specific procedure submitted to the Department.\n\nSubmit an electronic version of the procedure to the Department\u2019s Permit Section Manager within 90 days of implementing the procedure. If the plan cannot be submitted within 90 days, obtain written approval to extend the deadline from the Department\u2019s Permit Section, either by regular or electronic mail. \n\nMake improvements to the inspection procedure based on experience with the unit and/or new information provided by the manufacturer. This updated procedure shall be made available to the Department upon request.",
+    "neededBy": "2025-02-21",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Compressor"
@@ -135,9 +135,9 @@
     "id": "abe30d03-e91f-4e6b-a64e-12afbb90ddcd",
     "typeOfAction": "Inspections",
     "recurrence": "Semi-Annual",
-    "action": "Inspect the amine treatment unit and the control equipment        semi-annually to ensure it is operating as initially designed or in accordance with the manufacturer’s recommended procedures.  \n\nInspect the pipe routed from the AMINE-1 still vent and flash tank to TO1 and to FL-1 semi-annually to ensure that there is no degradation of welds or other deficiencies.  \n\n\nRecordkeeping: Record the name of the person conducting the inspection and the results of all equipment and control device inspections chronologically, noting any maintenance or repairs needed to bring the amine treatment unit into compliance. The permittee shall maintain a copy of the manufacturer’s maintenance recommendations.",
+    "action": "Inspect the amine treatment unit and the control equipment        semi-annually to ensure it is operating as initially designed or in accordance with the manufacturer\u2019s recommended procedures.  \n\nInspect the pipe routed from the AMINE-1 still vent and flash tank to TO1 and to FL-1 semi-annually to ensure that there is no degradation of welds or other deficiencies.  \n\n\nRecordkeeping: Record the name of the person conducting the inspection and the results of all equipment and control device inspections chronologically, noting any maintenance or repairs needed to bring the amine treatment unit into compliance. The permittee shall maintain a copy of the manufacturer\u2019s maintenance recommendations.",
     "requirementsCovered": "A208.C. Sweetening Unit (AMINE-1) with Control Devices TO-1 (Thermal Oxidizer) and FL-1 (Flare) \n\nRequirement: \n1) All flash gas routed to the flare FL-1 at all times. \n2) All acid gas routed to thermal oxidizer TO-1 except for TO-1 downtime. During TO-1 downtime, emissions shall be routed to FL-1. \n\nThe closed vent system shall be designed and operated so that there are no leaks to the atmosphere. At no time shall any emissions be emitted directly to the atmosphere. (NSR Permit 7482M2, Condition A208.C, revised).",
-    "neededBy": "2019-04-01",
+    "neededBy": "2025-03-16",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -148,7 +148,7 @@
     "recurrence": "Initial / Biannual (Every 2 Years)",
     "action": "Conduct an annual extended gas analysis of the inlet gas.   Confirmation testing on amine emission points (e.g. flash tank, regenerator, still vent) will be performed biannually (every two years). \n\nRecordkeeping: Recorf the ff:\n\n-(Gas analysis H2S, CO2, VOC content of the inlet gas.  \n\n-Annual calculation of the average hourly and total annual emissions for [H2S, VOC].\n\n-All parameters that were used as inputs to the model or calculations [i.e.; AmineCalc, HYSYS, or ProMax].\n\n-Verification sampling and analysis on flash tank and/or regenerator still vent emissions.",
     "requirementsCovered": "A208.A. Extended Gas Analysis (AMINE-1)\n\nRequirement: \n\nAnnual extended gas analysis on a representative sample upstream of the sweetening unit.\n\nVerification sampling and analysis will be conducted biannually (every two years) on regenerator still vent emissions.\n\nEvery two years, the extended gas analysis will include sampling and analysis for H2S. The value presented will be a numerical value, or if less than the laboratory method detectable limit, the minimum detection limit will be reported.",
-    "neededBy": "2019-04-15",
+    "neededBy": "2025-03-26",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -159,7 +159,7 @@
     "recurrence": "Annual",
     "action": "The permittee shall monitor the permitted routine and predictable startups and shutdowns and scheduled maintenance events. \n\nRecordkeeping:  \n\nKeep records of the inlet gas analysis, the percent VOC of the gas based on the most recent gas analysis, and of the volume of total gas vented in MMscf used to calculate the VOC emissions.",
     "requirementsCovered": "A107.C. SSM VOC Emissions for Venting  \n\nRequirement: Perform a facility inlet gas analysis once every year based on a calendar year and complete the following recordkeeping to demonstrate compliance with routine and predictable startup, shutdown, and maintenance (SSM) emission limits in Table 107.A in the permit.",
-    "neededBy": "2019-04-15",
+    "neededBy": "2025-02-07",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Compressor"
@@ -170,7 +170,7 @@
     "recurrence": "Annual",
     "action": "Need sulfur content in fuel. Either records of fuel purchase sheets or a fuel gas sample can be used and can not be over a year old",
     "requirementsCovered": "A110. Fuel and Fuel Sulfur Requirements \n(Units ENG 1a, 1b, 2-7, HTR-1, HTR-2)",
-    "neededBy": "2026-01-30",
+    "neededBy": "2025-03-27",
     "completedDate": "2026-01-30",
     "fileUploaded": null,
     "equipmentType": "Heater"
@@ -181,7 +181,7 @@
     "recurrence": "Quarterly",
     "action": "H2S shall be measured at least quarterly using a stain tube of the appropriate size range or an inline H2S monitor; or measured annually with an extended gas analysis.measure the H2S content, the total sulfur content, the VOC content, and the heating value (Btu/scf) of the gas sent to the flare/TO for combustion or to the amine unit.  H2S shall be measured at least quarterly using a stain tube of the appropriate size range or an inline H2S monitor; or measured annually with an extended gas analysis. The total sulfur content, VOC content, and heating value (Btu/scf) of the natural gas sent to the flare/TO shall be measured at least once annually with an extended gas analysis.    \n\nRecordkeeping: Sample documentation as received from the laboratory including H2S content, the total sulfur content, the VOC content, and the heating value (Btu/scf) and analysis method utilized.",
     "requirementsCovered": "A206.B. Gas Flow Monitoring and Gas Analysis for Flares and Thermal Oxidizer Operation (Units FL-1, FL-2, and TO-1) \n\nRequirement: Compliance with the allowable emission limits in Tables 106.A and 107.A shall be demonstrated by completing the monitoring, recordkeeping, and reporting specified in the permit.",
-    "neededBy": "2025-05-16",
+    "neededBy": "2025-02-28",
     "completedDate": "2025-05-03",
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -192,7 +192,7 @@
     "recurrence": "Continual",
     "action": "Record amount of fuel burned in Mscf/day",
     "requirementsCovered": "A204.B. Subpart Dc (HTR-1 & HTR-2)",
-    "neededBy": "2025-03-05",
+    "neededBy": "2025-02-15",
     "completedDate": "2025-02-21",
     "fileUploaded": null,
     "equipmentType": "Heater"
@@ -203,7 +203,7 @@
     "recurrence": "Continual",
     "action": "Determine a combustion temperature that achieves the required destruction efficiency from periodic emissions testing performed in accordance with A206.G and monitor the combustion temperature of the Thennal Oxidizer continuously and record the temperature once per 24-hour period. Compliant combustion temperature is defined as within +/- 5% of the temperature during the emissions test.\n\nRecordkeeping:  Maintain records including the date and time of each temperature reading, detail any deficiencies in operation identified, and record any corrective actions taken to restore the control device to operation.",
     "requirementsCovered": "A206.C. Control Efficiency for Thermal Oxidizer (Unit TO-1) \n\nRequirement: Maintaining a flame anytime gas is routed to the oxidizer and maintaining a burning temperature that achieves a destruction efficiency at or above 98% for VOCs and H2S, and monitoring unit downtime or malfunction. Temperature is used as the indicator for the estimated destruction efficiency.",
-    "neededBy": "2025-01-21",
+    "neededBy": "2025-02-09",
     "completedDate": "2025-01-21",
     "fileUploaded": null,
     "equipmentType": "Thermal Oxidizer"
@@ -214,7 +214,7 @@
     "recurrence": "Initial / Quarterly",
     "action": "Test using a portable analyzer or EPA Reference Methods subject to the requirements and limitations of Section B108, General Monitoring Requirements.  Emission testing is required for NOx and CO.\n\n -Testing frequency shall be once per quarter for units 1-6, 6a, 6b, or 6c.  \n\nRecordkeeping: Maintain records in accordance with Section B109, B110, and B111 in the permit.",
     "requirementsCovered": "A201.B. Periodic Emissions Testing (Units ENG-1, 2, 3, 4, 5, 6, 6a, 6b, and 6c) \n\nRequirements: Complete periodic emission tests during the monitoring period.",
-    "neededBy": "2025-03-09",
+    "neededBy": "2025-02-10",
     "completedDate": "2025-03-02",
     "fileUploaded": null,
     "equipmentType": "Engine"
@@ -225,7 +225,7 @@
     "recurrence": "Initial / Annual",
     "action": "Monitoring as required to establish input values for the recordkeeping requirements. Compliance is demonstrated through records. \n\nRecordkeeping: Maintain records of all calculations and parameters used to determine emission rates in spreadsheet format and in accordance with Condition B109 in the permit. \nAnnual Emissions Calculations: Calculate the total ton per year (tpy) emission rates as a monthly rolling 12-month total, using the totaled pph emission rates for each hour of the month.",
     "requirementsCovered": "A206.D. Emissions Calculation for Thermal Oxidizer (Unit TO-1) \n\nRequirement: Compliance with the thermal oxidizer allowable emission limits in Table 106.A shall be demonstrated by operating the thermal oxidizer in accordance with the requirements, monitoring, and recordkeeping of Condition A206.B in the permit and completing emissions calculations as specified in this condition.",
-    "neededBy": "2025-02-24",
+    "neededBy": "2025-02-28",
     "completedDate": "2025-02-19",
     "fileUploaded": null,
     "equipmentType": "Thermal Oxidizer"
@@ -236,7 +236,7 @@
     "recurrence": "Initial / Annual",
     "action": "Schedule Engine Test",
     "requirementsCovered": "Quad J Testing",
-    "neededBy": "2025-04-11",
+    "neededBy": "2025-02-05",
     "completedDate": "2025-04-02",
     "fileUploaded": null,
     "equipmentType": "Engine"
@@ -247,7 +247,7 @@
     "recurrence": "Monthly",
     "action": "Monitor the circulation rate (gph) monthly.  \n\nRecordkeeping:  Keep records in accordance with Section B109 in the permit and of the ff:         \n\n-Pump flow rate in gph.\n-Basis for determination of flowrate.",
     "requirementsCovered": "A208.B. Amine Pump Circulation Rate (AMINE-1)\n\nRequirements:  Amine pump circulation rate for the unit shall not exceed 27,000 gallons per hour (450 gallons per minute).",
-    "neededBy": "2025-06-27",
+    "neededBy": "2025-02-24",
     "completedDate": "2025-06-17",
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -258,7 +258,7 @@
     "recurrence": "Monthly",
     "action": "Monitor the oil truck loadout volume on a monthly basis. \n\nRecordkeeping: Record the monthly oil truck loadout volume. Each month during the first 12 months of monitoring, record the cumulative oil loadout volume and after the first 12 months of monitoring, calculate and record a monthly rolling 12-month total loadout volume",
     "requirementsCovered": "A203.B. Truck Loading - Oil Loadout (Unit OILLOAD) \n\nRequirements: Limit the total annual oil loadout volume to 420,000 gallons per year (10,000 barrels/year).",
-    "neededBy": "2025-08-13",
+    "neededBy": "2025-03-31",
     "completedDate": "2025-08-13",
     "fileUploaded": null,
     "equipmentType": "General"
@@ -269,7 +269,7 @@
     "recurrence": "Continual",
     "action": "Gas flow or mass flow rates shall be logged during, or calculated for, each hour and each month that the flares/TO is in operation.   \n\nRecordkeeping: Records of the calculated average hourly flowmeter/mass meter and flow/mass totalizer measurements of process and assist gas sent to the flares/TO or the amine unit in scf/hr.",
     "requirementsCovered": "A206.B. Gas Flow Monitoring and Gas Analysis for Flares and Thermal Oxidizer Operation (Units FL-1, FL-2, and TO-1) \n\nRequirement: Compliance with the allowable emission limits in Tables 106.A and 107.A shall be demonstrated by completing the monitoring, recordkeeping, and reporting specified in the permit.",
-    "neededBy": "2025-03-04",
+    "neededBy": "2025-03-12",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "Amine Unit"
@@ -280,7 +280,7 @@
     "recurrence": "Continual",
     "action": "Collect Monthly Report",
     "requirementsCovered": "Venting Emissions Tracking",
-    "neededBy": "2025-01-20",
+    "neededBy": "2025-03-28",
     "completedDate": null,
     "fileUploaded": null,
     "equipmentType": "General"
@@ -289,9 +289,9 @@
     "id": "2f4b7b52-9a42-42d3-874e-68c843c39e44",
     "typeOfAction": "Throughput Reports",
     "recurrence": "Continual",
-    "action": "The Facility inlet flowrate shall be continuously monitored using a monitoring instrument that directly measures natural gas flowrate into the facility with an accuracy of ± 2% or better. \n\nRecordkeeping: Record the hourly flowrate of process gas (MMscfd) and each day shall record the daily flowrate of process gas (MMscfd) received at the Facility inlet.  Records indicating the gas flow shall be maintained onsite for a minimum of five (5) years from the time of recording and made available to Department personnel upon request.",
+    "action": "The Facility inlet flowrate shall be continuously monitored using a monitoring instrument that directly measures natural gas flowrate into the facility with an accuracy of \u00b1 2% or better. \n\nRecordkeeping: Record the hourly flowrate of process gas (MMscfd) and each day shall record the daily flowrate of process gas (MMscfd) received at the Facility inlet.  Records indicating the gas flow shall be maintained onsite for a minimum of five (5) years from the time of recording and made available to Department personnel upon request.",
     "requirementsCovered": "A108.B. Facility Throughput  \n\nRequirements: The flowrate of process gas entering the facility shall not exceed 85 MMscf/day.",
-    "neededBy": "2025-02-06",
+    "neededBy": "2025-02-22",
     "completedDate": "2025-01-24",
     "fileUploaded": null,
     "equipmentType": "General"
@@ -302,7 +302,7 @@
     "recurrence": "Continual",
     "action": "Collect Monthly Report",
     "requirementsCovered": "A110.A. Fuel Gas Monitoring scf/day",
-    "neededBy": "2025-02-23",
+    "neededBy": "2025-02-17",
     "completedDate": "2025-02-21",
     "fileUploaded": null,
     "equipmentType": "General"
@@ -313,7 +313,7 @@
     "recurrence": "Continual",
     "action": "Comply with all applicable monitoring and testing requirements of 40 CFR 60, Subpart Dc. \n\nRecordkeeping: Comply with all applicable monitoring and testing requirements of 40 CFR 60, Subpart Dc.",
     "requirementsCovered": "A204.B. 40 CFR 60, Subpart Dc (Units HTR-1 and HTR-2) \n\nRequirements: The units are subject to 40 CFR 60, Subpart Dc and the permittee shall comply with the applicable requirements of 40 CFR 60, Subpart A and Subpart Dc.",
-    "neededBy": "2025-03-11",
+    "neededBy": "2025-02-23",
     "completedDate": "2025-03-07",
     "fileUploaded": null,
     "equipmentType": "Compressor"
@@ -324,7 +324,7 @@
     "recurrence": "Continual",
     "action": "Monitor the condensate truck loadout volume on a monthly basis.  \n\nRecordkeeping: Record the monthly condensate truck loadout volume. Each month during the first 12 months of monitoring, record the cumulative condensate loadout volume and after the first 12 months of monitoring, calculate and record a monthly rolling 12-month total loadout volume.",
     "requirementsCovered": "A203.C. Truck Loading - Condensate Loadout (Unit CONDLOAD)\n\nRequirements: Limit the total annual condensate loadout volume to 1,533,000 gallons per year (36,500 barrels/year).",
-    "neededBy": "2025-01-28",
+    "neededBy": "2025-03-16",
     "completedDate": "2025-01-20",
     "fileUploaded": null,
     "equipmentType": "General"
