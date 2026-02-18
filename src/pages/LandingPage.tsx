@@ -20,9 +20,9 @@ export default function LandingPage() {
       {/* Simple navbar */}
       <nav className="glass sticky top-0 z-50 bg-[#241a1f]/80 backdrop-blur-sm border-b border-[#A43850]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
-              <img src="/visualpermit-logo.png" alt="VisualPermit.com" className="h-10" />
+          <div className="flex justify-between items-center py-2">
+            <div className="flex items-center -ml-2">
+              <img src="/visualpermit-logo.png" alt="VisualPermit.com" className="h-20" />
             </div>
             <div className="flex items-center gap-4">
               <Link
@@ -40,14 +40,6 @@ export default function LandingPage() {
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="mb-8">
-              <img
-                src="/visualpermit-logo.png"
-                alt="VisualPermit.com"
-                className="h-32 mx-auto mb-6"
-              />
-            </div>
-
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white">
               Environmental Compliance
               <br />
