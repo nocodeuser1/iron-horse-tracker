@@ -368,49 +368,70 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+      <section id="pricing" className="py-20 relative overflow-hidden">
+        {/* Background Decoration */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#A43850]/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#F5A623]/20 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12">
+            <div className="inline-block mb-3">
+              <span className="text-sm font-semibold text-[#F5A623] uppercase tracking-wider px-4 py-1.5 bg-[#F5A623]/10 border border-[#F5A623]/30 rounded-full">
+                Pricing
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
               Simple, Transparent Pricing
             </h2>
-            <p className="text-xl text-gray-400">
+            <p className="text-base text-gray-400">
               One plan. Full features. No hidden fees.
             </p>
           </div>
 
           <div className="max-w-lg mx-auto">
-            <div className="bg-gradient-to-br from-[#A43850] to-[#8b2f43] rounded-3xl p-8 border-2 border-[#F5A623] shadow-2xl transform hover:scale-105 transition-all duration-300">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-white mb-2">Enterprise Tier</h3>
-                <p className="text-white/80">Full-featured compliance management</p>
+            <div className="bg-gradient-to-br from-[#A43850] to-[#8b2f43] rounded-2xl p-6 sm:p-8 border-2 border-[#F5A623] shadow-2xl transform hover:scale-105 transition-all duration-300 relative overflow-hidden">
+              {/* Decorative Elements */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#F5A623]/10 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+              
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <h3 className="text-xl font-bold text-white mb-1">Enterprise Tier</h3>
+                  <p className="text-sm text-white/70">Full-featured compliance management</p>
+                </div>
+                <div className="text-center mb-6 py-4 border-y border-white/10">
+                  <span className="text-5xl font-black text-white">$79</span>
+                  <span className="text-lg text-white/70">/month</span>
+                </div>
               </div>
-              <div className="text-center mb-8">
-                <span className="text-6xl font-black text-white">$79</span>
-                <span className="text-2xl text-white/80">/month</span>
+              <div className="relative z-10">
+                <ul className="space-y-3 mb-6">
+                  {[
+                    'Unlimited permits & requirements',
+                    'Multi-facility support',
+                    'Custom branding',
+                    'Smart notifications',
+                    'Advanced filtering',
+                    'Priority support',
+                    'Audit trail & compliance reporting',
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-3 text-white text-sm">
+                      <CheckCircle className="w-4 h-4 text-[#F5A623] flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-4 mb-8">
-                {[
-                  'Unlimited permits & requirements',
-                  'Multi-facility support',
-                  'Custom branding',
-                  'Smart notifications',
-                  'Advanced filtering',
-                  'Priority support',
-                  'Audit trail & compliance reporting',
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-white">
-                    <CheckCircle className="w-5 h-5 text-[#F5A623] flex-shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/login"
-                className="w-full block text-center bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
-              >
-                Get Started Today
-              </Link>
+              <div className="relative z-10">
+                <Link
+                  to="/login"
+                  className="w-full block text-center bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-all duration-300 transform hover:scale-105"
+                >
+                  Get Started Today
+                </Link>
+              </div>
             </div>
           </div>
         </div>
