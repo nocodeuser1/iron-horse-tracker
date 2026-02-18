@@ -32,6 +32,15 @@ const DEMO_CREDENTIALS = [
     },
   },
   {
+    email: 'israel@baberenvironmental.com',
+    password: 'myBaberPermitting26',
+    user: {
+      email: 'israel@baberenvironmental.com',
+      name: 'Israel',
+      role: 'super_admin' as UserRole,
+    },
+  },
+  {
     email: 'scott@baberenvironmental.com',
     password: 'IHTempLogin26',
     user: {
