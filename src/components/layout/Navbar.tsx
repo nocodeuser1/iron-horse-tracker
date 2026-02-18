@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useDarkMode } from '../../lib/darkMode';
 import { usePermitTypeStore } from '../../lib/permitTypeStore';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const navItems = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -29,8 +29,23 @@ export function Navbar() {
   const { permitTypes, activePermitId, setActivePermit, getActivePermit } = usePermitTypeStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [permitMenuOpen, setPermitMenuOpen] = useState(false);
+  const permitMenuRef = useRef<HTMLDivElement>(null);
   
   const activePermit = getActivePermit();
+  
+  // Auto-collapse permit menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (permitMenuRef.current && !permitMenuRef.current.contains(event.target as Node)) {
+        setPermitMenuOpen(false);
+      }
+    };
+    
+    if (permitMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [permitMenuOpen]);
 
   return (
     <nav className="bg-burgundy-500 dark:bg-burgundy-900 text-white shadow-lg sticky top-0 z-50">
@@ -53,14 +68,14 @@ export function Navbar() {
           </NavLink>
 
           {/* Permit Type Selector */}
-          <div className="relative hidden lg:block">
+          <div className="relative hidden lg:block" ref={permitMenuRef}>
             <button
               onClick={() => setPermitMenuOpen(!permitMenuOpen)}
               className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/15 rounded-lg transition-all text-sm font-medium"
             >
               <FileText className="w-4 h-4" />
               <span>{activePermit?.name || 'Title V'}</span>
-              <ChevronDown className="w-3.5 h-3.5" />
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${permitMenuOpen ? 'rotate-180' : ''}`} />
             </button>
             
             {permitMenuOpen && (
