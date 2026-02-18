@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   ClipboardList,
@@ -11,9 +11,11 @@ import {
   X,
   ChevronDown,
   FileText,
+  LogOut,
 } from 'lucide-react';
 import { useDarkMode } from '../../lib/darkMode';
 import { usePermitTypeStore } from '../../lib/permitTypeStore';
+import { useAuthStore } from '../../lib/authStore';
 import { useState, useEffect, useRef } from 'react';
 
 const navItems = [
@@ -25,13 +27,20 @@ const navItems = [
 ];
 
 export function Navbar() {
+  const navigate = useNavigate();
   const { dark, toggle } = useDarkMode();
   const { permitTypes, activePermitId, setActivePermit, getActivePermit } = usePermitTypeStore();
+  const { logout, user } = useAuthStore();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [permitMenuOpen, setPermitMenuOpen] = useState(false);
   const permitMenuRef = useRef<HTMLDivElement>(null);
   
   const activePermit = getActivePermit();
+  
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
+  };
   
   // Auto-collapse permit menu on outside click
   useEffect(() => {
@@ -140,6 +149,14 @@ export function Navbar() {
             >
               {dark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
+            <button
+              onClick={handleLogout}
+              className="p-2 rounded-lg text-white/80 hover:bg-white/10 hover:text-red-400 transition-all duration-200"
+              aria-label="Sign out"
+              title={`Sign out (${user?.email})`}
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
 
           {/* Mobile menu button */}
@@ -183,6 +200,13 @@ export function Navbar() {
                 {label}
               </NavLink>
             ))}
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/80 hover:bg-white/10 hover:text-red-400 transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              Sign Out
+            </button>
           </div>
         </div>
       )}

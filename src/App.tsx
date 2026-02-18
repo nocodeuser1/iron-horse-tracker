@@ -6,6 +6,8 @@ import { Requirements } from './pages/Requirements';
 import { CalendarView } from './pages/CalendarView';
 import { AIChat } from './pages/AIChat';
 import { SettingsPage } from './pages/SettingsPage';
+import Login from './pages/Login';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +23,17 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route element={<AppLayout />}>
+          {/* Public route */}
+          <Route path="/login" element={<Login />} />
+          
+          {/* Protected routes */}
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route path="/" element={<Dashboard />} />
             <Route path="/requirements" element={<Requirements />} />
             <Route path="/calendar" element={<CalendarView />} />
