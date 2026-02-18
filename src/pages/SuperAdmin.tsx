@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../lib/authStore';
-import { Building2, Users, FileText, Settings, LogOut, Bell, CheckCircle2, Clock } from 'lucide-react';
+import { Building2, Users, FileText, Settings, LogOut, Bell, CheckCircle2, Clock, Upload, Trash2, Edit, Send, X, Info, Brain } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface PermitRequest {
@@ -13,10 +13,60 @@ interface PermitRequest {
   status: 'pending' | 'approved' | 'rejected';
 }
 
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'super_admin' | 'company_admin' | 'user';
+  companyId?: string;
+  companyName?: string;
+}
+
+interface AISettings {
+  openaiKey: string;
+  anthropicKey: string;
+  supabaseUrl: string;
+  supabaseAnonKey: string;
+  supabaseServiceKey: string;
+  githubRepo: string;
+  githubToken: string;
+}
+
+interface ChatMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
 export default function SuperAdmin() {
   const { user, isSuperAdmin, logout } = useAuthStore();
-  const [activeTab, setActiveTab] = useState<'companies' | 'users' | 'permits' | 'requests'>('companies');
+  const [activeTab, setActiveTab] = useState<'companies' | 'users' | 'requests' | 'settings' | 'aiAssistant'>('companies');
   const [permitRequests, setPermitRequests] = useState<PermitRequest[]>([]);
+  
+  // User Management State
+  const [users, setUsers] = useState<User[]>([
+    { id: '1', name: 'Israel Hindman', email: 'israel@baberenvironmental.com', role: 'super_admin' },
+    { id: '2', name: 'Scott', email: 'scott@baberenvironmental.com', role: 'company_admin', companyId: '1', companyName: 'Iron Horse Midstream' },
+  ]);
+  const [showUserModal, setShowUserModal] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [userForm, setUserForm] = useState({ name: '', email: '', password: '', role: 'user' as User['role'], companyId: '' });
+  
+  // Settings State
+  const [aiSettings, setAiSettings] = useState<AISettings>({
+    openaiKey: '',
+    anthropicKey: '',
+    supabaseUrl: '',
+    supabaseAnonKey: '',
+    supabaseServiceKey: '',
+    githubRepo: 'https://github.com/nocodeuser1/iron-horse-tracker',
+    githubToken: '',
+  });
+  const [settingsSaved, setSettingsSaved] = useState(false);
+  
+  // AI Assistant State
+  const [aiMessages, setAiMessages] = useState<ChatMessage[]>([]);
+  const [aiInput, setAiInput] = useState('');
+  const [uploadedPdf, setUploadedPdf] = useState<File | null>(null);
 
   // Only super admins can access this page
   if (!isSuperAdmin()) {
@@ -35,6 +85,14 @@ export default function SuperAdmin() {
     // Poll for new requests every 5 seconds
     const interval = setInterval(loadRequests, 5000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Load AI settings from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('aiSettings');
+    if (saved) {
+      setAiSettings(JSON.parse(saved));
+    }
   }, []);
 
   const pendingRequestsCount = permitRequests.filter(r => r.status === 'pending').length;
@@ -58,6 +116,73 @@ export default function SuperAdmin() {
     );
     setPermitRequests(updated);
     localStorage.setItem('permitRequests', JSON.stringify(updated));
+  };
+
+  // User Management Handlers
+  const handleAddUser = () => {
+    setEditingUser(null);
+    setUserForm({ name: '', email: '', password: '', role: 'user', companyId: '' });
+    setShowUserModal(true);
+  };
+
+  const handleEditUser = (user: User) => {
+    setEditingUser(user);
+    setUserForm({ name: user.name, email: user.email, password: '', role: user.role, companyId: user.companyId || '' });
+    setShowUserModal(true);
+  };
+
+  const handleSaveUser = () => {
+    if (editingUser) {
+      // Update existing user
+      setUsers(users.map(u => u.id === editingUser.id ? { ...u, ...userForm } : u));
+    } else {
+      // Add new user
+      const newUser: User = {
+        id: Date.now().toString(),
+        ...userForm,
+        companyName: userForm.companyId === '1' ? 'Iron Horse Midstream' : undefined,
+      };
+      setUsers([...users, newUser]);
+    }
+    setShowUserModal(false);
+  };
+
+  const handleDeleteUser = (userId: string) => {
+    if (confirm('Are you sure you want to delete this user?')) {
+      setUsers(users.filter(u => u.id !== userId));
+    }
+  };
+
+  // Settings Handlers
+  const handleSaveSettings = () => {
+    localStorage.setItem('aiSettings', JSON.stringify(aiSettings));
+    setSettingsSaved(true);
+    setTimeout(() => setSettingsSaved(false), 2000);
+  };
+
+  // AI Assistant Handlers
+  const handleSendMessage = () => {
+    if (!aiInput.trim()) return;
+    
+    const userMessage: ChatMessage = { role: 'user', content: aiInput };
+    setAiMessages([...aiMessages, userMessage]);
+    setAiInput('');
+    
+    // Mock AI response
+    setTimeout(() => {
+      const aiResponse: ChatMessage = {
+        role: 'assistant',
+        content: 'AI Assistant is not yet connected. This is a placeholder response. Configure API keys in Settings to enable AI features.',
+      };
+      setAiMessages(prev => [...prev, aiResponse]);
+    }, 1000);
+  };
+
+  const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type === 'application/pdf' && file.size <= 10 * 1024 * 1024) {
+      setUploadedPdf(file);
+    }
   };
 
   return (
@@ -151,12 +276,13 @@ export default function SuperAdmin() {
 
         {/* Tabs */}
         <div className="bg-[#241a1f] border border-[#A43850]/20 rounded-2xl overflow-hidden">
-          <div className="border-b border-[#A43850]/20 flex">
+          <div className="border-b border-[#A43850]/20 flex flex-wrap">
             {[
               { id: 'companies', label: 'Companies', icon: Building2 },
               { id: 'users', label: 'Users', icon: Users },
               { id: 'requests', label: 'Permit Requests', icon: Bell, badge: pendingRequestsCount },
-              { id: 'permits', label: 'System Settings', icon: Settings },
+              { id: 'settings', label: 'Settings', icon: Settings },
+              { id: 'aiAssistant', label: 'AI Assistant', icon: Brain },
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -239,8 +365,149 @@ export default function SuperAdmin() {
 
             {activeTab === 'users' && (
               <div>
-                <h3 className="text-xl font-bold text-white mb-4">User Management</h3>
-                <p className="text-gray-400">View and manage all users across all companies.</p>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-white">User Management</h3>
+                  <button
+                    onClick={handleAddUser}
+                    className="bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-6 py-2.5 rounded-xl font-semibold transition-all shadow-lg hover:shadow-[#A43850]/50"
+                  >
+                    + Add User
+                  </button>
+                </div>
+
+                {/* Users Table */}
+                <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 overflow-hidden">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-[#241a1f] border-b border-[#A43850]/20">
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Name</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Email</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Role</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Company</th>
+                        <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map((u) => (
+                        <tr key={u.id} className="border-b border-[#A43850]/10 hover:bg-[#241a1f]/50 transition-colors">
+                          <td className="px-6 py-4">
+                            <p className="font-medium text-white">{u.name}</p>
+                          </td>
+                          <td className="px-6 py-4 text-gray-300">{u.email}</td>
+                          <td className="px-6 py-4">
+                            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold ${
+                              u.role === 'super_admin'
+                                ? 'bg-purple-500/20 text-purple-400'
+                                : u.role === 'company_admin'
+                                ? 'bg-gold-500/20 text-gold-400'
+                                : 'bg-gray-500/20 text-gray-400'
+                            }`}>
+                              {u.role === 'super_admin' ? 'Super Admin' : u.role === 'company_admin' ? 'Company Admin' : 'User'}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 text-gray-300">{u.companyName || '—'}</td>
+                          <td className="px-6 py-4">
+                            <div className="flex items-center justify-end gap-2">
+                              <button
+                                onClick={() => handleEditUser(u)}
+                                className="p-2 hover:bg-[#F5A623]/20 rounded-lg text-[#F5A623] transition-all"
+                                title="Edit user"
+                              >
+                                <Edit className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => handleDeleteUser(u.id)}
+                                className="p-2 hover:bg-red-500/20 rounded-lg text-red-400 transition-all"
+                                title="Delete user"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/* User Modal */}
+                {showUserModal && (
+                  <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+                    <div className="bg-[#241a1f] border border-[#A43850]/20 rounded-2xl p-8 max-w-md w-full mx-4">
+                      <h3 className="text-2xl font-bold text-white mb-6">{editingUser ? 'Edit User' : 'Add User'}</h3>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Name</label>
+                          <input
+                            type="text"
+                            value={userForm.name}
+                            onChange={(e) => setUserForm({ ...userForm, name: e.target.value })}
+                            className="w-full px-4 py-2 bg-[#1a1118] border border-[#A43850]/30 rounded-lg text-white"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Email</label>
+                          <input
+                            type="email"
+                            value={userForm.email}
+                            onChange={(e) => setUserForm({ ...userForm, email: e.target.value })}
+                            className="w-full px-4 py-2 bg-[#1a1118] border border-[#A43850]/30 rounded-lg text-white"
+                          />
+                        </div>
+                        {!editingUser && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                            <input
+                              type="password"
+                              value={userForm.password}
+                              onChange={(e) => setUserForm({ ...userForm, password: e.target.value })}
+                              className="w-full px-4 py-2 bg-[#1a1118] border border-[#A43850]/30 rounded-lg text-white"
+                            />
+                          </div>
+                        )}
+                        <div>
+                          <label className="block text-sm font-medium text-gray-300 mb-2">Role</label>
+                          <select
+                            value={userForm.role}
+                            onChange={(e) => setUserForm({ ...userForm, role: e.target.value as User['role'] })}
+                            className="w-full px-4 py-2 bg-[#1a1118] border border-[#A43850]/30 rounded-lg text-white"
+                          >
+                            <option value="user">User</option>
+                            <option value="company_admin">Company Admin</option>
+                            <option value="super_admin">Super Admin</option>
+                          </select>
+                        </div>
+                        {userForm.role !== 'super_admin' && (
+                          <div>
+                            <label className="block text-sm font-medium text-gray-300 mb-2">Company</label>
+                            <select
+                              value={userForm.companyId}
+                              onChange={(e) => setUserForm({ ...userForm, companyId: e.target.value })}
+                              className="w-full px-4 py-2 bg-[#1a1118] border border-[#A43850]/30 rounded-lg text-white"
+                            >
+                              <option value="">Select company...</option>
+                              <option value="1">Iron Horse Midstream</option>
+                            </select>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex gap-3 mt-6">
+                        <button
+                          onClick={handleSaveUser}
+                          className="flex-1 bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-6 py-2.5 rounded-xl font-semibold transition-all"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={() => setShowUserModal(false)}
+                          className="flex-1 bg-gray-600 hover:bg-gray-700 text-white px-6 py-2.5 rounded-xl font-semibold transition-all"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -351,10 +618,260 @@ export default function SuperAdmin() {
               </div>
             )}
 
-            {activeTab === 'permits' && (
+            {activeTab === 'settings' && (
               <div>
-                <h3 className="text-xl font-bold text-white mb-4">System Settings</h3>
-                <p className="text-gray-400">Configure global settings and preferences.</p>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white mb-2">Global Settings</h3>
+                  <p className="text-sm text-gray-400">Configure AI API keys, database credentials, and GitHub access</p>
+                </div>
+
+                <div className="space-y-6">
+                  {/* AI API Configuration */}
+                  <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 p-6">
+                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Brain className="w-5 h-5 text-[#F5A623]" />
+                      AI API Configuration
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">OpenAI API Key</label>
+                        <input
+                          type="password"
+                          value={aiSettings.openaiKey}
+                          onChange={(e) => setAiSettings({ ...aiSettings, openaiKey: e.target.value })}
+                          placeholder="sk-..."
+                          className="w-full px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">For GPT-4o, Whisper transcription</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Anthropic API Key</label>
+                        <input
+                          type="password"
+                          value={aiSettings.anthropicKey}
+                          onChange={(e) => setAiSettings({ ...aiSettings, anthropicKey: e.target.value })}
+                          placeholder="sk-ant-..."
+                          className="w-full px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">For Claude Opus/Sonnet</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Database Configuration */}
+                  <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 p-6">
+                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <FileText className="w-5 h-5 text-[#F5A623]" />
+                      Database Configuration (Supabase)
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Project URL</label>
+                        <input
+                          type="text"
+                          value={aiSettings.supabaseUrl}
+                          onChange={(e) => setAiSettings({ ...aiSettings, supabaseUrl: e.target.value })}
+                          placeholder="https://your-project.supabase.co"
+                          className="w-full px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Anon Key (Public)</label>
+                        <input
+                          type="password"
+                          value={aiSettings.supabaseAnonKey}
+                          onChange={(e) => setAiSettings({ ...aiSettings, supabaseAnonKey: e.target.value })}
+                          placeholder="eyJhbGciOiJI..."
+                          className="w-full px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Service Role Key (Admin)</label>
+                        <input
+                          type="password"
+                          value={aiSettings.supabaseServiceKey}
+                          onChange={(e) => setAiSettings({ ...aiSettings, supabaseServiceKey: e.target.value })}
+                          placeholder="eyJhbGciOiJI..."
+                          className="w-full px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* GitHub Configuration */}
+                  <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 p-6">
+                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Settings className="w-5 h-5 text-[#F5A623]" />
+                      GitHub Repository
+                    </h4>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Repository URL</label>
+                        <input
+                          type="text"
+                          value={aiSettings.githubRepo}
+                          readOnly
+                          className="w-full px-4 py-2 bg-[#241a1f]/50 border border-[#A43850]/20 rounded-lg text-gray-400 cursor-not-allowed"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">Pre-configured repository</p>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-300 mb-2">Personal Access Token</label>
+                        <input
+                          type="password"
+                          value={aiSettings.githubToken}
+                          onChange={(e) => setAiSettings({ ...aiSettings, githubToken: e.target.value })}
+                          placeholder="ghp_..."
+                          className="w-full px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">For AI to read repo structure</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Save Button */}
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={handleSaveSettings}
+                      className="bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-8 py-3 rounded-xl font-semibold transition-all shadow-lg hover:shadow-[#A43850]/50"
+                    >
+                      Save Settings
+                    </button>
+                    {settingsSaved && (
+                      <span className="flex items-center gap-2 text-green-400 text-sm font-medium">
+                        <CheckCircle2 className="w-4 h-4" />
+                        Saved successfully!
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'aiAssistant' && (
+              <div>
+                <div className="mb-6">
+                  <h3 className="text-xl font-bold text-white mb-2">AI Assistant</h3>
+                  <p className="text-sm text-gray-400">Chat with AI that has database and GitHub access, or upload permit PDFs for processing</p>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Info Banner */}
+                  <div className="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 flex items-start gap-3">
+                    <Info className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm text-blue-300 font-medium">AI Assistant Capabilities</p>
+                      <p className="text-xs text-blue-400 mt-1">
+                        This AI has access to your database schema, GitHub repository, and can extract permit requirements from uploaded PDFs.
+                        Configure API keys in Settings to enable.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* PDF Upload */}
+                  <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 p-6">
+                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Upload className="w-5 h-5 text-[#F5A623]" />
+                      Upload Permit PDF
+                    </h4>
+                    <div className="border-2 border-dashed border-[#A43850]/30 rounded-xl p-6 text-center">
+                      {!uploadedPdf ? (
+                        <>
+                          <Upload className="w-12 h-12 text-gray-500 mx-auto mb-3" />
+                          <p className="text-sm text-gray-400 mb-3">Drag and drop or click to upload PDF</p>
+                          <input
+                            type="file"
+                            accept="application/pdf"
+                            onChange={handlePdfUpload}
+                            className="hidden"
+                            id="pdf-upload"
+                          />
+                          <label
+                            htmlFor="pdf-upload"
+                            className="inline-block px-4 py-2 bg-[#A43850] hover:bg-[#8b2f43] text-white rounded-lg cursor-pointer transition-all"
+                          >
+                            Choose PDF File
+                          </label>
+                        </>
+                      ) : (
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <FileText className="w-8 h-8 text-[#F5A623]" />
+                            <div className="text-left">
+                              <p className="text-sm font-semibold text-white">{uploadedPdf.name}</p>
+                              <p className="text-xs text-gray-400">{(uploadedPdf.size / 1024 / 1024).toFixed(2)} MB</p>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => setUploadedPdf(null)}
+                            className="p-2 hover:bg-red-500/20 rounded-lg text-red-400 transition-all"
+                          >
+                            <X className="w-5 h-5" />
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Chat Interface */}
+                  <div className="bg-[#1a1118] rounded-xl border border-[#A43850]/20 p-6">
+                    <h4 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                      <Brain className="w-5 h-5 text-[#F5A623]" />
+                      Chat with AI
+                    </h4>
+                    
+                    {/* Messages */}
+                    <div className="bg-[#241a1f] rounded-xl p-4 mb-4 h-96 overflow-y-auto">
+                      {aiMessages.length === 0 ? (
+                        <div className="h-full flex items-center justify-center text-center">
+                          <div>
+                            <Brain className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                            <p className="text-gray-400 text-sm">Start a conversation with the AI Assistant</p>
+                            <p className="text-gray-500 text-xs mt-2">Ask about database schema, system updates, or permit processing</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="space-y-4">
+                          {aiMessages.map((msg, i) => (
+                            <div
+                              key={i}
+                              className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                            >
+                              <div
+                                className={`max-w-[80%] px-4 py-3 rounded-xl ${
+                                  msg.role === 'user'
+                                    ? 'bg-gradient-to-r from-[#A43850] to-[#8b2f43] text-white'
+                                    : 'bg-[#1a1118] text-gray-300 border border-[#A43850]/20'
+                                }`}
+                              >
+                                <p className="text-sm">{msg.content}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Input */}
+                    <div className="flex gap-2">
+                      <input
+                        type="text"
+                        value={aiInput}
+                        onChange={(e) => setAiInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
+                        placeholder="Type your message..."
+                        className="flex-1 px-4 py-2 bg-[#241a1f] border border-[#A43850]/30 rounded-lg text-white placeholder-gray-500"
+                      />
+                      <button
+                        onClick={handleSendMessage}
+                        className="px-6 py-2 bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white rounded-lg transition-all flex items-center gap-2"
+                      >
+                        <Send className="w-4 h-4" />
+                        Send
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
           </div>
