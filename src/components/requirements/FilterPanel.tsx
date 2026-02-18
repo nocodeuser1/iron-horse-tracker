@@ -25,9 +25,9 @@ const EQUIPMENT_TYPES: EquipmentType[] = [
 ];
 
 const STATUSES: { value: RequirementStatus; label: string; color: string }[] = [
-  { value: 'completed', label: 'Completed', color: 'text-green-600' },
-  { value: 'pending', label: 'Pending', color: 'text-yellow-600' },
-  { value: 'overdue', label: 'Overdue', color: 'text-red-600' },
+  { value: 'completed', label: 'Completed', color: 'text-green-600 dark:text-green-400' },
+  { value: 'pending', label: 'Pending', color: 'text-yellow-600 dark:text-yellow-400' },
+  { value: 'overdue', label: 'Overdue', color: 'text-red-600 dark:text-red-400' },
 ];
 
 function FilterSection({
@@ -41,10 +41,10 @@ function FilterSection({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-gray-100 last:border-0">
+    <div className="border-b border-gray-100 dark:border-dark-border last:border-0">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full py-3 text-sm font-semibold text-gray-700 hover:text-gray-900"
+        className="flex items-center justify-between w-full py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
       >
         {title}
         <ChevronDown
@@ -68,14 +68,14 @@ function Checkbox({
   colorClass?: string;
 }) {
   return (
-    <label className="flex items-center gap-2.5 py-1 px-1 rounded hover:bg-gray-50 cursor-pointer text-sm">
+    <label className="flex items-center gap-2.5 py-1 px-1 rounded hover:bg-gray-50 dark:hover:bg-dark-surface cursor-pointer text-sm">
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="rounded border-gray-300 text-burgundy-500 focus:ring-burgundy-500 w-4 h-4"
+        className="rounded border-gray-300 dark:border-gray-600 text-burgundy-500 focus:ring-burgundy-500 w-4 h-4"
       />
-      <span className={colorClass || 'text-gray-700'}>{label}</span>
+      <span className={colorClass || 'text-gray-700 dark:text-gray-300'}>{label}</span>
     </label>
   );
 }
@@ -100,9 +100,9 @@ export function FilterPanel({ recurrenceOptions }: { recurrenceOptions: string[]
     filters.dateRange.end;
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+    <div className="bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-100 dark:border-dark-border p-4">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="font-semibold text-gray-900 text-sm">Filters</h3>
+        <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Filters</h3>
         {hasFilters && (
           <button
             onClick={resetFilters}
@@ -162,25 +162,25 @@ export function FilterPanel({ recurrenceOptions }: { recurrenceOptions: string[]
       <FilterSection title="Date Range">
         <div className="space-y-2">
           <div>
-            <label className="text-xs text-gray-500">From</label>
+            <label className="text-xs text-gray-500 dark:text-gray-400">From</label>
             <input
               type="date"
               value={filters.dateRange.start || ''}
               onChange={(e) =>
                 setDateRange(e.target.value || null, filters.dateRange.end)
               }
-              className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-500"
+              className="w-full px-3 py-1.5 border border-gray-200 dark:border-dark-border rounded-lg text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-burgundy-500"
             />
           </div>
           <div>
-            <label className="text-xs text-gray-500">To</label>
+            <label className="text-xs text-gray-500 dark:text-gray-400">To</label>
             <input
               type="date"
               value={filters.dateRange.end || ''}
               onChange={(e) =>
                 setDateRange(filters.dateRange.start, e.target.value || null)
               }
-              className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-500"
+              className="w-full px-3 py-1.5 border border-gray-200 dark:border-dark-border rounded-lg text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-burgundy-500"
             />
           </div>
         </div>

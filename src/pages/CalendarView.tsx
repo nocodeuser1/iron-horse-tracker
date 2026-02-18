@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CalendarDays } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { useRequirements } from '../lib/hooks/useRequirements';
 import { useStore } from '../lib/store';
@@ -38,22 +38,17 @@ export function CalendarView() {
 
   const prev = () =>
     setCurrent((c) =>
-      c.month === 0
-        ? { year: c.year - 1, month: 11 }
-        : { ...c, month: c.month - 1 }
+      c.month === 0 ? { year: c.year - 1, month: 11 } : { ...c, month: c.month - 1 }
     );
   const next = () =>
     setCurrent((c) =>
-      c.month === 11
-        ? { year: c.year + 1, month: 0 }
-        : { ...c, month: c.month + 1 }
+      c.month === 11 ? { year: c.year + 1, month: 0 } : { ...c, month: c.month + 1 }
     );
   const goToday = () => {
     const now = new Date();
     setCurrent({ year: now.getFullYear(), month: now.getMonth() });
   };
 
-  // Build calendar grid
   const { days, eventsByDate } = useMemo(() => {
     const firstDay = new Date(current.year, current.month, 1);
     const lastDay = new Date(current.year, current.month + 1, 0);
@@ -65,7 +60,6 @@ export function CalendarView() {
     for (let i = 1; i <= totalDays; i++) days.push(i);
     while (days.length % 7 !== 0) days.push(null);
 
-    // Map events to dates
     const eventsByDate: Record<number, PermitRequirement[]> = {};
     filtered.forEach((r) => {
       if (!r.neededBy) return;
@@ -90,8 +84,8 @@ export function CalendarView() {
     <div className="space-y-6">
       <DetailDrawer />
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Calendar</h1>
-        <p className="text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Calendar</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">
           View upcoming requirements and deadlines
         </p>
       </div>
@@ -99,7 +93,7 @@ export function CalendarView() {
       {/* Legend */}
       <div className="flex flex-wrap gap-3">
         {Object.entries(typeColor).map(([type, color]) => (
-          <div key={type} className="flex items-center gap-1.5 text-xs text-gray-600">
+          <div key={type} className="flex items-center gap-1.5 text-xs text-gray-600 dark:text-gray-400">
             <div className={`w-3 h-3 rounded-full ${color}`} />
             {type}
           </div>
@@ -107,55 +101,49 @@ export function CalendarView() {
       </div>
 
       {/* Calendar Card */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-sm border border-gray-100 dark:border-dark-border overflow-hidden">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-dark-border">
           <div className="flex items-center gap-3">
             <button
               onClick={prev}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-dark-surface rounded-lg transition-colors"
             >
-              <ChevronLeft className="w-5 h-5 text-gray-600" />
+              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
             </button>
-            <h2 className="text-lg font-semibold text-gray-900 min-w-[180px] text-center">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white min-w-[180px] text-center">
               {MONTHS[current.month]} {current.year}
             </h2>
             <button
               onClick={next}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 dark:hover:bg-dark-surface rounded-lg transition-colors"
             >
-              <ChevronRight className="w-5 h-5 text-gray-600" />
+              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
             </button>
           </div>
           <button
             onClick={goToday}
-            className="text-sm font-medium text-gold-500 hover:text-gold-600 px-3 py-1.5 rounded-lg hover:bg-burgundy-50 transition-colors"
+            className="text-sm font-medium text-gold-500 hover:text-gold-600 px-3 py-1.5 rounded-lg hover:bg-burgundy-50 dark:hover:bg-burgundy-900/30 transition-colors"
           >
             Today
           </button>
         </div>
 
-        {/* Day headers */}
-        <div className="grid grid-cols-7 border-b border-gray-100">
+        <div className="grid grid-cols-7 border-b border-gray-100 dark:border-dark-border">
           {DAYS.map((d) => (
-            <div
-              key={d}
-              className="py-2 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider"
-            >
+            <div key={d} className="py-2 text-center text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
               {d}
             </div>
           ))}
         </div>
 
-        {/* Days grid */}
         <div className="grid grid-cols-7">
           {days.map((day, i) => {
             const events = day ? eventsByDate[day] || [] : [];
             return (
               <div
                 key={i}
-                className={`min-h-[100px] md:min-h-[120px] border-b border-r border-gray-50 p-1.5 ${
-                  !day ? 'bg-gray-50/50' : 'hover:bg-burgundy-50/20'
+                className={`min-h-[100px] md:min-h-[120px] border-b border-r border-gray-50 dark:border-dark-border p-1.5 ${
+                  !day ? 'bg-gray-50/50 dark:bg-dark-surface/30' : 'hover:bg-burgundy-50/20 dark:hover:bg-burgundy-900/10'
                 } ${i % 7 === 0 ? 'border-l-0' : ''}`}
               >
                 {day && (
@@ -164,13 +152,12 @@ export function CalendarView() {
                       className={`text-sm font-medium mb-1 w-7 h-7 flex items-center justify-center rounded-full ${
                         isToday(day)
                           ? 'bg-burgundy-500 text-white'
-                          : 'text-gray-700'
+                          : 'text-gray-700 dark:text-gray-300'
                       }`}
                     >
                       {day}
                     </div>
                     <div className="space-y-0.5">
-                      {/* Desktop: show event pills */}
                       {events.slice(0, 3).map((r) => (
                         <button
                           key={r.id}
@@ -183,20 +170,17 @@ export function CalendarView() {
                         </button>
                       ))}
                       {events.length > 3 && (
-                        <p className="hidden md:block text-[10px] text-gray-500 px-1">
+                        <p className="hidden md:block text-[10px] text-gray-500 dark:text-gray-400 px-1">
                           +{events.length - 3} more
                         </p>
                       )}
-                      {/* Mobile: dots */}
                       {events.length > 0 && (
                         <div className="flex gap-0.5 md:hidden flex-wrap">
                           {events.slice(0, 4).map((r) => (
                             <button
                               key={r.id}
                               onClick={() => openDetail(r)}
-                              className={`w-2 h-2 rounded-full ${
-                                typeDot[r.typeOfAction] || 'bg-gray-400'
-                              }`}
+                              className={`w-2 h-2 rounded-full ${typeDot[r.typeOfAction] || 'bg-gray-400'}`}
                             />
                           ))}
                         </div>
@@ -210,9 +194,9 @@ export function CalendarView() {
         </div>
       </div>
 
-      {/* Events list for current month (mobile-friendly) */}
+      {/* Mobile event list */}
       <div className="md:hidden space-y-3">
-        <h3 className="text-sm font-semibold text-gray-700">
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
           Events this month
         </h3>
         {Object.entries(eventsByDate)
@@ -224,30 +208,26 @@ export function CalendarView() {
                 <button
                   key={r.id}
                   onClick={() => openDetail(r)}
-                  className="w-full text-left bg-white rounded-lg shadow-sm border border-gray-100 p-3 hover:shadow-md transition-shadow"
+                  className="w-full text-left bg-white dark:bg-dark-card rounded-lg shadow-sm border border-gray-100 dark:border-dark-border p-3 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className={`w-2.5 h-2.5 rounded-full ${
-                        typeColor[r.typeOfAction] || 'bg-gray-400'
-                      }`}
-                    />
-                    <span className="text-xs font-medium text-gray-500">
+                    <div className={`w-2.5 h-2.5 rounded-full ${typeColor[r.typeOfAction] || 'bg-gray-400'}`} />
+                    <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
                       {MONTHS[current.month]} {day}
                     </span>
                     <span
                       className={`ml-auto text-xs font-medium capitalize px-2 py-0.5 rounded ${
                         status === 'completed'
-                          ? 'bg-green-100 text-green-700'
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
                           : status === 'overdue'
-                          ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
+                          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                          : 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
                       }`}
                     >
                       {status}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-900 line-clamp-1">
+                  <p className="text-sm text-gray-900 dark:text-gray-200 line-clamp-1">
                     {r.action.slice(0, 100)}
                   </p>
                 </button>
@@ -255,9 +235,10 @@ export function CalendarView() {
             })
           )}
         {Object.keys(eventsByDate).length === 0 && (
-          <p className="text-sm text-gray-400 text-center py-4">
-            No events this month
-          </p>
+          <div className="text-center py-8">
+            <CalendarDays className="w-10 h-10 text-gray-300 dark:text-gray-600 mx-auto mb-2" />
+            <p className="text-sm text-gray-400 dark:text-gray-500">No events this month</p>
+          </div>
         )}
       </div>
     </div>
