@@ -1,64 +1,11 @@
-import { Navigate, Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useAuthStore } from '../lib/authStore';
-import { Building2, Users, Settings, LogOut, MessageSquare, Plus, Trash2, Edit2, Save, X, Upload } from 'lucide-react';
+import { Building2, Users, FileText, Settings, LogOut } from 'lucide-react';
 import { useState } from 'react';
-
-type Tab = 'companies' | 'users' | 'settings' | 'ai-assistant';
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: 'super_admin' | 'company_admin' | 'user';
-  companyId?: string;
-  companyName?: string;
-}
 
 export default function SuperAdmin() {
   const { user, isSuperAdmin, logout } = useAuthStore();
-  const [activeTab, setActiveTab] = useState<Tab>('companies');
-  
-  // User Management State
-  const [users, setUsers] = useState<User[]>([
-    {
-      id: '1',
-      email: 'israel@baberenvironmental.com',
-      name: 'Israel',
-      role: 'super_admin',
-    },
-    {
-      id: '2',
-      email: 'admin@visualpermit.com',
-      name: 'Super Admin',
-      role: 'super_admin',
-    },
-    {
-      id: '3',
-      email: 'scott@baberenvironmental.com',
-      name: 'Scott',
-      role: 'company_admin',
-      companyId: 'iron-horse-1',
-      companyName: 'Iron Horse Midstream',
-    },
-  ]);
-  const [showUserModal, setShowUserModal] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
-  
-  // Settings State
-  const [aiSettings, setAiSettings] = useState({
-    openaiKey: '',
-    anthropicKey: '',
-    supabaseUrl: '',
-    supabaseAnonKey: '',
-    supabaseServiceKey: '',
-    githubRepo: 'https://github.com/nocodeuser1/iron-horse-tracker',
-    githubToken: '',
-  });
-  
-  // AI Assistant State
-  const [aiMessages, setAiMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([]);
-  const [aiInput, setAiInput] = useState('');
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [activeTab, setActiveTab] = useState<'companies' | 'users' | 'permits'>('companies');
 
   // Only super admins can access this page
   if (!isSuperAdmin()) {
@@ -70,87 +17,19 @@ export default function SuperAdmin() {
     window.location.href = '/';
   };
 
-  // User Management Handlers
-  const handleAddUser = () => {
-    setEditingUser({
-      id: '',
-      email: '',
-      name: '',
-      role: 'user',
-      companyId: '',
-      companyName: '',
-    });
-    setShowUserModal(true);
-  };
-
-  const handleEditUser = (user: User) => {
-    setEditingUser(user);
-    setShowUserModal(true);
-  };
-
-  const handleSaveUser = () => {
-    if (!editingUser) return;
-    
-    if (editingUser.id) {
-      // Update existing user
-      setUsers(users.map(u => u.id === editingUser.id ? editingUser : u));
-    } else {
-      // Add new user
-      setUsers([...users, { ...editingUser, id: Date.now().toString() }]);
-    }
-    setShowUserModal(false);
-    setEditingUser(null);
-  };
-
-  const handleDeleteUser = (userId: string) => {
-    if (confirm('Are you sure you want to delete this user?')) {
-      setUsers(users.filter(u => u.id !== userId));
-    }
-  };
-
-  // Settings Handlers
-  const handleSaveSettings = () => {
-    console.log('Saving settings:', aiSettings);
-    alert('Settings saved successfully!');
-  };
-
-  // AI Assistant Handlers
-  const handleSendMessage = () => {
-    if (!aiInput.trim()) return;
-    
-    setAiMessages([
-      ...aiMessages,
-      { role: 'user', content: aiInput },
-      { 
-        role: 'assistant', 
-        content: 'AI Assistant is not yet connected. Please configure AI settings in the Settings tab and provide valid API keys.' 
-      },
-    ]);
-    setAiInput('');
-  };
-
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && file.type === 'application/pdf') {
-      setUploadedFile(file);
-    } else {
-      alert('Please upload a PDF file');
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d] page-transition">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d]">
       {/* Navbar */}
       <nav className="bg-[#241a1f]/80 backdrop-blur-sm border-b border-[#A43850]/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <Link to="/" className="flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <img src="/visualpermit-logo.png" alt="VisualPermit.com" className="h-10" />
               <div className="hidden sm:block">
                 <h1 className="text-lg font-bold text-white leading-tight">Super Admin Panel</h1>
                 <p className="text-xs text-gray-400 leading-tight">Manage all companies & users</p>
               </div>
-            </Link>
+            </div>
             <div className="flex items-center gap-4">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-medium text-white">{user?.name}</p>
@@ -177,12 +56,11 @@ export default function SuperAdmin() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {[
             { label: 'Total Companies', value: '1', icon: Building2, color: '#A43850' },
-            { label: 'Total Users', value: users.length.toString(), icon: Users, color: '#F5A623' },
-            { label: 'Super Admins', value: users.filter(u => u.role === 'super_admin').length.toString(), icon: Settings, color: '#8b2f43' },
-            { label: 'Active Permits', value: '30', icon: Building2, color: '#A43850' },
+            { label: 'Total Users', value: '1', icon: Users, color: '#F5A623' },
+            { label: 'Active Permits', value: '30', icon: FileText, color: '#8b2f43' },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -206,17 +84,16 @@ export default function SuperAdmin() {
 
         {/* Tabs */}
         <div className="bg-[#241a1f] border border-[#A43850]/20 rounded-2xl overflow-hidden">
-          <div className="border-b border-[#A43850]/20 flex overflow-x-auto">
+          <div className="border-b border-[#A43850]/20 flex">
             {[
-              { id: 'companies' as Tab, label: 'Companies', icon: Building2 },
-              { id: 'users' as Tab, label: 'Users', icon: Users },
-              { id: 'settings' as Tab, label: 'Settings', icon: Settings },
-              { id: 'ai-assistant' as Tab, label: 'AI Assistant', icon: MessageSquare },
+              { id: 'companies', label: 'Companies', icon: Building2 },
+              { id: 'users', label: 'Users', icon: Users },
+              { id: 'permits', label: 'System Settings', icon: Settings },
             ].map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex-1 px-6 py-4 font-medium transition-all whitespace-nowrap ${
+                onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                className={`flex-1 px-6 py-4 font-medium transition-all ${
                   activeTab === tab.id
                     ? 'bg-[#A43850]/20 text-[#F5A623] border-b-2 border-[#F5A623]'
                     : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -224,7 +101,7 @@ export default function SuperAdmin() {
               >
                 <div className="flex items-center justify-center gap-2">
                   <tab.icon className="w-4 h-4" />
-                  <span className="hidden sm:inline">{tab.label}</span>
+                  {tab.label}
                 </div>
               </button>
             ))}
