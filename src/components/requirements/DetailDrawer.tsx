@@ -2,7 +2,7 @@ import { X, Calendar, FileText, Tag, Clock, CheckCircle2, AlertTriangle, Check }
 import { useStore } from '../../lib/store';
 import { useDataStore } from '../../lib/dataStore';
 import { getStatus } from '../../lib/utils/requirements';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 const statusConfig = {
@@ -12,14 +12,21 @@ const statusConfig = {
 };
 
 export function DetailDrawer() {
-  const { selectedRequirement: r, detailOpen, closeDetail, openDetail } = useStore();
+  const { selectedRequirement: r, detailOpen, closeDetail } = useStore();
   const toggleCompleted = useDataStore((s) => s.toggleCompleted);
-  const requirements = useDataStore((s) => s.requirements);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [localCompleted, setLocalCompleted] = useState(false);
+  
+  useEffect(() => {
+    setLocalCompleted(!!r?.completedDate);
+  }, [r?.completedDate]);
   
   const handleToggle = () => {
-    toggleCompleted(r!.id);
-    const updated = requirements.find((req) => req.id === r!.id);
-    if (updated) openDetail(updated);
+    if (!r) return;
+    setIsAnimating(true);
+    setLocalCompleted(!localCompleted);
+    toggleCompleted(r.id);
+    setTimeout(() => setIsAnimating(false), 600);
   };
 
   useEffect(() => {
@@ -51,19 +58,12 @@ export function DetailDrawer() {
       <div className="relative w-full max-w-3xl max-h-[92vh] z-10">
         <div className="bg-white dark:bg-dark-card shadow-2xl rounded-3xl border border-gray-200 dark:border-dark-border overflow-hidden animate-scale-in">
         {/* Header */}
-        <div className="relative bg-gradient-to-br from-burgundy-50 to-gold-50/30 dark:from-burgundy-950/40 dark:to-gold-950/20 px-8 py-6 border-b border-gray-200 dark:border-dark-border">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1 space-y-3">
-              <div className="flex items-center gap-3">
-                <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold shadow-sm ${cfg.color}`}>
-                  <StatusIcon className="w-4 h-4" />
-                  {cfg.label}
-                </span>
-                <span className="px-3 py-1.5 bg-white/60 dark:bg-dark-surface/60 backdrop-blur-sm rounded-lg text-xs font-mono text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-dark-border">
-                  {r.id.slice(0, 8)}
-                </span>
-              </div>
-            </div>
+        <div className="relative bg-gradient-to-br from-burgundy-50 to-gold-50/30 dark:from-burgundy-950/40 dark:to-gold-950/20 px-8 py-5 border-b border-gray-200 dark:border-dark-border">
+          <div className="flex items-center justify-between gap-4">
+            <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold shadow-sm ${cfg.color}`}>
+              <StatusIcon className="w-4 h-4" />
+              {cfg.label}
+            </span>
             <button
               onClick={closeDetail}
               className="p-2.5 hover:bg-white dark:hover:bg-dark-surface rounded-xl transition-all hover:scale-105 active:scale-95 group"
@@ -76,14 +76,19 @@ export function DetailDrawer() {
         <div className="p-8 space-y-8 max-h-[calc(92vh-140px)] overflow-y-auto">
           <button
             onClick={handleToggle}
-            className={`w-full flex items-center justify-center gap-3 px-6 py-4 rounded-2xl font-semibold text-base transition-all shadow-lg hover:shadow-xl active:scale-[0.98] ${
-              r.completedDate
-                ? 'bg-gradient-to-r from-gray-100 to-gray-50 dark:from-dark-surface dark:to-dark-surface/80 text-gray-700 dark:text-gray-200 hover:from-gray-200 hover:to-gray-100 dark:hover:from-dark-surface/90 dark:hover:to-dark-surface border-2 border-gray-200 dark:border-dark-border'
+            className={`relative overflow-hidden flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-lg active:scale-[0.97] ${
+              localCompleted
+                ? 'bg-gradient-to-r from-green-500 to-green-600 text-white border-2 border-green-400/50'
                 : 'bg-gradient-to-r from-gold-500 to-gold-600 text-white hover:from-gold-600 hover:to-gold-700 border-2 border-gold-400/50'
             }`}
           >
-            <Check className="w-5 h-5" />
-            {r.completedDate ? 'Mark as Incomplete' : 'Mark as Complete'}
+            {isAnimating && !r.completedDate && (
+              <div className="absolute inset-0 bg-green-500 animate-pulse" />
+            )}
+            <Check className={`w-4 h-4 relative z-10 transition-all duration-300 ${isAnimating && !r.completedDate ? 'scale-150 rotate-12' : ''}`} />
+            <span className="relative z-10">
+              {localCompleted ? 'Mark as Incomplete' : 'Mark as Complete'}
+            </span>
           </button>
 
           <div className="flex flex-wrap gap-3">
