@@ -15,6 +15,7 @@ export function DetailDrawer() {
   const { selectedRequirement: r, detailOpen, closeDetail } = useStore();
   const toggleCompleted = useDataStore((s) => s.toggleCompleted);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showCenterCheck, setShowCenterCheck] = useState(false);
   const [localCompleted, setLocalCompleted] = useState(false);
   
   useEffect(() => {
@@ -23,10 +24,25 @@ export function DetailDrawer() {
   
   const handleToggle = () => {
     if (!r) return;
-    setIsAnimating(true);
+    
+    if (!localCompleted) {
+      // Marking as complete - show animation
+      setIsAnimating(true);
+      setShowCenterCheck(true);
+      
+      // Center check pops for 500ms, then fades
+      setTimeout(() => {
+        setShowCenterCheck(false);
+      }, 500);
+      
+      // Complete the animation
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 900);
+    }
+    
     setLocalCompleted(!localCompleted);
     toggleCompleted(r.id);
-    setTimeout(() => setIsAnimating(false), 600);
   };
 
   useEffect(() => {
@@ -76,17 +92,30 @@ export function DetailDrawer() {
         <div className="p-8 space-y-8 max-h-[calc(92vh-140px)] overflow-y-auto">
           <button
             onClick={handleToggle}
-            className={`relative overflow-hidden flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-lg active:scale-[0.97] ${
+            className={`relative overflow-hidden flex items-center justify-center gap-2.5 px-5 py-3 rounded-xl font-semibold text-sm transition-all duration-500 shadow-md hover:shadow-lg active:scale-[0.97] ${
               localCompleted
                 ? 'bg-gradient-to-r from-green-500 to-green-600 text-white border-2 border-green-400/50'
                 : 'bg-gradient-to-r from-gold-500 to-gold-600 text-white hover:from-gold-600 hover:to-gold-700 border-2 border-gold-400/50'
             }`}
           >
-            {isAnimating && !r.completedDate && (
-              <div className="absolute inset-0 bg-green-500 animate-pulse" />
+            {/* Center pop animation */}
+            {showCenterCheck && (
+              <div className="absolute inset-0 flex items-center justify-center z-20 animate-[scale-pop_0.5s_ease-out]">
+                <Check className="w-16 h-16 text-white drop-shadow-lg" />
+              </div>
             )}
-            <Check className={`w-4 h-4 relative z-10 transition-all duration-300 ${isAnimating && !r.completedDate ? 'scale-150 rotate-12' : ''}`} />
-            <span className="relative z-10">
+            
+            {/* Background flash */}
+            {isAnimating && (
+              <div className="absolute inset-0 bg-green-400 animate-[flash_0.6s_ease-out] z-0" />
+            )}
+            
+            {/* Normal checkmark - slides in from center after pop */}
+            <Check className={`w-4 h-4 relative z-10 transition-all duration-500 ${
+              showCenterCheck ? 'opacity-0 scale-150' : localCompleted ? 'opacity-100 scale-100' : 'opacity-100 scale-100'
+            }`} />
+            
+            <span className="relative z-10 transition-opacity duration-300">
               {localCompleted ? 'Mark as Incomplete' : 'Mark as Complete'}
             </span>
           </button>
