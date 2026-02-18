@@ -52,11 +52,18 @@ export default function Login() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <Link to="/" className="inline-block mb-6 cursor-pointer hover:opacity-90 transition-opacity">
+          <Link to="/" className="inline-block cursor-pointer hover:opacity-90 transition-opacity">
+            <div className="mb-4">
+              <img
+                src="/vp-logo-only.png"
+                alt="Visual Permit"
+                className="h-32 w-auto mx-auto"
+              />
+            </div>
             <img
               src="/visualpermit-logo-new.png"
               alt="VisualPermit.com"
-              className="h-24 w-auto mx-auto"
+              className="h-16 w-auto mx-auto mb-6"
             />
           </Link>
           <p className="text-gray-400">Sign in to your account</p>
