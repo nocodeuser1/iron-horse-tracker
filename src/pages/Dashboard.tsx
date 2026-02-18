@@ -20,6 +20,8 @@ import { useRequirements } from '../lib/hooks/useRequirements';
 import { getMetrics, getStatus } from '../lib/utils/requirements';
 import { useMemo } from 'react';
 import { useDarkMode } from '../lib/darkMode';
+import { useNavigate } from 'react-router-dom';
+import { useStore } from '../lib/store';
 
 const PIE_COLORS = ['#A43850', '#F5A623', '#8B3346', '#F7B84D', '#C4546E', '#D4901E'];
 const BAR_COLOR = '#A43850';
@@ -28,6 +30,42 @@ export function Dashboard() {
   const { all: requirements } = useRequirements();
   const metrics = useMemo(() => getMetrics(requirements), [requirements]);
   const { dark } = useDarkMode();
+  const navigate = useNavigate();
+  const { setFilters, resetFilters } = useStore();
+
+  const handleCardClick = (cardLabel: string) => {
+    resetFilters(); // Clear existing filters first
+    
+    const now = new Date();
+    const firstOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    
+    switch (cardLabel) {
+      case 'Total Requirements':
+        // Show all - no filters
+        break;
+      case 'Due This Month':
+        // Filter by date range for this month
+        setFilters({
+          dateRange: {
+            start: firstOfMonth.toISOString().split('T')[0],
+            end: lastOfMonth.toISOString().split('T')[0],
+          },
+          statuses: ['pending'],
+        });
+        break;
+      case 'Overdue':
+        // Filter by overdue status
+        setFilters({ statuses: ['overdue'] });
+        break;
+      case 'Compliance Score':
+        // Show completed items
+        setFilters({ statuses: ['completed'] });
+        break;
+    }
+    
+    navigate('/requirements');
+  };
 
   const byType = useMemo(() => {
     const map: Record<string, number> = {};
@@ -121,9 +159,10 @@ export function Dashboard() {
       {/* Metrics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((card, i) => (
-          <div
+          <button
             key={card.label}
-            className={`${card.bg} rounded-xl border border-gray-100 dark:border-dark-border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-slide-up stagger-${i + 1}`}
+            onClick={() => handleCardClick(card.label)}
+            className={`${card.bg} rounded-xl border border-gray-100 dark:border-dark-border p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 hover:scale-105 animate-slide-up stagger-${i + 1} cursor-pointer text-left w-full`}
           >
             <div className="flex items-center justify-between">
               <div>
@@ -132,11 +171,11 @@ export function Dashboard() {
                   {card.value}
                 </p>
               </div>
-              <div className={`${card.color} p-3 rounded-xl shadow-sm`}>
+              <div className={`${card.color} p-3 rounded-xl shadow-sm transition-transform group-hover:scale-110`}>
                 <card.icon className="w-6 h-6 text-white" />
               </div>
             </div>
-          </div>
+          </button>
         ))}
       </div>
 
