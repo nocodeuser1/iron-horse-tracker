@@ -80,7 +80,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-2">
             <Link to="/" className="flex items-center transition-opacity hover:opacity-90">
-              <img src="/visualpermit-logo-new.png" alt="VisualPermit.com" className="h-12" />
+              <img src="/visualpermit-logo-new.png" alt="VisualPermit.com" className="h-12 w-auto" />
             </Link>
             <div className="flex items-center gap-4">
               <Link

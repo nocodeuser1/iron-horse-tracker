@@ -56,7 +56,7 @@ export default function Login() {
             <img
               src="/visualpermit-logo-new.png"
               alt="VisualPermit.com"
-              className="h-32 mx-auto"
+              className="h-24 w-auto mx-auto"
             />
           </Link>
           <p className="text-gray-400">Sign in to your account</p>

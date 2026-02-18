@@ -67,7 +67,7 @@ export default function SuperAdmin() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-3">
-              <img src="/visualpermit-logo-new.png" alt="VisualPermit.com" className="h-10" />
+              <img src="/visualpermit-logo-new.png" alt="VisualPermit.com" className="h-10 w-auto" />
               <div className="hidden sm:block pl-3 border-l border-white/20">
                 <h2 className="text-lg font-bold text-white leading-tight">Super Admin Panel</h2>
                 <p className="text-xs text-gray-400 leading-tight">Manage all companies & users</p>
