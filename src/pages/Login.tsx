@@ -56,12 +56,9 @@ export default function Login() {
             <img
               src="/visualpermit-logo.png"
               alt="VisualPermit.com"
-              className="h-72 mx-auto mb-4 cursor-pointer hover:opacity-90 transition-opacity"
+              className="h-72 mx-auto mb-6 cursor-pointer hover:opacity-90 transition-opacity"
             />
           </Link>
-          <h1 className="text-2xl font-bold text-white mb-2">
-            Environmental Compliance Platform
-          </h1>
           <p className="text-gray-400">Sign in to your account</p>
         </div>
 
