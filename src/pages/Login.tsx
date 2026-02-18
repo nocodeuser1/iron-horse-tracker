@@ -11,9 +11,14 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // If already authenticated, redirect to dashboard
+  // If already authenticated, redirect based on role
   if (isAuthenticated) {
-    return <Navigate to="/" replace />;
+    const { user } = useAuthStore.getState();
+    if (user?.role === 'super_admin') {
+      return <Navigate to="/admin-baber" replace />;
+    } else {
+      return <Navigate to="/dashboard" replace />;
+    }
   }
 
   const handleSubmit = async (e: FormEvent) => {
@@ -27,7 +32,15 @@ export default function Login() {
     const success = login(email, password);
 
     if (success) {
-      navigate('/', { replace: true });
+      // Get the user after login to check role
+      const { user } = useAuthStore.getState();
+      
+      // Redirect based on role
+      if (user?.role === 'super_admin') {
+        navigate('/admin-baber', { replace: true });
+      } else {
+        navigate('/', { replace: true });
+      }
     } else {
       setError('Invalid email or password');
       setLoading(false);

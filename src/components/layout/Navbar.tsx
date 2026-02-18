@@ -19,7 +19,7 @@ import { useAuthStore } from '../../lib/authStore';
 import { useState, useEffect, useRef } from 'react';
 
 const navItems = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { to: '/requirements', label: 'Requirements', icon: ClipboardList },
   { to: '/calendar', label: 'Calendar', icon: Calendar },
   { to: '/ai-chat', label: 'AI Assistant', icon: MessageSquare },
@@ -60,7 +60,7 @@ export function Navbar() {
     <nav className="bg-burgundy-500 dark:bg-burgundy-900 text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <NavLink to="/" className="flex items-center gap-3 group">
+          <NavLink to="/dashboard" className="flex items-center gap-3 group">
             <img
               src="/IH White Logo.png"
               alt="Iron Horse Midstream"

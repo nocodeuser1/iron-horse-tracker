@@ -7,7 +7,10 @@ import { CalendarView } from './pages/CalendarView';
 import { AIChat } from './pages/AIChat';
 import { SettingsPage } from './pages/SettingsPage';
 import Login from './pages/Login';
+import LandingPage from './pages/LandingPage';
+import SuperAdmin from './pages/SuperAdmin';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import SuperAdminRoute from './components/auth/SuperAdminRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -23,10 +26,21 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          {/* Public route */}
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           
-          {/* Protected routes */}
+          {/* Super Admin route */}
+          <Route
+            path="/admin-baber"
+            element={
+              <SuperAdminRoute>
+                <SuperAdmin />
+              </SuperAdminRoute>
+            }
+          />
+          
+          {/* Company app routes (protected) */}
           <Route
             element={
               <ProtectedRoute>
@@ -34,7 +48,7 @@ export default function App() {
               </ProtectedRoute>
             }
           >
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/requirements" element={<Requirements />} />
             <Route path="/calendar" element={<CalendarView />} />
             <Route path="/ai-chat" element={<AIChat />} />
