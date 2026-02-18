@@ -53,9 +53,11 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block mb-6 cursor-pointer hover:opacity-90 transition-opacity">
-            <h1 className="text-6xl font-black bg-gradient-to-r from-[#A43850] to-[#F5A623] bg-clip-text text-transparent">
-              VisualPermit.com
-            </h1>
+            <img
+              src="/visualpermit-logo-new.png"
+              alt="VisualPermit.com"
+              className="h-32 mx-auto"
+            />
           </Link>
           <p className="text-gray-400">Sign in to your account</p>
         </div>

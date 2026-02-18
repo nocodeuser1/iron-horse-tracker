@@ -639,9 +639,11 @@ export function SettingsPage() {
                     Powered by
                   </p>
                   <div className="flex justify-center">
-                    <h3 className="text-3xl font-black bg-gradient-to-r from-burgundy-500 to-gold-500 bg-clip-text text-transparent">
-                      VisualPermit.com
-                    </h3>
+                    <img
+                      src="/visualpermit-logo-new.png"
+                      alt="VisualPermit.com"
+                      className="h-16 w-auto"
+                    />
                   </div>
                   <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
                     Environmental Compliance Management Platform
