@@ -175,19 +175,19 @@ export default function LandingPage() {
                 
                 {/* Metric Cards */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
-                  <div className="bg-gradient-to-br from-[#A43850]/40 to-[#72293A]/40 border border-[#A43850]/50 rounded-xl p-3">
+                  <div className="bg-gradient-to-br from-[#A43850]/40 to-[#72293A]/40 border border-[#A43850]/50 rounded-xl p-3 animate-card-pop animate-card-delay-1">
                     <div className="text-xs text-gray-400 mb-1">Total</div>
                     <div className="text-2xl font-bold text-white">156</div>
                     <div className="text-xs text-[#F5A623] mt-1">Requirements</div>
                   </div>
                   
-                  <div className="bg-gradient-to-br from-[#F5A623]/30 to-[#F7B84D]/30 border border-[#F5A623]/40 rounded-xl p-3">
+                  <div className="bg-gradient-to-br from-[#F5A623]/30 to-[#F7B84D]/30 border border-[#F5A623]/40 rounded-xl p-3 animate-card-pop animate-card-delay-2">
                     <div className="text-xs text-gray-400 mb-1">Due Soon</div>
                     <div className="text-2xl font-bold text-white">23</div>
                     <div className="text-xs text-[#F5A623] mt-1">This Month</div>
                   </div>
                   
-                  <div className="bg-gradient-to-br from-green-900/30 to-green-950/30 border border-green-800/40 rounded-xl p-3">
+                  <div className="bg-gradient-to-br from-green-900/30 to-green-950/30 border border-green-800/40 rounded-xl p-3 animate-card-pop animate-card-delay-3">
                     <div className="text-xs text-gray-400 mb-1">Score</div>
                     <div className="text-2xl font-bold text-white">94%</div>
                     <div className="text-xs text-green-400 mt-1">Compliant</div>
@@ -196,16 +196,64 @@ export default function LandingPage() {
                 
                 {/* Charts Row */}
                 <div className="grid grid-cols-2 gap-4 mb-4">
-                  {/* Pie Chart Placeholder */}
+                  {/* Pie Chart with Animation */}
                   <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4">
                     <div className="text-xs text-gray-400 mb-3">By Type</div>
-                    <div className="aspect-square bg-gradient-to-br from-[#A43850]/20 to-[#F5A623]/20 rounded-full"></div>
+                    <svg viewBox="0 0 100 100" className="w-full aspect-square animate-pie-draw">
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#A43850"
+                        strokeWidth="20"
+                        strokeDasharray="88 252"
+                        transform="rotate(-90 50 50)"
+                        className="animate-draw-segment-1"
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#F5A623"
+                        strokeWidth="20"
+                        strokeDasharray="63 252"
+                        strokeDashoffset="-88"
+                        transform="rotate(-90 50 50)"
+                        className="animate-draw-segment-2"
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#72293A"
+                        strokeWidth="20"
+                        strokeDasharray="50 252"
+                        strokeDashoffset="-151"
+                        transform="rotate(-90 50 50)"
+                        className="animate-draw-segment-3"
+                      />
+                      <circle
+                        cx="50"
+                        cy="50"
+                        r="40"
+                        fill="none"
+                        stroke="#F7B84D"
+                        strokeWidth="20"
+                        strokeDasharray="51 252"
+                        strokeDashoffset="-201"
+                        transform="rotate(-90 50 50)"
+                        className="animate-draw-segment-4"
+                      />
+                    </svg>
                   </div>
                   
-                  {/* Line Chart Placeholder */}
+                  {/* Line Chart with Animation */}
                   <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4">
                     <div className="text-xs text-gray-400 mb-3">Trend</div>
-                    <div className="h-20 bg-gradient-to-t from-[#F5A623]/40 to-transparent rounded"></div>
+                    <div className="h-20 bg-gradient-to-t from-[#F5A623]/40 to-transparent rounded animate-grow-up"></div>
                   </div>
                 </div>
                 
@@ -213,12 +261,12 @@ export default function LandingPage() {
                 <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4 mb-4">
                   <div className="text-xs text-gray-400 mb-3">Monthly Activity</div>
                   <div className="flex items-end gap-1.5 h-20">
-                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '45%'}}></div>
-                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '60%'}}></div>
-                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '35%'}}></div>
-                    <div className="flex-1 bg-gradient-to-t from-[#F5A623] to-[#F7B84D] rounded-t shadow-lg" style={{height: '90%'}}></div>
-                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '72%'}}></div>
-                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t" style={{height: '80%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t animate-bar-grow animate-bar-delay-1" style={{height: '45%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t animate-bar-grow animate-bar-delay-2" style={{height: '60%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t animate-bar-grow animate-bar-delay-3" style={{height: '35%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#F5A623] to-[#F7B84D] rounded-t shadow-lg animate-bar-grow animate-bar-delay-4" style={{height: '90%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t animate-bar-grow animate-bar-delay-5" style={{height: '72%'}}></div>
+                    <div className="flex-1 bg-gradient-to-t from-[#A43850] to-[#8B3346] rounded-t animate-bar-grow animate-bar-delay-6" style={{height: '80%'}}></div>
                   </div>
                 </div>
                 
@@ -393,6 +441,110 @@ export default function LandingPage() {
         .animate-slide-up-delay-2 {
           animation: slideUp 0.8s ease-out 0.8s both;
         }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .animate-scale-in {
+          animation: scaleIn 0.6s ease-out 0.5s both;
+        }
+
+        @keyframes drawSegment {
+          from {
+            stroke-dashoffset: 252;
+            opacity: 0;
+          }
+          to {
+            stroke-dashoffset: var(--dash-offset, 0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes growUp {
+          from {
+            transform: scaleY(0);
+            opacity: 0;
+          }
+          to {
+            transform: scaleY(1);
+            opacity: 1;
+          }
+        }
+
+        .animate-pie-draw {
+          animation: scaleIn 0.6s ease-out 0.7s both;
+        }
+
+        .animate-draw-segment-1 {
+          stroke-dashoffset: 252;
+          animation: drawSegment 1s ease-out 1s forwards;
+          --dash-offset: 0;
+        }
+
+        .animate-draw-segment-2 {
+          stroke-dashoffset: 252;
+          animation: drawSegment 1s ease-out 1.2s forwards;
+          --dash-offset: -88;
+        }
+
+        .animate-draw-segment-3 {
+          stroke-dashoffset: 252;
+          animation: drawSegment 1s ease-out 1.4s forwards;
+          --dash-offset: -151;
+        }
+
+        .animate-draw-segment-4 {
+          stroke-dashoffset: 252;
+          animation: drawSegment 1s ease-out 1.6s forwards;
+          --dash-offset: -201;
+        }
+
+        .animate-grow-up {
+          transform-origin: bottom;
+          animation: growUp 0.8s ease-out 1.2s both;
+        }
+
+        .animate-bar-grow {
+          transform-origin: bottom;
+          animation: growUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .animate-bar-delay-1 { animation-delay: 1.8s; }
+        .animate-bar-delay-2 { animation-delay: 1.9s; }
+        .animate-bar-delay-3 { animation-delay: 2.0s; }
+        .animate-bar-delay-4 { animation-delay: 2.1s; }
+        .animate-bar-delay-5 { animation-delay: 2.2s; }
+        .animate-bar-delay-6 { animation-delay: 2.3s; }
+
+        @keyframes cardPop {
+          from {
+            opacity: 0;
+            transform: scale(0.8) translateY(10px);
+          }
+          50% {
+            transform: scale(1.05) translateY(0);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+          }
+        }
+
+        .animate-card-pop {
+          animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .animate-card-delay-1 { animation-delay: 0.8s; }
+        .animate-card-delay-2 { animation-delay: 0.9s; }
+        .animate-card-delay-3 { animation-delay: 1.0s; }
 
         * {
           transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
