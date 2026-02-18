@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../lib/authStore';
 import { Building2, Users, FileText, Settings, LogOut } from 'lucide-react';
 import { useState } from 'react';
@@ -18,18 +18,18 @@ export default function SuperAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d]">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d] page-transition">
       {/* Navbar */}
       <nav className="bg-[#241a1f]/80 backdrop-blur-sm border-b border-[#A43850]/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <img src="/visualpermit-logo.png" alt="VisualPermit.com" className="h-10" />
               <div className="hidden sm:block">
                 <h1 className="text-lg font-bold text-white leading-tight">Super Admin Panel</h1>
                 <p className="text-xs text-gray-400 leading-tight">Manage all companies & users</p>
               </div>
-            </div>
+            </Link>
             <div className="flex items-center gap-4">
               <div className="text-right hidden sm:block">
                 <p className="text-sm font-medium text-white">{user?.name}</p>

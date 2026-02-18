@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../lib/authStore';
+import { Upload, Calendar, BarChart3, Filter, CheckCircle, Building2, Bell, Palette, Shield } from 'lucide-react';
 
 export default function LandingPage() {
   const { isAuthenticated, isSuperAdmin, isCompanyUser } = useAuthStore();
@@ -15,19 +16,76 @@ export default function LandingPage() {
     }
   }
 
+  const features = [
+    {
+      icon: Upload,
+      title: 'Permit Upload & Setup',
+      description: 'Upload any permit PDF (Title V, PBR, NSR, etc.) and our team will extract requirements, deadlines, and facility data for you.',
+      gradient: 'from-[#A43850] to-[#8b2f43]',
+    },
+    {
+      icon: Calendar,
+      title: 'Smart Calendar',
+      description: 'Beautiful calendar view with color-coded events. Overdue alerts, automatic reminders, and deadline tracking keep you compliant.',
+      gradient: 'from-[#F5A623] to-[#F7B84D]',
+    },
+    {
+      icon: BarChart3,
+      title: 'Real-Time Dashboard',
+      description: 'Live metrics, overdue tracking, compliance scores. Beautiful charts give instant insights into your operations.',
+      gradient: 'from-[#A43850] to-[#8b2f43]',
+    },
+    {
+      icon: Filter,
+      title: 'Advanced Filtering',
+      description: 'Filter by action type, equipment, frequency, or status. Powerful search finds exactly what you need instantly.',
+      gradient: 'from-[#F5A623] to-[#F7B84D]',
+    },
+    {
+      icon: CheckCircle,
+      title: 'Completion Tracking',
+      description: 'Mark complete with date logging and file uploads. Perfect audit trail for inspections and compliance reviews.',
+      gradient: 'from-[#A43850] to-[#8b2f43]',
+    },
+    {
+      icon: Building2,
+      title: 'Multi-Facility',
+      description: 'Manage multiple facilities with custom branding. Switch between sites seamlessly in one platform.',
+      gradient: 'from-[#F5A623] to-[#F7B84D]',
+    },
+    {
+      icon: Bell,
+      title: 'Smart Notifications',
+      description: 'In-app notifications keep you updated on permit status, upcoming deadlines, and team activity. Never miss important updates.',
+      gradient: 'from-[#A43850] to-[#8b2f43]',
+    },
+    {
+      icon: Palette,
+      title: 'Custom Branding',
+      description: 'Upload your company logo and colors. Each facility gets its own branded environment with your identity.',
+      gradient: 'from-[#F5A623] to-[#F7B84D]',
+    },
+    {
+      icon: Shield,
+      title: 'Enterprise Security',
+      description: 'Role-based access, audit trails, and secure file storage. Your permit data is protected with enterprise-grade security.',
+      gradient: 'from-[#A43850] to-[#8b2f43]',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d]">
-      {/* Simple navbar */}
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d] page-transition">
+      {/* Navigation */}
       <nav className="glass sticky top-0 z-50 bg-[#241a1f]/80 backdrop-blur-sm border-b border-[#A43850]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-2">
-            <div className="flex items-center -ml-2">
+            <Link to="/" className="flex items-center -ml-2 transition-opacity hover:opacity-90">
               <img src="/visualpermit-logo.png" alt="VisualPermit.com" className="h-20" />
-            </div>
+            </Link>
             <div className="flex items-center gap-4">
               <Link
                 to="/login"
-                className="bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-[#A43850]/50"
+                className="bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-[#A43850]/50 transform hover:scale-105"
               >
                 Sign In
               </Link>
@@ -40,25 +98,25 @@ export default function LandingPage() {
       <section className="relative py-20 lg:py-32 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white animate-fade-in">
               Environmental Compliance
               <br />
               Made <span className="gradient-text">Visual</span>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-delay">
               Upload any permit PDF. We extract requirements, track deadlines, and ensure
               compliance—all in one beautiful, intelligent platform.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-delay-2">
               <Link
                 to="/login"
-                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition transform hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105"
               >
                 Get Started
                 <svg
-                  className="w-5 h-5"
+                  className="w-5 h-5 transition-transform group-hover:translate-x-1"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -71,19 +129,25 @@ export default function LandingPage() {
                   ></path>
                 </svg>
               </Link>
+              <a
+                href="#features"
+                className="inline-flex items-center justify-center gap-2 glass text-white px-8 py-4 rounded-xl font-bold text-lg border border-[#A43850]/50 hover:border-[#A43850] transition-all duration-300"
+              >
+                Learn More
+              </a>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 mt-16 max-w-2xl mx-auto">
-              <div className="text-center">
+              <div className="text-center animate-slide-up">
                 <div className="text-3xl font-black text-[#F5A623]">100%</div>
                 <div className="text-sm text-gray-400 mt-1">Automated</div>
               </div>
-              <div className="text-center">
+              <div className="text-center animate-slide-up-delay">
                 <div className="text-3xl font-black text-[#F5A623]">Zero</div>
                 <div className="text-sm text-gray-400 mt-1">Missed Deadlines</div>
               </div>
-              <div className="text-center">
+              <div className="text-center animate-slide-up-delay-2">
                 <div className="text-3xl font-black text-[#F5A623]">$79</div>
                 <div className="text-sm text-gray-400 mt-1">Per Month</div>
               </div>
@@ -93,38 +157,79 @@ export default function LandingPage() {
       </section>
 
       {/* Features Grid */}
-      <section className="py-20 bg-[#241a1f]/40">
+      <section id="features" className="py-20 bg-[#241a1f]/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white text-center mb-12">
-            Everything You Need
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Smart Tracking',
-                description: 'Never miss a deadline with intelligent requirement tracking',
-                icon: '📊',
-              },
-              {
-                title: 'Custom Branding',
-                description: 'Upload your company logo and make it yours',
-                icon: '🎨',
-              },
-              {
-                title: 'Team Collaboration',
-                description: 'Manage multiple users and roles effortlessly',
-                icon: '👥',
-              },
-            ].map((feature) => (
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Everything You Need for Compliance
+            </h2>
+            <p className="text-xl text-gray-400">
+              Powerful features that make environmental compliance effortless
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, index) => (
               <div
                 key={feature.title}
-                className="bg-[#241a1f] border border-[#A43850]/20 rounded-2xl p-6 hover:border-[#A43850]/40 transition-all"
+                className="bg-[#241a1f] border border-[#A43850]/20 rounded-2xl p-8 hover:border-[#A43850]/60 transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-[#A43850]/20 group"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="text-4xl mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                <p className="text-gray-400">{feature.description}</p>
+                <div className={`w-14 h-14 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
+                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+              Simple, Transparent Pricing
+            </h2>
+            <p className="text-xl text-gray-400">
+              One plan. Full features. No hidden fees.
+            </p>
+          </div>
+
+          <div className="max-w-lg mx-auto">
+            <div className="bg-gradient-to-br from-[#A43850] to-[#8b2f43] rounded-3xl p-8 border-2 border-[#F5A623] shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-white mb-2">Enterprise Tier</h3>
+                <p className="text-white/80">Full-featured compliance management</p>
+              </div>
+              <div className="text-center mb-8">
+                <span className="text-6xl font-black text-white">$79</span>
+                <span className="text-2xl text-white/80">/month</span>
+              </div>
+              <ul className="space-y-4 mb-8">
+                {[
+                  'Unlimited permits & requirements',
+                  'Multi-facility support',
+                  'Custom branding',
+                  'Smart notifications',
+                  'Advanced filtering',
+                  'Priority support',
+                  'Audit trail & compliance reporting',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-white">
+                    <CheckCircle className="w-5 h-5 text-[#F5A623] flex-shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/login"
+                className="w-full block text-center bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all duration-300 transform hover:scale-105"
+              >
+                Get Started Today
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -148,6 +253,57 @@ export default function LandingPage() {
         .glass {
           background: rgba(36, 26, 31, 0.6);
           backdrop-filter: blur(20px);
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-fade-in {
+          animation: fadeIn 0.8s ease-out;
+        }
+
+        .animate-fade-in-delay {
+          animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .animate-fade-in-delay-2 {
+          animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .animate-slide-up {
+          animation: slideUp 0.8s ease-out 0.6s both;
+        }
+
+        .animate-slide-up-delay {
+          animation: slideUp 0.8s ease-out 0.7s both;
+        }
+
+        .animate-slide-up-delay-2 {
+          animation: slideUp 0.8s ease-out 0.8s both;
+        }
+
+        * {
+          transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
       `}</style>
     </div>

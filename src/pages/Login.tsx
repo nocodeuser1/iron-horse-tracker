@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import { useAuthStore } from '../lib/authStore';
 
 export default function Login() {
@@ -48,15 +48,17 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-[#0f0a0d] via-[#1a1118] to-[#0f0a0d] flex items-center justify-center p-4 page-transition">
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <img
-            src="/visualpermit-logo.png"
-            alt="VisualPermit.com"
-            className="h-24 mx-auto mb-4"
-          />
+          <Link to="/">
+            <img
+              src="/visualpermit-logo.png"
+              alt="VisualPermit.com"
+              className="h-72 mx-auto mb-4 cursor-pointer hover:opacity-90 transition-opacity"
+            />
+          </Link>
           <h1 className="text-2xl font-bold text-white mb-2">
             Environmental Compliance Platform
           </h1>
