@@ -19,17 +19,17 @@ type SortKey = 'typeOfAction' | 'recurrence' | 'equipmentType' | 'neededBy' | 's
 type SortDir = 'asc' | 'desc';
 
 const statusColors: Record<string, string> = {
-  completed: 'bg-green-100 text-green-800',
+  completed: 'bg-gold-100 text-gold-700',
   pending: 'bg-yellow-100 text-yellow-800',
   overdue: 'bg-red-100 text-red-800',
 };
 
 const typeColors: Record<string, string> = {
-  'Event Actions': 'bg-blue-50 text-blue-700',
+  'Event Actions': 'bg-burgundy-100 text-burgundy-700',
   Inspections: 'bg-purple-50 text-purple-700',
   Samples: 'bg-teal-50 text-teal-700',
-  Tests: 'bg-orange-50 text-orange-700',
-  'Throughput Reports': 'bg-cyan-50 text-cyan-700',
+  Tests: 'bg-gold-100 text-gold-700',
+  'Throughput Reports': 'bg-burgundy-50 text-burgundy-600',
 };
 
 export function Requirements() {
@@ -76,9 +76,9 @@ export function Requirements() {
   const SortIcon = ({ col }: { col: SortKey }) => {
     if (sortKey !== col) return <ArrowUpDown className="w-3.5 h-3.5 text-gray-400" />;
     return sortDir === 'asc' ? (
-      <ArrowUp className="w-3.5 h-3.5 text-blue-600" />
+      <ArrowUp className="w-3.5 h-3.5 text-burgundy-500" />
     ) : (
-      <ArrowDown className="w-3.5 h-3.5 text-blue-600" />
+      <ArrowDown className="w-3.5 h-3.5 text-burgundy-500" />
     );
   };
 
@@ -105,7 +105,7 @@ export function Requirements() {
         </div>
         <button
           onClick={() => exportToCSV(sorted)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-burgundy-500 border border-burgundy-600 rounded-lg text-sm font-medium text-white hover:bg-burgundy-600 transition-colors shadow-sm"
         >
           <Download className="w-4 h-4" />
           Export CSV
@@ -121,7 +121,7 @@ export function Requirements() {
             placeholder="Search requirements, actions, equipment..."
             value={filters.searchQuery}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+            className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-500 focus:border-transparent shadow-sm"
           />
           {filters.searchQuery && (
             <button
@@ -136,14 +136,14 @@ export function Requirements() {
           onClick={() => setShowFilters(!showFilters)}
           className={`inline-flex items-center gap-2 px-4 py-2.5 border rounded-lg text-sm font-medium transition-colors shadow-sm ${
             showFilters || activeFilterCount > 0
-              ? 'bg-blue-50 border-blue-200 text-blue-700'
-              : 'bg-white border-gray-200 text-gray-700 hover:bg-gray-50'
+              ? 'bg-burgundy-50 border-burgundy-200 text-burgundy-700'
+              : 'bg-white border-gray-200 text-gray-700 hover:bg-burgundy-50'
           }`}
         >
           <Filter className="w-4 h-4" />
           Filters
           {activeFilterCount > 0 && (
-            <span className="bg-blue-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+            <span className="bg-burgundy-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
               {activeFilterCount}
             </span>
           )}
@@ -251,7 +251,7 @@ function RequirementRow({ r, onClick }: { r: PermitRequirement; onClick: () => v
   return (
     <tr
       onClick={onClick}
-      className="hover:bg-blue-50/30 transition-colors cursor-pointer"
+      className="hover:bg-burgundy-50/50 transition-colors cursor-pointer"
     >
       <td className="px-4 py-3">
         <span

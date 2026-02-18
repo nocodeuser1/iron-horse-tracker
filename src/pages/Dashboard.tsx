@@ -20,8 +20,8 @@ import { useRequirements } from '../lib/hooks/useRequirements';
 import { getMetrics, getStatus } from '../lib/utils/requirements';
 import { useMemo } from 'react';
 
-const PIE_COLORS = ['#2563eb', '#7c3aed', '#059669', '#d97706', '#dc2626', '#0891b2'];
-const BAR_COLOR = '#2563eb';
+const PIE_COLORS = ['#A43850', '#F5A623', '#8B3346', '#F7B84D', '#C4546E', '#D4901E'];
+const BAR_COLOR = '#A43850';
 
 export function Dashboard() {
   const { all: requirements } = useRequirements();
@@ -67,39 +67,39 @@ export function Dashboard() {
       label: 'Total Requirements',
       value: metrics.totalRequirements,
       icon: ClipboardCheck,
-      color: 'bg-blue-500',
-      bg: 'bg-blue-50',
+      color: 'bg-burgundy-500',
+      bg: 'bg-burgundy-50',
     },
     {
       label: 'Due This Month',
       value: metrics.dueThisMonth,
       icon: CalendarClock,
-      color: 'bg-amber-500',
-      bg: 'bg-amber-50',
+      color: 'bg-gold-500',
+      bg: 'bg-gold-50',
     },
     {
       label: 'Overdue',
       value: metrics.overdue,
       icon: AlertTriangle,
-      color: metrics.overdue > 0 ? 'bg-red-500' : 'bg-green-500',
-      bg: metrics.overdue > 0 ? 'bg-red-50' : 'bg-green-50',
+      color: metrics.overdue > 0 ? 'bg-red-500' : 'bg-gold-500',
+      bg: metrics.overdue > 0 ? 'bg-red-50' : 'bg-gold-50',
     },
     {
       label: 'Compliance Score',
       value: `${metrics.complianceScore}%`,
       icon: TrendingUp,
-      color: metrics.complianceScore >= 80 ? 'bg-green-500' : 'bg-orange-500',
-      bg: metrics.complianceScore >= 80 ? 'bg-green-50' : 'bg-orange-50',
+      color: metrics.complianceScore >= 80 ? 'bg-gold-500' : 'bg-orange-500',
+      bg: metrics.complianceScore >= 80 ? 'bg-gold-50' : 'bg-orange-50',
     },
   ];
 
   return (
     <div className="space-y-8">
       {/* Hero */}
-      <div className="bg-gradient-to-br from-[#1a2332] via-[#243447] to-[#2a3a52] rounded-2xl p-8 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#8B3346] via-[#A43850] to-[#C4546E] rounded-2xl p-8 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2em0wIDMwYzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
         <div className="relative flex items-center gap-4">
-          <img src="/IH_Logo.png" alt="" className="h-16 w-auto drop-shadow-lg" />
+          <img src="/IH White Logo.png" alt="" className="h-16 w-auto drop-shadow-lg" />
           <div>
             <h1 className="text-3xl font-bold tracking-tight">
               Title V Permit Tracker
@@ -235,7 +235,7 @@ export function Dashboard() {
               const urgency =
                 days <= 7 ? 'text-red-600 bg-red-50' :
                 days <= 30 ? 'text-amber-600 bg-amber-50' :
-                'text-blue-600 bg-blue-50';
+                'text-burgundy-600 bg-burgundy-50';
               return (
                 <div
                   key={r.id}

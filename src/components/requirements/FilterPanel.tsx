@@ -73,7 +73,7 @@ function Checkbox({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
+        className="rounded border-gray-300 text-burgundy-500 focus:ring-burgundy-500 w-4 h-4"
       />
       <span className={colorClass || 'text-gray-700'}>{label}</span>
     </label>
@@ -106,7 +106,7 @@ export function FilterPanel({ recurrenceOptions }: { recurrenceOptions: string[]
         {hasFilters && (
           <button
             onClick={resetFilters}
-            className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-800 font-medium"
+            className="flex items-center gap-1 text-xs text-burgundy-500 hover:text-burgundy-700 font-medium"
           >
             <RotateCcw className="w-3 h-3" />
             Reset
@@ -169,7 +169,7 @@ export function FilterPanel({ recurrenceOptions }: { recurrenceOptions: string[]
               onChange={(e) =>
                 setDateRange(e.target.value || null, filters.dateRange.end)
               }
-              className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-500"
             />
           </div>
           <div>
@@ -180,7 +180,7 @@ export function FilterPanel({ recurrenceOptions }: { recurrenceOptions: string[]
               onChange={(e) =>
                 setDateRange(filters.dateRange.start, e.target.value || null)
               }
-              className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-burgundy-500"
             />
           </div>
         </div>

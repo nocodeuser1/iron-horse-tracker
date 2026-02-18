@@ -13,19 +13,19 @@ const MONTHS = [
 ];
 
 const typeColor: Record<string, string> = {
-  'Event Actions': 'bg-blue-500',
+  'Event Actions': 'bg-burgundy-500',
   Inspections: 'bg-purple-500',
   Samples: 'bg-teal-500',
-  Tests: 'bg-orange-500',
-  'Throughput Reports': 'bg-cyan-500',
+  Tests: 'bg-gold-500',
+  'Throughput Reports': 'bg-burgundy-700',
 };
 
 const typeDot: Record<string, string> = {
-  'Event Actions': 'bg-blue-400',
+  'Event Actions': 'bg-burgundy-500',
   Inspections: 'bg-purple-400',
   Samples: 'bg-teal-400',
-  Tests: 'bg-orange-400',
-  'Throughput Reports': 'bg-cyan-400',
+  Tests: 'bg-gold-400',
+  'Throughput Reports': 'bg-burgundy-600',
 };
 
 export function CalendarView() {
@@ -129,7 +129,7 @@ export function CalendarView() {
           </div>
           <button
             onClick={goToday}
-            className="text-sm font-medium text-blue-600 hover:text-blue-800 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors"
+            className="text-sm font-medium text-gold-500 hover:text-gold-600 px-3 py-1.5 rounded-lg hover:bg-burgundy-50 transition-colors"
           >
             Today
           </button>
@@ -155,7 +155,7 @@ export function CalendarView() {
               <div
                 key={i}
                 className={`min-h-[100px] md:min-h-[120px] border-b border-r border-gray-50 p-1.5 ${
-                  !day ? 'bg-gray-50/50' : 'hover:bg-blue-50/20'
+                  !day ? 'bg-gray-50/50' : 'hover:bg-burgundy-50/20'
                 } ${i % 7 === 0 ? 'border-l-0' : ''}`}
               >
                 {day && (
@@ -163,7 +163,7 @@ export function CalendarView() {
                     <div
                       className={`text-sm font-medium mb-1 w-7 h-7 flex items-center justify-center rounded-full ${
                         isToday(day)
-                          ? 'bg-blue-600 text-white'
+                          ? 'bg-burgundy-500 text-white'
                           : 'text-gray-700'
                       }`}
                     >
