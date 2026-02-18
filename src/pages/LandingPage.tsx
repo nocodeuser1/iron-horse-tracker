@@ -95,7 +95,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 overflow-hidden">
+      <section className="relative py-12 lg:py-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Text Content */}
@@ -253,7 +253,48 @@ export default function LandingPage() {
                   {/* Line Chart with Animation */}
                   <div className="bg-gradient-to-br from-[#241a1f] to-[#2d1f26] border border-[#3d2a33] rounded-xl p-4">
                     <div className="text-xs text-gray-400 mb-3">Trend</div>
-                    <div className="h-20 bg-gradient-to-t from-[#F5A623]/40 to-transparent rounded animate-grow-up"></div>
+                    <svg viewBox="0 0 100 50" className="w-full h-20" preserveAspectRatio="none">
+                      {/* Grid lines */}
+                      <line x1="0" y1="10" x2="100" y2="10" stroke="#3d2a33" strokeWidth="0.5" />
+                      <line x1="0" y1="25" x2="100" y2="25" stroke="#3d2a33" strokeWidth="0.5" />
+                      <line x1="0" y1="40" x2="100" y2="40" stroke="#3d2a33" strokeWidth="0.5" />
+                      
+                      {/* Area under the line */}
+                      <path
+                        d="M 0,45 L 14,38 L 28,35 L 42,30 L 56,25 L 70,22 L 84,15 L 100,10 L 100,50 L 0,50 Z"
+                        fill="url(#lineGradient)"
+                        className="animate-line-area"
+                      />
+                      
+                      {/* The line itself */}
+                      <path
+                        d="M 0,45 L 14,38 L 28,35 L 42,30 L 56,25 L 70,22 L 84,15 L 100,10"
+                        fill="none"
+                        stroke="#F5A623"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="animate-line-draw"
+                      />
+                      
+                      {/* Data points */}
+                      <circle cx="0" cy="45" r="2" fill="#F5A623" className="animate-point animate-point-delay-1" />
+                      <circle cx="14" cy="38" r="2" fill="#F5A623" className="animate-point animate-point-delay-2" />
+                      <circle cx="28" cy="35" r="2" fill="#F5A623" className="animate-point animate-point-delay-3" />
+                      <circle cx="42" cy="30" r="2" fill="#F5A623" className="animate-point animate-point-delay-4" />
+                      <circle cx="56" cy="25" r="2" fill="#F5A623" className="animate-point animate-point-delay-5" />
+                      <circle cx="70" cy="22" r="2" fill="#F5A623" className="animate-point animate-point-delay-6" />
+                      <circle cx="84" cy="15" r="2" fill="#F5A623" className="animate-point animate-point-delay-7" />
+                      <circle cx="100" cy="10" r="2" fill="#F5A623" className="animate-point animate-point-delay-8" />
+                      
+                      {/* Gradient definition */}
+                      <defs>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor="#F5A623" stopOpacity="0.4" />
+                          <stop offset="100%" stopColor="#F5A623" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
                   </div>
                 </div>
                 
@@ -545,6 +586,68 @@ export default function LandingPage() {
         .animate-card-delay-1 { animation-delay: 0.8s; }
         .animate-card-delay-2 { animation-delay: 0.9s; }
         .animate-card-delay-3 { animation-delay: 1.0s; }
+
+        @keyframes lineDraw {
+          from {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            opacity: 0;
+          }
+          to {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 0;
+            opacity: 1;
+          }
+        }
+
+        @keyframes lineArea {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes pointPop {
+          from {
+            opacity: 0;
+            transform: scale(0);
+          }
+          50% {
+            transform: scale(1.3);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .animate-line-draw {
+          stroke-dasharray: 200;
+          stroke-dashoffset: 200;
+          animation: lineDraw 1.5s ease-out 1.2s forwards;
+        }
+
+        .animate-line-area {
+          opacity: 0;
+          animation: lineArea 0.8s ease-out 1.2s forwards;
+        }
+
+        .animate-point {
+          opacity: 0;
+          transform-origin: center;
+          animation: pointPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .animate-point-delay-1 { animation-delay: 1.4s; }
+        .animate-point-delay-2 { animation-delay: 1.5s; }
+        .animate-point-delay-3 { animation-delay: 1.6s; }
+        .animate-point-delay-4 { animation-delay: 1.7s; }
+        .animate-point-delay-5 { animation-delay: 1.8s; }
+        .animate-point-delay-6 { animation-delay: 1.9s; }
+        .animate-point-delay-7 { animation-delay: 2.0s; }
+        .animate-point-delay-8 { animation-delay: 2.1s; }
 
         * {
           transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
