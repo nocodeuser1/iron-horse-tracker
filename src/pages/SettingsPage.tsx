@@ -12,12 +12,15 @@ import {
   CheckCircle2,
   Moon,
   Sun,
+  FileText,
+  Sparkles,
 } from 'lucide-react';
 import { useDarkMode } from '../lib/darkMode';
+import { usePermitTypeStore } from '../lib/permitTypeStore';
 
-type Tab = 'permits' | 'notifications' | 'data' | 'about';
+type Tab = 'permitTypes' | 'actionTypes' | 'notifications' | 'data' | 'about';
 
-const DEFAULT_PERMIT_TYPES = [
+const DEFAULT_ACTION_TYPES = [
   'Event Actions',
   'Inspections',
   'Samples',
@@ -26,9 +29,17 @@ const DEFAULT_PERMIT_TYPES = [
 ];
 
 export function SettingsPage() {
-  const [activeTab, setActiveTab] = useState<Tab>('permits');
-  const [permitTypes, setPermitTypes] = useState(DEFAULT_PERMIT_TYPES);
-  const [newPermitType, setNewPermitType] = useState('');
+  const [activeTab, setActiveTab] = useState<Tab>('permitTypes');
+  
+  // Action Types (within a permit)
+  const [actionTypes, setActionTypes] = useState(DEFAULT_ACTION_TYPES);
+  const [newActionType, setNewActionType] = useState('');
+  
+  // Permit Types (global modes)
+  const { permitTypes, addPermitType, removePermitType } = usePermitTypeStore();
+  const [newPermitName, setNewPermitName] = useState('');
+  const [newPermitDesc, setNewPermitDesc] = useState('');
+  
   const [saved, setSaved] = useState(false);
   const { dark, toggle } = useDarkMode();
 
@@ -38,16 +49,26 @@ export function SettingsPage() {
   const [overdueOnly, setOverdueOnly] = useState(false);
   const [leadDays, setLeadDays] = useState('7');
 
-  const addPermitType = () => {
-    const trimmed = newPermitType.trim();
-    if (trimmed && !permitTypes.includes(trimmed)) {
-      setPermitTypes([...permitTypes, trimmed]);
-      setNewPermitType('');
+  const handleAddActionType = () => {
+    const trimmed = newActionType.trim();
+    if (trimmed && !actionTypes.includes(trimmed)) {
+      setActionTypes([...actionTypes, trimmed]);
+      setNewActionType('');
     }
   };
 
-  const removePermitType = (t: string) => {
-    setPermitTypes(permitTypes.filter((p) => p !== t));
+  const handleRemoveActionType = (t: string) => {
+    setActionTypes(actionTypes.filter((p) => p !== t));
+  };
+  
+  const handleAddPermitType = () => {
+    const name = newPermitName.trim();
+    const desc = newPermitDesc.trim();
+    if (name && desc) {
+      addPermitType(name, desc);
+      setNewPermitName('');
+      setNewPermitDesc('');
+    }
   };
 
   const showSaved = () => {
@@ -56,7 +77,8 @@ export function SettingsPage() {
   };
 
   const tabs: { id: Tab; label: string; icon: typeof Settings }[] = [
-    { id: 'permits', label: 'Permit Types', icon: Shield },
+    { id: 'permitTypes', label: 'Permit Types', icon: FileText },
+    { id: 'actionTypes', label: 'Action Types', icon: Shield },
     { id: 'notifications', label: 'Notifications', icon: Bell },
     { id: 'data', label: 'Import / Export', icon: Database },
     { id: 'about', label: 'About', icon: Info },
@@ -115,20 +137,108 @@ export function SettingsPage() {
         <div className="lg:col-span-3">
           <div className="bg-white dark:bg-dark-card rounded-2xl shadow-sm border border-gray-100 dark:border-dark-border p-6 animate-fade-in" key={activeTab}>
 
-            {/* Permit Types */}
-            {activeTab === 'permits' && (
+            {/* Permit Types - Global Mode Switcher */}
+            {activeTab === 'permitTypes' && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                    <FileText className="w-5 h-5" />
                     Permit Types
                   </h2>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    Manage the types of actions tracked in your permit system.
+                    Manage different permit programs. Switching permit type changes the entire app mode.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  {permitTypes.map((permit) => (
+                    <div
+                      key={permit.id}
+                      className="px-4 py-4 bg-gray-50 dark:bg-dark-surface rounded-xl border border-gray-200 dark:border-dark-border group hover:border-burgundy-300 dark:hover:border-burgundy-600 transition-colors"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2">
+                            <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                              {permit.name}
+                            </h3>
+                            {permit.id === 'title-v' && (
+                              <span className="px-2 py-0.5 bg-burgundy-100 dark:bg-burgundy-900/40 text-burgundy-700 dark:text-burgundy-300 text-xs font-medium rounded-md">
+                                Active Sample Data
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                            {permit.description}
+                          </p>
+                        </div>
+                        {!['title-v', 'pbr'].includes(permit.id) && (
+                          <button
+                            onClick={() => removePermitType(permit.id)}
+                            className="opacity-0 group-hover:opacity-100 p-1 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-all ml-2"
+                            aria-label={`Remove ${permit.name}`}
+                          >
+                            <X className="w-4 h-4" />
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="bg-gold-50 dark:bg-gold-900/20 border border-gold-200 dark:border-gold-700/30 rounded-xl p-4 flex gap-3">
+                  <Sparkles className="w-5 h-5 text-gold-600 dark:text-gold-400 shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-gold-800 dark:text-gold-200 mb-3">
+                      Add New Permit Type
+                    </p>
+                    <div className="space-y-2">
+                      <input
+                        type="text"
+                        value={newPermitName}
+                        onChange={(e) => setNewPermitName(e.target.value)}
+                        placeholder="Permit Type Name (e.g., NESHAP, PSD)..."
+                        className="w-full px-3 py-2 border border-gold-200 dark:border-gold-700/30 rounded-lg text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 outline-none"
+                      />
+                      <textarea
+                        value={newPermitDesc}
+                        onChange={(e) => setNewPermitDesc(e.target.value)}
+                        placeholder="Description for AI (e.g., what fields it needs, data structure, requirements...)..."
+                        rows={3}
+                        className="w-full px-3 py-2 border border-gold-200 dark:border-gold-700/30 rounded-lg text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500 outline-none resize-none"
+                      />
+                      <button
+                        onClick={handleAddPermitType}
+                        disabled={!newPermitName.trim() || !newPermitDesc.trim()}
+                        className="w-full px-4 py-2 bg-gold-500 hover:bg-gold-600 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg text-sm font-medium transition-all hover:shadow-md active:scale-95 flex items-center justify-center gap-2"
+                      >
+                        <Plus className="w-4 h-4" />
+                        Add Permit Type (Future: AI will structure data)
+                      </button>
+                    </div>
+                    <p className="text-xs text-gold-700 dark:text-gold-300 mt-2">
+                      In the future, the AI assistant will use your description to automatically restructure the backend for the new permit type.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Action Types - Types of Activities Within a Permit */}
+            {activeTab === 'actionTypes' && (
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                    <Shield className="w-5 h-5" />
+                    Action Types
+                  </h2>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    Manage the types of compliance actions tracked within the current permit.
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  {permitTypes.map((t) => (
+                  {actionTypes.map((t) => (
                     <div
                       key={t}
                       className="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-dark-surface rounded-xl group hover:bg-burgundy-50 dark:hover:bg-burgundy-900/20 transition-colors"
@@ -137,7 +247,7 @@ export function SettingsPage() {
                         {t}
                       </span>
                       <button
-                        onClick={() => removePermitType(t)}
+                        onClick={() => handleRemoveActionType(t)}
                         className="opacity-0 group-hover:opacity-100 p-1 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 text-red-500 transition-all"
                         aria-label={`Remove ${t}`}
                       >
@@ -150,14 +260,14 @@ export function SettingsPage() {
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    value={newPermitType}
-                    onChange={(e) => setNewPermitType(e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && addPermitType()}
-                    placeholder="Add new permit type..."
+                    value={newActionType}
+                    onChange={(e) => setNewActionType(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleAddActionType()}
+                    placeholder="Add new action type..."
                     className="flex-1 px-4 py-2.5 border border-gray-200 dark:border-dark-border rounded-xl text-sm bg-white dark:bg-dark-surface text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-2 focus:ring-burgundy-500/30 focus:border-burgundy-500 outline-none transition-all"
                   />
                   <button
-                    onClick={addPermitType}
+                    onClick={handleAddActionType}
                     className="px-4 py-2.5 bg-burgundy-500 hover:bg-burgundy-600 text-white rounded-xl text-sm font-medium transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
                   >
                     <Plus className="w-4 h-4" />
