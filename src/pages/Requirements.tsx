@@ -8,7 +8,7 @@ import {
   X,
   ClipboardList,
 } from 'lucide-react';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useRequirements, exportToCSV } from '../lib/hooks/useRequirements';
 import { useStore } from '../lib/store';
 import { getStatus } from '../lib/utils/requirements';
@@ -35,15 +35,30 @@ const typeColors: Record<string, string> = {
 
 export function Requirements() {
   const { all, filtered } = useRequirements();
-  const { setSearch, filters, openDetail } = useStore();
+  const { setSearch, filters, openDetail, resetFilters } = useStore();
   const [sortKey, setSortKey] = useState<SortKey>('neededBy');
   const [sortDir, setSortDir] = useState<SortDir>('asc');
   const [showFilters, setShowFilters] = useState(false);
+  const filterRef = useRef<HTMLDivElement>(null);
 
   const recurrenceOptions = useMemo(
     () => [...new Set(all.map((r) => r.recurrence))].sort(),
     [all]
   );
+  
+  // Auto-collapse filter panel on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        setShowFilters(false);
+      }
+    };
+    
+    if (showFilters) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [showFilters]);
 
   const sorted = useMemo(() => {
     const arr = [...filtered];
@@ -133,46 +148,40 @@ export function Requirements() {
             </button>
           )}
         </div>
-        <button
-          onClick={() => setShowFilters(!showFilters)}
-          className={`inline-flex items-center gap-2 px-4 py-2.5 border rounded-lg text-sm font-medium transition-colors shadow-sm ${
-            showFilters || activeFilterCount > 0
-              ? 'bg-burgundy-50 dark:bg-burgundy-900/40 border-burgundy-200 dark:border-burgundy-700 text-burgundy-700 dark:text-burgundy-200'
-              : 'bg-white dark:bg-dark-card border-gray-200 dark:border-dark-border text-gray-700 dark:text-gray-300 hover:bg-burgundy-50 dark:hover:bg-burgundy-900/20'
-          }`}
-        >
-          <Filter className="w-4 h-4" />
-          Filters
-          {activeFilterCount > 0 && (
-            <span className="bg-burgundy-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {activeFilterCount}
-            </span>
-          )}
-        </button>
+        <div className="relative" ref={filterRef}>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`inline-flex items-center gap-2 px-4 py-2.5 border rounded-lg text-sm font-medium transition-colors shadow-sm ${
+              showFilters || activeFilterCount > 0
+                ? 'bg-burgundy-50 dark:bg-burgundy-900/40 border-burgundy-200 dark:border-burgundy-700 text-burgundy-700 dark:text-burgundy-200'
+                : 'bg-white dark:bg-dark-card border-gray-200 dark:border-dark-border text-gray-700 dark:text-gray-300 hover:bg-burgundy-50 dark:hover:bg-burgundy-900/20'
+            }`}
+          >
+            <Filter className="w-4 h-4" />
+            Filters
+            {activeFilterCount > 0 && (
+              <>
+                <span className="bg-burgundy-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {activeFilterCount}
+                </span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    resetFilters();
+                    setShowFilters(false);
+                  }}
+                  className="p-1 hover:bg-burgundy-200 dark:hover:bg-burgundy-800 rounded-full transition-colors -mr-1"
+                  title="Clear all filters"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </>
+            )}
+          </button>
+        </div>
       </div>
 
       <div className="flex gap-6">
-        {showFilters && (
-          <div className="w-64 shrink-0 hidden lg:block">
-            <FilterPanel recurrenceOptions={recurrenceOptions} />
-          </div>
-        )}
-
-        {showFilters && (
-          <div className="fixed inset-0 z-40 lg:hidden">
-            <div className="absolute inset-0 bg-black/40" onClick={() => setShowFilters(false)} />
-            <div className="absolute left-0 top-0 bottom-0 w-80 bg-gray-50 dark:bg-dark-bg p-4 overflow-y-auto animate-slide-in-left">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Filters</h3>
-                <button onClick={() => setShowFilters(false)}>
-                  <X className="w-5 h-5 text-gray-500" />
-                </button>
-              </div>
-              <FilterPanel recurrenceOptions={recurrenceOptions} />
-            </div>
-          </div>
-        )}
-
         <div className="flex-1 min-w-0">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
             Showing {sorted.length} of {all.length} requirements
@@ -241,6 +250,29 @@ export function Requirements() {
             )}
           </div>
         </div>
+        
+        {/* Desktop Filter Panel - Right Side */}
+        {showFilters && (
+          <div className="w-64 shrink-0 hidden lg:block">
+            <FilterPanel recurrenceOptions={recurrenceOptions} />
+          </div>
+        )}
+        
+        {/* Mobile Filter Panel - Slide from Right */}
+        {showFilters && (
+          <div className="fixed inset-0 z-40 lg:hidden">
+            <div className="absolute inset-0 bg-black/40" onClick={() => setShowFilters(false)} />
+            <div className="absolute right-0 top-0 bottom-0 w-80 bg-gray-50 dark:bg-dark-bg p-4 overflow-y-auto animate-slide-in-right shadow-2xl">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900 dark:text-white">Filters</h3>
+                <button onClick={() => setShowFilters(false)}>
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
+              </div>
+              <FilterPanel recurrenceOptions={recurrenceOptions} />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
