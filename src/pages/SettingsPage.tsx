@@ -456,7 +456,7 @@ export function SettingsPage() {
                     <img
                       src="/visualpermit-logo.png"
                       alt="VisualPermit.com"
-                      className="h-16 w-auto"
+                      className="h-24 w-auto"
                     />
                   </div>
                   <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
