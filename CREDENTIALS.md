@@ -39,8 +39,15 @@ Password: myBaberPermitting26
 
 **Login URL:** https://visualpermit.com/login
 
+### Scott (Iron Horse Admin)
 ```
 Email:    scott@baberenvironmental.com
+Password: IHTempLogin26
+```
+
+### Sheila (Iron Horse Admin)
+```
+Email:    sheila@baberenvironmental.com
 Password: IHTempLogin26
 ```
 
@@ -158,7 +165,8 @@ Node version:     18 or 22 (NOT 25)
 |-----------|-------|----------|--------------|
 | Super Admin (Generic) | admin@visualpermit.com | SuperAdmin2026! | /admin-baber |
 | Super Admin (Israel) | israel@baberenvironmental.com | myBaberPermitting26 | /admin-baber |
-| Iron Horse Admin | scott@baberenvironmental.com | IHTempLogin26 | /dashboard |
+| Iron Horse Admin (Scott) | scott@baberenvironmental.com | IHTempLogin26 | /dashboard |
+| Iron Horse Admin (Sheila) | sheila@baberenvironmental.com | IHTempLogin26 | /dashboard |
 
 ---
 

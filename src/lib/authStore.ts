@@ -51,6 +51,17 @@ const DEMO_CREDENTIALS = [
       companyName: 'Iron Horse Midstream',
     },
   },
+  {
+    email: 'sheila@baberenvironmental.com',
+    password: 'IHTempLogin26',
+    user: {
+      email: 'sheila@baberenvironmental.com',
+      name: 'Sheila',
+      role: 'company_admin' as UserRole,
+      companyId: 'iron-horse-1',
+      companyName: 'Iron Horse Midstream',
+    },
+  },
 ];
 
 export const useAuthStore = create<AuthStore>()(

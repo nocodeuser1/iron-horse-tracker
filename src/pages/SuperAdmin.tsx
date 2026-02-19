@@ -54,6 +54,7 @@ export default function SuperAdmin() {
   const [users, setUsers] = useState<User[]>([
     { id: '1', name: 'Israel Hindman', email: 'israel@baberenvironmental.com', role: 'super_admin' },
     { id: '2', name: 'Scott', email: 'scott@baberenvironmental.com', role: 'company_admin', companyId: '1', companyName: 'Iron Horse Midstream' },
+    { id: '3', name: 'Sheila', email: 'sheila@baberenvironmental.com', role: 'company_admin', companyId: '1', companyName: 'Iron Horse Midstream' },
   ]);
   const [showUserModal, setShowUserModal] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
@@ -248,7 +249,7 @@ export default function SuperAdmin() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           {[
             { label: 'Total Companies', value: '1', icon: Building2, color: '#A43850' },
-            { label: 'Total Users', value: '2', icon: Users, color: '#F5A623' },
+            { label: 'Total Users', value: '3', icon: Users, color: '#F5A623' },
             { label: 'Active Permits', value: '1', icon: FileText, color: '#8b2f43' },
             { label: 'Monthly Revenue', value: `$${calculateMonthlyCost(1)}`, icon: FileText, color: '#10b981' },
             { label: 'Pending Requests', value: pendingRequestsCount.toString(), icon: Bell, color: '#F5A623', highlight: pendingRequestsCount > 0 },
@@ -353,7 +354,7 @@ export default function SuperAdmin() {
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 text-gray-300">1</td>
+                        <td className="px-6 py-4 text-gray-300">2</td>
                         <td className="px-6 py-4">
                           <div>
                             <p className="font-medium text-white">1 permit</p>
