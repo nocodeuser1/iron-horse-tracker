@@ -402,8 +402,11 @@ export default function LandingPage() {
                   <p className="text-sm text-white/70">Full-featured compliance management</p>
                 </div>
                 <div className="text-center mb-6 py-4 border-y border-white/10">
-                  <span className="text-5xl font-black text-white">$60</span>
-                  <span className="text-lg text-white/70">/month</span>
+                  <div className="mb-2">
+                    <span className="text-5xl font-black text-white">$50</span>
+                    <span className="text-lg text-white/70">/month</span>
+                  </div>
+                  <p className="text-sm text-white/60">+ $10/month per additional permit</p>
                 </div>
               </div>
               <div className="relative z-10">

@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   CalendarClock,
   TrendingUp,
+  DollarSign,
 } from 'lucide-react';
 import {
   PieChart,
@@ -27,6 +28,13 @@ import { usePermitTypeStore } from '../lib/permitTypeStore';
 const PIE_COLORS = ['#A43850', '#F5A623', '#8B3346', '#F7B84D', '#C4546E', '#D4901E'];
 const BAR_COLOR = '#A43850';
 
+// Calculate monthly cost based on permit count
+const calculateMonthlyCost = (permitCount: number): number => {
+  const baseCost = 50;
+  const additionalPermits = Math.max(0, permitCount - 1);
+  return baseCost + (additionalPermits * 10);
+};
+
 export function Dashboard() {
   const { all: requirements } = useRequirements();
   const metrics = useMemo(() => getMetrics(requirements), [requirements]);
@@ -34,6 +42,11 @@ export function Dashboard() {
   const navigate = useNavigate();
   const { setFilters, resetFilters } = useStore();
   const activePermit = usePermitTypeStore((s) => s.getActivePermit());
+  
+  // Track permit count (for now, 1 permit = Iron Horse Title V)
+  // In multi-tenant version, this would come from user's company data
+  const permitCount = 1;
+  const monthlyCost = calculateMonthlyCost(permitCount);
 
   const handleCardClick = (cardLabel: string) => {
     resetFilters(); // Clear existing filters first
@@ -133,6 +146,14 @@ export function Dashboard() {
       color: metrics.complianceScore >= 80 ? 'bg-gold-500' : 'bg-orange-500',
       bg: metrics.complianceScore >= 80 ? 'bg-gold-50 dark:bg-gold-600/10' : 'bg-orange-50 dark:bg-orange-900/20',
     },
+    {
+      label: 'Monthly Cost',
+      value: `$${monthlyCost}`,
+      subtitle: `${permitCount} permit${permitCount > 1 ? 's' : ''}`,
+      icon: DollarSign,
+      color: 'bg-green-500',
+      bg: 'bg-green-50 dark:bg-green-900/20',
+    },
   ];
 
   const tooltipStyle = {
@@ -172,6 +193,11 @@ export function Dashboard() {
                 <p className="text-3xl font-bold mt-1 text-gray-900 dark:text-white">
                   {card.value}
                 </p>
+                {(card as any).subtitle && (
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                    {(card as any).subtitle}
+                  </p>
+                )}
               </div>
               <div className={`${card.color} p-3 rounded-xl shadow-sm transition-transform group-hover:scale-110`}>
                 <card.icon className="w-6 h-6 text-white" />

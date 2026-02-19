@@ -3,6 +3,14 @@ import { useAuthStore } from '../lib/authStore';
 import { Building2, Users, FileText, Settings, LogOut, Bell, CheckCircle2, Clock, Upload, Trash2, Edit, Send, X, Info, Brain } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
+// Calculate monthly cost based on permit count
+// Base: $50/month + $10/month per additional permit
+const calculateMonthlyCost = (permitCount: number): number => {
+  const baseCost = 50;
+  const additionalPermits = Math.max(0, permitCount - 1);
+  return baseCost + (additionalPermits * 10);
+};
+
 interface PermitRequest {
   id: string;
   fileName: string;
@@ -237,11 +245,12 @@ export default function SuperAdmin() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
           {[
             { label: 'Total Companies', value: '1', icon: Building2, color: '#A43850' },
-            { label: 'Total Users', value: '1', icon: Users, color: '#F5A623' },
-            { label: 'Active Permits', value: '30', icon: FileText, color: '#8b2f43' },
+            { label: 'Total Users', value: '2', icon: Users, color: '#F5A623' },
+            { label: 'Active Permits', value: '1', icon: FileText, color: '#8b2f43' },
+            { label: 'Monthly Revenue', value: `$${calculateMonthlyCost(1)}`, icon: FileText, color: '#10b981' },
             { label: 'Pending Requests', value: pendingRequestsCount.toString(), icon: Bell, color: '#F5A623', highlight: pendingRequestsCount > 0 },
           ].map((stat) => {
             const isClickable = stat.label === 'Pending Requests' && pendingRequestsCount > 0;
@@ -324,6 +333,7 @@ export default function SuperAdmin() {
                         <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Company Name</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Users</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Permits</th>
+                        <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Monthly Cost</th>
                         <th className="px-6 py-4 text-left text-sm font-semibold text-gray-300">Status</th>
                         <th className="px-6 py-4 text-right text-sm font-semibold text-gray-300">Actions</th>
                       </tr>
@@ -344,7 +354,18 @@ export default function SuperAdmin() {
                           </div>
                         </td>
                         <td className="px-6 py-4 text-gray-300">1</td>
-                        <td className="px-6 py-4 text-gray-300">30</td>
+                        <td className="px-6 py-4">
+                          <div>
+                            <p className="font-medium text-white">1 permit</p>
+                            <p className="text-xs text-gray-400">Title V</p>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div>
+                            <p className="font-semibold text-green-400">${calculateMonthlyCost(1)}/month</p>
+                            <p className="text-xs text-gray-400">$50 base</p>
+                          </div>
+                        </td>
                         <td className="px-6 py-4">
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-sm font-medium">
                             <span className="w-1.5 h-1.5 bg-green-400 rounded-full"></span>
