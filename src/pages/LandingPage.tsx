@@ -80,12 +80,12 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-2">
             <Link to="/" className="flex items-center transition-opacity hover:opacity-90">
-              <img src="/visualpermit-logo-new.png" alt="VisualPermit.com" className="h-12 w-auto" />
+              <img src="/visualpermit-logo-new.png" alt="VisualPermit.com" className="h-8 sm:h-10 lg:h-12 w-auto" />
             </Link>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 to="/login"
-                className="bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-6 py-2.5 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-[#A43850]/50 transform hover:scale-105"
+                className="bg-gradient-to-r from-[#A43850] to-[#8b2f43] hover:from-[#8b2f43] hover:to-[#A43850] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-all duration-300 shadow-lg hover:shadow-[#A43850]/50 transform hover:scale-105"
               >
                 Sign In
               </Link>
@@ -97,28 +97,28 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="relative py-12 lg:py-16 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left: Text Content */}
-            <div className="text-left">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white animate-fade-in">
+            <div className="text-left lg:text-left">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white animate-fade-in">
                 Environmental Compliance
                 <br />
                 Made <span className="gradient-text">Visual</span>
               </h1>
 
-              <p className="text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-delay">
+              <p className="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed animate-fade-in-delay">
                 Upload any permit PDF. We extract requirements, track deadlines, and ensure
                 compliance—all in one beautiful, intelligent platform.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-delay-2">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-fade-in-delay-2">
                 <Link
                   to="/login"
-                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-8 py-4 rounded-xl font-bold text-lg shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#F5A623] to-[#F7B84D] hover:from-[#F7B84D] hover:to-[#F5A623] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg shadow-2xl transition-all duration-300 transform hover:scale-105"
                 >
                   Get Started
                   <svg
-                    className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                    className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -133,31 +133,31 @@ export default function LandingPage() {
                 </Link>
                 <a
                   href="#features"
-                  className="inline-flex items-center justify-center gap-2 glass text-white px-8 py-4 rounded-xl font-bold text-lg border border-[#A43850]/50 hover:border-[#A43850] transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-2 glass text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg border border-[#A43850]/50 hover:border-[#A43850] transition-all duration-300"
                 >
                   Learn More
                 </a>
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 mt-12">
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 mt-8 sm:mt-12">
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#F5A623]">Real-Time</div>
-                  <div className="text-sm text-gray-400 mt-1">Tracking</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-black text-[#F5A623]">Real-Time</div>
+                  <div className="text-xs sm:text-sm text-gray-400 mt-1">Tracking</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#F5A623]">Zero</div>
-                  <div className="text-sm text-gray-400 mt-1">Missed Deadlines</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-black text-[#F5A623]">Zero</div>
+                  <div className="text-xs sm:text-sm text-gray-400 mt-1">Missed Deadlines</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-black text-[#F5A623]">Complete</div>
-                  <div className="text-sm text-gray-400 mt-1">Visibility</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-black text-[#F5A623]">Complete</div>
+                  <div className="text-xs sm:text-sm text-gray-400 mt-1">Visibility</div>
                 </div>
               </div>
             </div>
 
             {/* Right: Animated Dashboard Mockup */}
-            <div className="relative animate-scale-in">
+            <div className="relative animate-scale-in hidden lg:block">
               {/* Floating Glow Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#A43850]/20 to-[#F5A623]/20 rounded-3xl blur-3xl"></div>
               
