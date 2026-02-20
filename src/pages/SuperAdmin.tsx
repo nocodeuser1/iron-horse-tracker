@@ -4,11 +4,11 @@ import { Building2, Users, FileText, Settings, LogOut, Bell, CheckCircle2, Clock
 import { useState, useEffect } from 'react';
 
 // Calculate monthly cost based on permit count
-// Base: $50/month + $10/month per additional permit
+// Base: $50/month + $30/month per additional permit
 const calculateMonthlyCost = (permitCount: number): number => {
   const baseCost = 50;
   const additionalPermits = Math.max(0, permitCount - 1);
-  return baseCost + (additionalPermits * 10);
+  return baseCost + (additionalPermits * 30);
 };
 
 interface PermitRequest {

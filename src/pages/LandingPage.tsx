@@ -386,7 +386,7 @@ export default function LandingPage() {
               Simple, Transparent Pricing
             </h2>
             <p className="text-base text-gray-400">
-              Clear per-permit pricing. AI options available. Support billed hourly.
+              Transparent pricing. Flexible AI options. Professional support when needed.
             </p>
           </div>
 
@@ -406,7 +406,7 @@ export default function LandingPage() {
                     <span className="text-5xl font-black text-white">$50</span>
                     <span className="text-lg text-white/70">/month</span>
                   </div>
-                  <p className="text-sm text-white/60">+ $10/month per additional permit</p>
+                  <p className="text-sm text-white/60">+ $30/month per additional permit</p>
                 </div>
               </div>
               <div className="relative z-10">
