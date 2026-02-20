@@ -386,7 +386,7 @@ export default function LandingPage() {
               Simple, Transparent Pricing
             </h2>
             <p className="text-base text-gray-400">
-              Transparent pricing. Flexible AI options. Professional support when needed.
+              Transparent pricing. Flexible & Powerful AI options. Professional support when needed.
             </p>
           </div>
 
