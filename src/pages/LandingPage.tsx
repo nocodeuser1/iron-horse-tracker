@@ -16,6 +16,16 @@ export default function LandingPage() {
     }
   }
 
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      featuresSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   const features = [
     {
       icon: Upload,
@@ -131,12 +141,12 @@ export default function LandingPage() {
                     ></path>
                   </svg>
                 </Link>
-                <a
-                  href="#features"
+                <button
+                  onClick={scrollToFeatures}
                   className="inline-flex items-center justify-center gap-2 glass text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-base sm:text-lg border border-[#A43850]/50 hover:border-[#A43850] transition-all duration-300"
                 >
                   Learn More
-                </a>
+                </button>
               </div>
 
               {/* Stats */}
