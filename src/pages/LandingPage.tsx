@@ -386,7 +386,7 @@ export default function LandingPage() {
               Simple, Transparent Pricing
             </h2>
             <p className="text-base text-gray-400">
-              One plan. Full features. No hidden fees.
+              Clear per-permit pricing. AI options available. Support billed hourly.
             </p>
           </div>
 
