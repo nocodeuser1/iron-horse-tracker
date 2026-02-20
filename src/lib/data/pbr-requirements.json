@@ -1,0 +1,167 @@
+[
+  {
+    "id": "pbr-001",
+    "typeOfAction": "Registration",
+    "recurrence": "Annual",
+    "action": "Submit annual emissions inventory for all PBR-authorized equipment. Include actual hours of operation, fuel usage, and calculated emissions for NOx, CO, VOC, and PM.\n\nRecordkeeping: Maintain records of monthly operational hours, fuel consumption, and emission calculations for each piece of equipment.",
+    "requirementsCovered": "PBR Annual Emissions Inventory",
+    "neededBy": "2026-03-31",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "General"
+  },
+  {
+    "id": "pbr-002",
+    "typeOfAction": "Inspections",
+    "recurrence": "Quarterly",
+    "action": "Conduct visual inspection of all three emergency generators to verify proper operation and absence of visible emissions during testing.\n\nRecordkeeping: Document inspection date, inspector name, any observations of smoke or abnormal operation, and corrective actions taken.",
+    "requirementsCovered": "Emergency Generator Visual Inspections (PBR-106.6)",
+    "neededBy": "2026-03-15",
+    "completedDate": "2026-01-12",
+    "fileUploaded": null,
+    "equipmentType": "Generator"
+  },
+  {
+    "id": "pbr-003",
+    "typeOfAction": "Testing",
+    "recurrence": "Monthly",
+    "action": "Exercise all emergency generators for minimum 30 minutes under load to verify readiness and proper operation per manufacturer specifications.\n\nRecordkeeping: Log date, duration, load percentage, fuel usage, and any maintenance issues identified during testing.",
+    "requirementsCovered": "Emergency Generator Monthly Testing (PBR-106.6)",
+    "neededBy": "2026-02-28",
+    "completedDate": "2026-02-15",
+    "fileUploaded": null,
+    "equipmentType": "Generator"
+  },
+  {
+    "id": "pbr-004",
+    "typeOfAction": "Recordkeeping",
+    "recurrence": "Monthly",
+    "action": "Calculate and record monthly operational hours for all emergency generators. Verify compliance with 500 hours/year limit (emergency use + maintenance).\n\nRecordkeeping: Maintain monthly logs showing date, time, duration, and reason for operation (emergency, testing, maintenance). Track rolling 12-month total.",
+    "requirementsCovered": "Emergency Generator Hour Tracking (PBR-106.6)",
+    "neededBy": "2026-03-05",
+    "completedDate": "2026-02-03",
+    "fileUploaded": null,
+    "equipmentType": "Generator"
+  },
+  {
+    "id": "pbr-005",
+    "typeOfAction": "Registration",
+    "recurrence": "Triennial",
+    "action": "Renew PBR registration for storage tanks (<40,000 gallons). Submit PBR Form with updated tank specifications, stored materials, and true vapor pressure data.\n\nRecordkeeping: Maintain copy of current registration, material safety data sheets, and vapor pressure calculations.",
+    "requirementsCovered": "Storage Tanks PBR Renewal (PBR-106.1)",
+    "neededBy": "2026-06-30",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "Storage Tank"
+  },
+  {
+    "id": "pbr-006",
+    "typeOfAction": "Inspections",
+    "recurrence": "Semi-Annual",
+    "action": "Inspect both storage tanks for proper sealing, absence of leaks, and structural integrity. Verify pressure/vacuum relief valves are functional.\n\nRecordkeeping: Document inspection date, findings, condition of seals and valves, and any repairs or maintenance performed.",
+    "requirementsCovered": "Storage Tank Integrity Inspections (PBR-106.1)",
+    "neededBy": "2026-04-15",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "Storage Tank"
+  },
+  {
+    "id": "pbr-007",
+    "typeOfAction": "Monitoring",
+    "recurrence": "Quarterly",
+    "action": "Monitor and record operational parameters for both natural gas engines including hours of operation, fuel flow rates, and stack temperatures.\n\nRecordkeeping: Maintain quarterly logs of engine runtime, maintenance activities, and any performance issues affecting emissions.",
+    "requirementsCovered": "Natural Gas Engine Monitoring (PBR-106.3)",
+    "neededBy": "2026-03-20",
+    "completedDate": "2026-01-18",
+    "fileUploaded": null,
+    "equipmentType": "Engine"
+  },
+  {
+    "id": "pbr-008",
+    "typeOfAction": "Maintenance",
+    "recurrence": "Annual",
+    "action": "Perform manufacturer-recommended annual maintenance on all natural gas engines including air filter replacement, spark plug inspection/replacement, and oil/filter changes.\n\nRecordkeeping: Log maintenance date, technician, parts replaced, and post-maintenance operational checks.",
+    "requirementsCovered": "Natural Gas Engine Annual Maintenance (PBR-106.3)",
+    "neededBy": "2026-05-10",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "Engine"
+  },
+  {
+    "id": "pbr-009",
+    "typeOfAction": "Inspections",
+    "recurrence": "Monthly",
+    "action": "Inspect vapor recovery unit for proper operation. Verify pressure gauges are reading within normal range and no visible damage to piping or connections.\n\nRecordkeeping: Document monthly inspection results including pressure readings, any odors detected, and condition of equipment.",
+    "requirementsCovered": "Vapor Recovery Unit Inspections (PBR-106.4)",
+    "neededBy": "2026-02-25",
+    "completedDate": "2026-02-10",
+    "fileUploaded": null,
+    "equipmentType": "Vapor Recovery"
+  },
+  {
+    "id": "pbr-010",
+    "typeOfAction": "Recordkeeping",
+    "recurrence": "Quarterly",
+    "action": "Calculate quarterly VOC emissions from storage tanks based on throughput and vapor pressure data using EPA AP-42 emission factors.\n\nRecordkeeping: Maintain quarterly records of throughput volumes, vapor pressure measurements, calculated emissions, and methodology used.",
+    "requirementsCovered": "Storage Tank VOC Emissions Calculations (PBR-106.1)",
+    "neededBy": "2026-04-10",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "Storage Tank"
+  },
+  {
+    "id": "pbr-011",
+    "typeOfAction": "Training",
+    "recurrence": "Annual",
+    "action": "Conduct annual training for all operators on PBR requirements, equipment operation, emission control practices, and emergency procedures.\n\nRecordkeeping: Maintain training records including date, attendees, topics covered, and trainer information.",
+    "requirementsCovered": "PBR Operator Training Requirements",
+    "neededBy": "2026-07-15",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "General"
+  },
+  {
+    "id": "pbr-012",
+    "typeOfAction": "Maintenance",
+    "recurrence": "Semi-Annual",
+    "action": "Service all emergency generators including battery testing, coolant level checks, belt inspection, and load bank testing to verify performance under load.\n\nRecordkeeping: Log service date, technician, test results, battery voltage readings, and any deficiencies corrected.",
+    "requirementsCovered": "Emergency Generator Preventive Maintenance (PBR-106.6)",
+    "neededBy": "2026-08-30",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "Generator"
+  },
+  {
+    "id": "pbr-013",
+    "typeOfAction": "Calibration",
+    "recurrence": "Annual",
+    "action": "Calibrate all fuel flow meters and hour meters on engines and generators to ensure accurate recordkeeping of fuel consumption and operating hours.\n\nRecordkeeping: Maintain calibration certificates, before/after readings, and technician certifications.",
+    "requirementsCovered": "PBR Monitoring Equipment Calibration",
+    "neededBy": "2026-09-20",
+    "completedDate": null,
+    "fileUploaded": null,
+    "equipmentType": "General"
+  },
+  {
+    "id": "pbr-014",
+    "typeOfAction": "Monitoring",
+    "recurrence": "Monthly",
+    "action": "Record monthly fuel usage for all engines and generators. Calculate emissions using manufacturer emission factors and verify compliance with PBR limits.\n\nRecordkeeping: Log monthly fuel consumption by equipment, calculated NOx/CO/VOC/PM emissions, and comparison to permit limits.",
+    "requirementsCovered": "PBR Monthly Emissions Monitoring",
+    "neededBy": "2026-03-10",
+    "completedDate": "2026-02-05",
+    "fileUploaded": null,
+    "equipmentType": "General"
+  },
+  {
+    "id": "pbr-015",
+    "typeOfAction": "Inspections",
+    "recurrence": "Quarterly",
+    "action": "Conduct LDAR (Leak Detection and Repair) inspection of all piping, valves, and connections associated with vapor recovery unit using portable VOC detector.\n\nRecordkeeping: Document inspection date, instrument used, any leaks detected (location and concentration), and repairs completed.",
+    "requirementsCovered": "Vapor Recovery LDAR Program (PBR-106.4)",
+    "neededBy": "2026-03-25",
+    "completedDate": "2026-01-20",
+    "fileUploaded": null,
+    "equipmentType": "Vapor Recovery"
+  }
+]

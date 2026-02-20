@@ -4,10 +4,10 @@ import {
   Send,
   Sparkles,
   Shield,
-  Zap,
   Lock,
   MessageCircle,
 } from 'lucide-react';
+import { usePermitTypeStore } from '../lib/permitTypeStore';
 
 interface ChatMessage {
   id: string;
@@ -15,7 +15,7 @@ interface ChatMessage {
   text: string;
 }
 
-const SAMPLE_QUESTIONS = [
+const TITLE_V_QUESTIONS = [
   'What requirements are due this month?',
   'Show me all overdue inspections',
   'Summarize our compliance status',
@@ -23,7 +23,15 @@ const SAMPLE_QUESTIONS = [
   'Which equipment has the most pending actions?',
 ];
 
-const CANNED_RESPONSES: Record<string, string> = {
+const PBR_QUESTIONS = [
+  'What are my PBR registration renewal deadlines?',
+  'Show me all equipment covered under PBR',
+  'What emission limits apply to my operations?',
+  'Are there any upcoming stack testing requirements?',
+  'Summarize my PBR compliance status',
+];
+
+const TITLE_V_RESPONSES: Record<string, string> = {
   'What requirements are due this month?':
     "Based on your permit data, you have **7 requirements** due this month:\n\n• 2 Quarterly inspections (Compressors)\n• 1 Semi-annual throughput report\n• 3 Monthly sample collections\n• 1 Annual flare efficiency test\n\nThe most urgent is the compressor inspection due in 3 days. Would you like me to show the full details?",
   'Show me all overdue inspections':
@@ -32,9 +40,27 @@ const CANNED_RESPONSES: Record<string, string> = {
     "Here's your compliance snapshot:\n\n✅ **Overall Score: 87%** — Good standing\n📊 48 of 55 requirements completed on time\n⏰ 4 items due this week\n🔴 3 items currently overdue\n\nYour strongest area is Throughput Reports (100% on time). Inspections need attention with 2 recurring late items. Want me to analyze trends?",
 };
 
+const PBR_RESPONSES: Record<string, string> = {
+  'What are my PBR registration renewal deadlines?':
+    "Your PBR registrations are up to date:\n\n✅ **Engines PBR** — Renewal due March 15, 2027\n✅ **Storage Tanks PBR** — Renewal due June 30, 2026 (coming up!)\n✅ **Generators PBR** — Renewal due October 1, 2026\n\nThe storage tanks renewal is your next priority. I can help prepare the renewal documentation if needed.",
+  'Show me all equipment covered under PBR':
+    "You have **8 units** authorized under PBR:\n\n🔧 3 Emergency generators (PBR-106.6)\n⚙️ 2 Natural gas engines (PBR-106.3)\n🛢️ 2 Storage tanks <40,000 gallons (PBR-106.1)\n💨 1 Vapor recovery unit (PBR-106.4)\n\nAll units are in compliance with their respective standard permit terms.",
+  'What emission limits apply to my operations?':
+    "Your PBR emission limits:\n\n**Emergency Generators:**\n• NOx: 2.0 g/hp-hr\n• CO: 4.0 g/hp-hr\n• VOC: 1.0 g/hp-hr\n• 500 hours/year operation limit\n\n**Natural Gas Engines:**\n• NOx: 0.5 g/hp-hr (RICE NESHAP)\n• CO: 2.0 g/hp-hr\n\n**Storage Tanks:**\n• < 40,000 gallons capacity\n• True vapor pressure < 1.5 psia\n\nAll limits based on TCEQ standard permits. Need details on a specific unit?",
+  'Are there any upcoming stack testing requirements?':
+    "Good news! PBR authorizations typically don't require stack testing for standard equipment.\n\n✅ No stack tests currently required\n\n**However**, you should:\n• Conduct annual CEMS checks (if applicable)\n• Maintain manufacturer specifications\n• Document operational parameters\n• Keep emission calculations current\n\nWould you like help reviewing your monitoring plan?",
+  'Summarize my PBR compliance status':
+    "Your PBR compliance snapshot:\n\n✅ **Overall: 100% Compliant**\n📋 8 of 8 units meeting standard permit terms\n⏰ 1 renewal due within 6 months (Storage Tanks)\n📊 All recordkeeping current\n\nNo violations or exceedances recorded. Your operations are well within authorized limits. Keep up the excellent work!",
+};
+
 export function AIChat() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
+  const { activePermitId } = usePermitTypeStore();
+  
+  const isPBR = activePermitId === 'pbr';
+  const SAMPLE_QUESTIONS = isPBR ? PBR_QUESTIONS : TITLE_V_QUESTIONS;
+  const CANNED_RESPONSES = isPBR ? PBR_RESPONSES : TITLE_V_RESPONSES;
 
   const sendMessage = (text: string) => {
     const userMsg: ChatMessage = {
@@ -48,7 +74,7 @@ export function AIChat() {
       role: 'assistant',
       text:
         response ||
-        "I'm not available yet, but when launched I'll be able to answer questions like this using a **local LLM** — keeping all your permit data private and secure. Stay tuned! 🚀",
+        `I'm not available yet, but when launched I'll be able to answer ${isPBR ? 'PBR' : 'Title V'} questions like this using your choice of a **local LLM** or **industry-leading AI model** — keeping all your permit data private and secure. Stay tuned! 🚀`,
     };
     setMessages((prev) => [...prev, userMsg, botMsg]);
     setInput('');
@@ -85,7 +111,7 @@ export function AIChat() {
               </div>
               <div>
                 <h2 className="font-semibold text-sm">IH Permit Assistant</h2>
-                <p className="text-xs text-white/70">Preview Mode · Coming Soon</p>
+                <p className="text-xs text-white/70">{isPBR ? 'PBR Mode' : 'Title V Mode'} · Optional Integration</p>
               </div>
               <div className="ml-auto">
                 <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-gold-500/20 text-gold-200 text-xs font-medium">
@@ -108,7 +134,7 @@ export function AIChat() {
                   👋 Welcome! I'm the <strong>Iron Horse Permit Assistant</strong>.
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                  I'll help you navigate your Title V permit requirements, track deadlines, and maintain compliance — all powered by a <strong>local LLM</strong> for complete data privacy.
+                  I'll help you navigate your {isPBR ? 'PBR' : 'Title V'} permit requirements, track deadlines, and maintain compliance — with your choice of a <strong>local LLM</strong> or <strong>industry-leading AI</strong>.
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 italic">
                   Try one of the sample questions to see a demo! →
@@ -187,30 +213,25 @@ export function AIChat() {
             </div>
           </div>
 
-          {/* Features */}
+          {/* AI Model Options */}
           <div className="bg-gradient-to-br from-burgundy-50 to-gold-50 dark:from-burgundy-900/40 dark:to-dark-card rounded-2xl shadow-sm border border-burgundy-100 dark:border-dark-border p-5">
             <h3 className="text-sm font-semibold text-burgundy-900 dark:text-burgundy-100 mb-3">
-              Coming Soon
+              Optional AI Integration
             </h3>
             <div className="space-y-3">
               {[
                 {
                   icon: Shield,
-                  title: 'Local LLM',
+                  title: 'Local LLM Model',
                   desc: 'Runs on your infrastructure — data never leaves your network',
                 },
                 {
-                  icon: Zap,
-                  title: 'Instant Answers',
-                  desc: 'Query permit data in natural language',
-                },
-                {
-                  icon: Lock,
-                  title: 'Fully Private',
-                  desc: 'No cloud APIs — complete data sovereignty',
+                  icon: Sparkles,
+                  title: 'Industry-Leading AI Model',
+                  desc: 'True insight into compliance with advanced AI reasoning',
                 },
               ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="flex gap-3">
+                <div key={title} className="flex gap-3 p-3 bg-white/50 dark:bg-dark-surface/50 rounded-xl border border-burgundy-200/50 dark:border-burgundy-700/30">
                   <div className="w-8 h-8 rounded-lg bg-burgundy-500/10 dark:bg-burgundy-500/20 flex items-center justify-center shrink-0">
                     <Icon className="w-4 h-4 text-burgundy-600 dark:text-burgundy-300" />
                   </div>
@@ -224,6 +245,12 @@ export function AIChat() {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="mt-4 pt-3 border-t border-burgundy-200 dark:border-burgundy-700/30">
+              <p className="text-xs text-burgundy-600 dark:text-burgundy-400 flex items-center gap-1.5">
+                <Lock className="w-3 h-3" />
+                You choose which option fits your security requirements
+              </p>
             </div>
           </div>
         </div>

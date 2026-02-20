@@ -3,10 +3,13 @@ import type { PermitRequirement, FilterState } from '../../types';
 import { getStatus } from '../utils/requirements';
 import { useStore } from '../store';
 import { useDataStore } from '../dataStore';
+import { usePermitTypeStore } from '../permitTypeStore';
 
 export function useRequirements() {
   const filters = useStore((s) => s.filters);
-  const allRequirements = useDataStore((s) => s.requirements);
+  const { activePermitId } = usePermitTypeStore();
+  const getRequirements = useDataStore((s) => s.getRequirements);
+  const allRequirements = getRequirements(activePermitId);
   const filtered = useMemo(() => applyFilters(allRequirements, filters), [allRequirements, filters]);
   return { all: allRequirements, filtered };
 }

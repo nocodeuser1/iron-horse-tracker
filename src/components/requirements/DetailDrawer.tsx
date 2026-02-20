@@ -1,6 +1,7 @@
 import { X, Calendar, FileText, Tag, Clock, CheckCircle2, AlertTriangle, Check } from 'lucide-react';
 import { useStore } from '../../lib/store';
 import { useDataStore } from '../../lib/dataStore';
+import { usePermitTypeStore } from '../../lib/permitTypeStore';
 import { getStatus } from '../../lib/utils/requirements';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -14,6 +15,7 @@ const statusConfig = {
 export function DetailDrawer() {
   const { selectedRequirement: r, detailOpen, closeDetail } = useStore();
   const toggleCompleted = useDataStore((s) => s.toggleCompleted);
+  const { activePermitId } = usePermitTypeStore();
   const [isAnimating, setIsAnimating] = useState(false);
   const [showCenterCheck, setShowCenterCheck] = useState(false);
   const [localCompleted, setLocalCompleted] = useState(false);
@@ -42,7 +44,7 @@ export function DetailDrawer() {
     }
     
     setLocalCompleted(!localCompleted);
-    toggleCompleted(r.id);
+    toggleCompleted(r.id, activePermitId);
   };
 
   useEffect(() => {
